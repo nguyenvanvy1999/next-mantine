@@ -1,5 +1,5 @@
-import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
+import { authClient } from '@/lib/auth-client';
 import type { Permission, PermissionCheck, UserPermissions } from './types';
 import {
   checkPermission,
@@ -12,10 +12,10 @@ import {
 
 /**
  * Hook to get current user permissions
- * Falls back to NextAuth session if localStorage is empty
+ * Falls back to Better Auth session if localStorage is empty
  */
 export function usePermissions(): UserPermissions | null {
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const [permissions, setPermissions] = useState<UserPermissions | null>(null);
 
   useEffect(() => {
@@ -24,11 +24,14 @@ export function usePermissions(): UserPermissions | null {
 
     if (storedPermissions) {
       setPermissions(storedPermissions);
-    } else if (session?.permissions) {
+    } else if (session?.user) {
       // Fallback to session permissions if localStorage is empty
+      const userPermissions = (session.user as any)?.permissions || [];
+      const userRoles = (session.user as any)?.roles || [];
+
       const sessionPermissions: UserPermissions = {
-        permissions: session.permissions as Permission[],
-        role: session.roles?.[0] as 'Admin' | 'User',
+        permissions: userPermissions as Permission[],
+        role: userRoles?.[0] as 'Admin' | 'User',
       };
       setPermissions(sessionPermissions);
     }

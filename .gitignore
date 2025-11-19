@@ -62,3 +62,7 @@ storybook-static/
 yarn.lock
 
 # End of https://www.toptal.com/developers/gitignore/api/yarn
+
+/lib/generated/prisma
+
+.env

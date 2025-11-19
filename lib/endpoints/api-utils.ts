@@ -1,7 +1,6 @@
 import { useFetch } from '@mantine/hooks';
-import { useSession } from 'next-auth/react';
-
 import type { components } from '@/lib/api';
+import { authClient } from '@/lib/auth-client';
 
 // Simple permission checking helper
 function hasPermission(
@@ -23,7 +22,7 @@ export type ApiResponse<T> = {
   message: string;
 };
 
-// Get auth headers helper using NextAuth session
+// Get auth headers helper using Better Auth session
 export function getAuthHeaders(
   accessToken: string | undefined | null,
 ): HeadersInit {
@@ -38,7 +37,7 @@ export function getAuthHeaders(
   return headers;
 }
 
-// Simple GET hook with NextAuth and RBAC
+// Simple GET hook with Better Auth and RBAC
 export function useApiGet<T>(
   endpoint: string,
   options?: {
@@ -48,7 +47,7 @@ export function useApiGet<T>(
   },
 ) {
   const { params, enabled = true, permission } = options || {};
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
 
   // Build URL with query params
   const url = new URL(endpoint, API_BASE_URL);
@@ -60,17 +59,20 @@ export function useApiGet<T>(
     });
   }
 
+  // Get permissions from user
+  const userPermissions = (session?.user as any)?.permissions || [];
+  const accessToken = session?.session?.token;
+
   // Check permissions if specified
   const hasRequiredPermission = permission
-    ? hasPermission(session?.permissions, permission)
+    ? hasPermission(userPermissions, permission)
     : true;
 
   // Only make request if we have a session, it's enabled, and permissions allow
-  const shouldFetch =
-    enabled && !!session?.accessToken && hasRequiredPermission;
+  const shouldFetch = enabled && !!accessToken && hasRequiredPermission;
 
   const result = useFetch<ApiResponse<T>>(shouldFetch ? url.toString() : '', {
-    headers: getAuthHeaders(session?.accessToken),
+    headers: getAuthHeaders(accessToken),
   });
 
   // Add permission info to the result
@@ -89,13 +91,17 @@ async function getCurrentTokenAndPermissions(): Promise<{
   if (typeof window === 'undefined')
     return { token: null, permissions: undefined };
 
-  // Get session from NextAuth
-  const { getSession } = await import('next-auth/react');
-  const session = await getSession();
-  return {
-    token: session?.accessToken || null,
-    permissions: session?.permissions,
-  };
+  // Get session from Better Auth
+  try {
+    const sessionData: any = await authClient.$fetch('/session');
+
+    return {
+      token: sessionData?.session?.token || null,
+      permissions: sessionData?.user?.permissions,
+    };
+  } catch (error) {
+    return { token: null, permissions: undefined };
+  }
 }
 
 // Permission-aware mutation wrapper
@@ -185,17 +191,18 @@ export async function apiDelete<T>(
 
 // Simple permission hook for components
 export function usePermission(requiredPermission: string) {
-  const { data: session } = useSession();
+  const { data: session, isPending } = authClient.useSession();
+  const userPermissions = (session?.user as any)?.permissions || [];
 
   const hasRequiredPermission = hasPermission(
-    session?.permissions,
+    userPermissions,
     requiredPermission,
   );
 
   return {
     hasPermission: hasRequiredPermission,
-    loading: !session,
-    permissions: session?.permissions || [],
+    loading: isPending,
+    permissions: userPermissions,
   };
 }
 

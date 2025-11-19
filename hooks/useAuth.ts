@@ -1,13 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { signIn, signOut, useSession } from 'next-auth/react';
 import type { components } from '@/lib/api';
 import {
   clearUserPermissions,
   type Permission,
   usePermissions,
 } from '@/lib/api/permissions';
+import { authClient } from '@/lib/auth-client';
 import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
 
 // Type aliases for compatibility
@@ -16,81 +16,90 @@ type RegisterDto = components['schemas']['RegisterDto'];
 type UserProfileDto = components['schemas']['UserProfileDto'];
 
 export const useAuth = () => {
-  const { data: session, status } = useSession();
+  const { data: session, isPending } = authClient.useSession();
   const userPermissions = usePermissions();
   const router = useRouter();
 
-  const isAuthenticated = status === 'authenticated';
-  const isLoading = status === 'loading';
+  const isAuthenticated = !!session?.user;
+  const isLoading = isPending;
 
-  // Simplified logout using NextAuth only
+  // Logout using Better Auth
   const logout = async () => {
     try {
       // Clear permissions
       clearUserPermissions();
 
-      // Call backend logout if we have a session
-      if (session?.user?.email) {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/logout`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session.accessToken}`,
+      // Better Auth logout
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.push(PATH_AUTH.signin);
           },
-          body: JSON.stringify({ email: session.user.email }),
-        });
-      }
-
-      // NextAuth logout
-      await signOut({ redirect: false });
-      router.push(PATH_AUTH.signin);
+        },
+      });
     } catch (error) {
       console.error('Logout failed:', error);
       // Ensure cleanup happens even on error
       clearUserPermissions();
-      await signOut({ redirect: false });
       router.push(PATH_AUTH.signin);
     }
   };
 
-  // Simplified login using NextAuth only
+  // Login using Better Auth
   const login = async (email: string, password: string) => {
     try {
-      const result = await signIn('credentials', {
-        redirect: false,
+      const result = await authClient.signIn.email({
         email,
         password,
+        fetchOptions: {
+          onSuccess: () => {
+            router.push(PATH_DASHBOARD.default);
+          },
+          onError: (ctx) => {
+            console.error('Login error:', ctx.error);
+          },
+        },
       });
 
-      if (result?.ok) {
-        router.push(PATH_DASHBOARD.default);
-        return true;
-      }
-
-      return false;
+      return !!result.data;
     } catch (error) {
       console.error('Login failed:', error);
       return false;
     }
   };
 
-  // Permission helpers - use NextAuth session permissions
+  // Permission helpers - use Better Auth session permissions
   const hasPermission = (permission: Permission): boolean => {
     // Try userPermissions first, then session permissions
     const permissions =
-      userPermissions?.permissions || session?.permissions || [];
+      userPermissions?.permissions || (session?.user as any)?.permissions || [];
     return permissions.includes(permission);
   };
 
+  // Extract user data from Better Auth session
+  const user = session?.user
+    ? {
+        id: session.user.id,
+        email: session.user.email,
+        name: session.user.name,
+        image: session.user.image,
+      }
+    : undefined;
+
+  // Extract permissions and roles from user
+  const permissions =
+    userPermissions?.permissions || (session?.user as any)?.permissions || [];
+  const roles = userPermissions?.role
+    ? [userPermissions.role]
+    : (session?.user as any)?.roles || [];
+
   return {
-    // User info from NextAuth session
-    user: session?.user,
+    // User info from Better Auth session
+    user,
 
     // Permissions from RBAC system or session
-    permissions: userPermissions?.permissions || session?.permissions || [],
-    roles: userPermissions?.role
-      ? [userPermissions.role]
-      : session?.roles || [],
+    permissions,
+    roles,
     userPermissions,
     hasPermission,
 
@@ -102,7 +111,7 @@ export const useAuth = () => {
     login,
     logout,
 
-    // Token access
-    accessToken: session?.accessToken,
+    // Token access (Better Auth uses session tokens internally)
+    accessToken: session?.session?.token,
   };
 };

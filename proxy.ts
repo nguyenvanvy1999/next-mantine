@@ -1,12 +1,8 @@
-import { clerkMiddleware } from '@clerk/nextjs/server';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
 import { PATH_DASHBOARD } from '@/routes';
 
-export default clerkMiddleware();
-
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if the path starts with these prefixes
@@ -22,12 +18,9 @@ export async function middleware(request: NextRequest) {
       pathname,
     );
 
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
-
-  const isAuthenticated = !!token;
+  // Check for Better Auth session cookie
+  const sessionToken = request.cookies.get('better-auth.session_token');
+  const isAuthenticated = !!sessionToken;
 
   // Redirect authenticated users away from auth pages
   if (isAuthenticated && pathname.startsWith('/auth')) {

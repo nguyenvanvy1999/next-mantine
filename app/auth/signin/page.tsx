@@ -17,10 +17,9 @@ import { useForm } from '@mantine/form';
 import { IconAlertCircle } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
 import { useState } from 'react';
-
 import { Surface } from '@/components';
+import { authClient } from '@/lib/auth-client';
 import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
 
 import classes from './page.module.css';
@@ -53,13 +52,12 @@ function Page() {
       setIsLoading(true);
       setError(null);
 
-      const result = await signIn('credentials', {
-        redirect: false,
+      const result = await authClient.signIn.email({
         email: values.email,
         password: values.password,
       });
 
-      if (!result?.ok) {
+      if (result.error) {
         setError('Invalid email or password');
         return;
       }
