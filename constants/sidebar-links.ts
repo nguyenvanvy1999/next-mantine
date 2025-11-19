@@ -7,11 +7,7 @@ import {
   IconUserPlus,
 } from '@tabler/icons-react';
 
-import {
-  PATH_AUTH,
-  PATH_CHANGELOG,
-  PATH_DOCS,
-} from '@/routes';
+import { PATH_AUTH, PATH_CHANGELOG, PATH_DOCS } from '@/routes';
 
 export const SIDEBAR_LINKS = [
   {

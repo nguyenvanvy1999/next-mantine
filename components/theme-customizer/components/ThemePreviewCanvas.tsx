@@ -38,12 +38,12 @@ export const ThemePreviewCanvas: React.FC<ThemePreviewCanvasProps> = ({
         <Paper p="md" withBorder>
           <Stack>
             <Stack gap="md">
-              <Text size="sm" c="dimmed">
+              <Text component="div" size="sm" c="dimmed">
                 Current primary color:{' '}
                 <ColorSwatch
                   color={COLOR_SCHEMES[config.appearance.primaryColor].color}
                   size={16}
-                  style={{ display: 'inline-block' }}
+                  style={{ display: 'inline-block', verticalAlign: 'middle' }}
                 />{' '}
                 {COLOR_SCHEMES[config.appearance.primaryColor].name}
               </Text>

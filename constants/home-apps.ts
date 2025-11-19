@@ -4,4 +4,3 @@ export const HOME_APPS: Array<{
   title: string;
   link: string;
 }> = [];
-

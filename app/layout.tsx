@@ -153,7 +153,7 @@ export default function RootLayout({
         ></script>
         <ColorSchemeScript defaultColorScheme="auto" />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <AuthProvider>
           <ThemeCustomizerProvider>
             <ThemeProvider>{children}</ThemeProvider>

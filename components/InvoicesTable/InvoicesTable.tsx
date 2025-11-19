@@ -17,7 +17,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
-import { IconCloudDownload, IconEye, IconSearch } from '@tabler/icons-react';
+import { IconCloudDownload, IconSearch } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
 import {
   DataTable,
@@ -86,7 +86,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebouncedValue(query, 200);
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
-  const router = useRouter();
+  const _router = useRouter();
   const statuses = useMemo(() => {
     const statuses = new Set(data.map((e) => e.status));
     // @ts-expect-error
@@ -177,7 +177,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
     {
       accessor: '',
       title: 'Actions',
-      render: (item: any) => (
+      render: (_item: any) => (
         <Group gap="sm">
           <Tooltip label="Download invoice">
             <ActionIcon>

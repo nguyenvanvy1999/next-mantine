@@ -79,11 +79,11 @@ export const useAuth = () => {
   // Extract user data from Better Auth session
   const user = session?.user
     ? {
-      id: session.user.id,
-      email: session.user.email,
-      name: session.user.name,
-      image: session.user.image,
-    }
+        id: session.user.id,
+        email: session.user.email,
+        name: session.user.name,
+        image: session.user.image,
+      }
     : undefined;
 
   // Extract permissions and roles from user

@@ -50,17 +50,27 @@ export function ThemeCustomizerProvider({
   defaultConfig = defaultThemeConfig,
   storageKey = 'theme-config',
 }: ThemeCustomizerProviderProps) {
-  const [config, setConfig] = useState<ThemeConfig>(() => {
-    return ThemeStorage.load(storageKey, defaultConfig);
-  });
+  const [config, setConfig] = useState<ThemeConfig>(defaultConfig);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    const storedConfig = ThemeStorage.load(storageKey, defaultConfig);
+    if (JSON.stringify(storedConfig) !== JSON.stringify(defaultConfig)) {
+      setConfig(storedConfig);
+      setPreviewConfig(storedConfig);
+    }
+    setIsInitialized(true);
+  }, [storageKey, defaultConfig]);
 
   const [previewConfig, setPreviewConfig] = useState<ThemeConfig>(config);
   const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
 
   // Save to localStorage whenever config changes
   useEffect(() => {
-    ThemeStorage.save(storageKey, config);
-  }, [config, storageKey]);
+    if (isInitialized) {
+      ThemeStorage.save(storageKey, config);
+    }
+  }, [config, storageKey, isInitialized]);
 
   // Reset preview when customizer opens
   useEffect(() => {
