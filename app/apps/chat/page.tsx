@@ -30,9 +30,9 @@ import {
 } from '@tabler/icons-react';
 import Placeholder from '@tiptap/extension-placeholder';
 import { useEditor } from '@tiptap/react';
+import { BubbleMenu } from '@tiptap/react/menus';
 import StarterKit from '@tiptap/starter-kit';
 import { useEffect, useMemo, useState } from 'react';
-import { BubbleMenu } from '@tiptap/react/menus'
 import {
   ChatItem,
   ChatsList,

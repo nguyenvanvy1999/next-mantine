@@ -1,12 +1,15 @@
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth/next';
-
-import { authOptions } from '@/app/lib/authOptions';
+import { auth } from '@/lib/auth';
 import { PATH_AUTH } from '@/routes';
 
-// NextAuth server-side utilities
+// Better Auth server-side utilities
 export async function getSession() {
-  return await getServerSession(authOptions);
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  return session;
 }
 
 export async function getCurrentUser() {
@@ -15,14 +18,17 @@ export async function getCurrentUser() {
 }
 
 export async function requireAuth() {
-  const user = await getCurrentUser();
+  const session = await getSession();
 
-  if (!user) {
+  if (!session?.user) {
     redirect(PATH_AUTH.signin);
   }
 
-  return user;
+  return session.user;
 }
 
+// Export session type for convenience
+export type { Session } from '@/lib/auth';
+
 // Note: Client-side auth operations (register, login, profile updates, etc.)
-// are now handled by the new API hooks in lib/api/hooks/auth.ts
+// are handled by the Better Auth client in lib/auth-client.ts

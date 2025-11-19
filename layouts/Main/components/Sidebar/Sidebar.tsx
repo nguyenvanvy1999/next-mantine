@@ -85,7 +85,7 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
         <UserProfileButton
           email={user?.email ?? UserProfileData.email}
           image={user?.image ?? UserProfileData.avatar}
-          name={user?.userName ?? UserProfileData.name}
+          name={user?.name ?? UserProfileData.name}
           showText={true}
           p={0}
         />

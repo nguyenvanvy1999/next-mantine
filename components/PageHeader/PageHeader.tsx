@@ -98,7 +98,7 @@ const PageHeader = (props: PageHeaderProps) => {
           >
             <Stack gap={4}>
               <Title order={3}>{title}</Title>
-              <Text>Welcome back, {user?.userName}!</Text>
+              <Text>Welcome back, {user?.name}!</Text>
             </Stack>
             {renderActions()}
           </Flex>

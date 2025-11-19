@@ -59,9 +59,8 @@ const MapChart = ({ ...others }: MapChartProps) => {
       <ComposableMap projectionConfig={{ rotate: [-10, 0, 0] }}>
         {/*@ts-ignore*/}
         <Geographies geography={geoUrl}>
-          {({ geographies }) =>
+          {({ geographies }: { geographies: any[] }) =>
             geographies.map((geo) => (
-              // @ts-expect-error
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
@@ -72,7 +71,6 @@ const MapChart = ({ ...others }: MapChartProps) => {
         </Geographies>
         {data.map(({ city_code, lng, lat, population }: any) => {
           return (
-            // @ts-expect-error
             <Marker key={city_code} coordinates={[lng, lat]}>
               <circle
                 fill={theme.colors[theme.primaryColor][7]}

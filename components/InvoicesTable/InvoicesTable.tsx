@@ -222,7 +222,6 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
             return false;
           }
 
-          // @ts-expect-error
           if (
             selectedStatuses.length &&
             !selectedStatuses.some((s) => s === status)
@@ -249,7 +248,6 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
       columns={columns}
       records={records}
       selectedRecords={selectedRecords}
-      // @ts-expect-error
       onSelectedRecordsChange={setSelectedRecords}
       totalRecords={
         debouncedQuery || selectedStatuses.length > 0
