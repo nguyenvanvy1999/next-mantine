@@ -1,8 +1,23 @@
+import { PrismaPg } from '@prisma/adapter-pg';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { PrismaClient } from '@/lib/generated/prisma';
+import { env } from '@/lib/env';
+import { PrismaClient } from '@/lib/generated/prisma/client';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({
+  connectionString: env.DATABASE_URL,
+  pool: {
+    min: 2,
+    max: 10,
+    idleTimeoutMillis: 30000,
+    acquireTimeoutMillis: 30000,
+  },
+});
+export const prisma = new PrismaClient({
+  adapter,
+  log: ['error', 'warn'],
+  errorFormat: 'pretty',
+});
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -30,7 +45,7 @@ export const auth = betterAuth({
       },
     },
   },
-  trustedOrigins: [process.env.BETTER_AUTH_URL || 'http://localhost:3000'],
+  trustedOrigins: [env.BETTER_AUTH_URL || 'http://localhost:3000'],
 });
 
 export type Session = typeof auth.$Infer.Session;

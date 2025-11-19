@@ -12,7 +12,9 @@ function hasPermission(
 }
 
 // Base configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5080';
+import { env } from '@/lib/env';
+
+const API_BASE_URL = env.NEXT_PUBLIC_API_URL || 'http://localhost:5080';
 
 // Standard API response type
 export type ApiResponse<T> = {
