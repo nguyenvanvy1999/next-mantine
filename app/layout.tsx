@@ -18,9 +18,7 @@ import {
   useThemeCustomizer,
 } from '@/contexts/theme-customizer';
 import { createDynamicTheme } from '@/theme';
-import '@mantine/core/styles/global.css';
-import '@mantine/core/styles/baseline.css';
-import '@mantine/core/styles/default-css-variables.css';
+import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/tiptap/styles.css';
 import '@mantine/carousel/styles.css';
@@ -119,7 +117,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={openSans.className}>
+    <html lang="en" className={openSans.className} suppressHydrationWarning>
       <head>
         <title>DesignSparx - Nextjs Mantine Admin Dashboard Template</title>
         <link
