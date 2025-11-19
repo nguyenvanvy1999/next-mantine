@@ -99,7 +99,7 @@ export const InvoiceCard = ({
             variant="subtle"
             size="xs"
             leftSection={<IconEye size={14} />}
-            onClick={() => onView && onView(data)}
+            onClick={() => onView?.(data)}
           >
             View
           </Button>
@@ -107,7 +107,7 @@ export const InvoiceCard = ({
             variant="subtle"
             size="xs"
             leftSection={<IconEdit size={14} />}
-            onClick={() => onEdit && onEdit(data)}
+            onClick={() => onEdit?.(data)}
             disabled={!isCreator}
             title={
               isCreator

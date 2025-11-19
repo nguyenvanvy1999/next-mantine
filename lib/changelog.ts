@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 // Types for changelog data
 export interface ChangelogEntry {
@@ -29,9 +29,9 @@ export interface ChangelogEntry {
 function getVersionType(version: string): 'major' | 'minor' | 'patch' {
   const cleanVersion = version.replace(/^v/, '');
   const parts = cleanVersion.split('.');
-  const major = parseInt(parts[0] || '0');
-  const minor = parseInt(parts[1] || '0');
-  const patch = parseInt(parts[2] || '0');
+  const major = parseInt(parts[0] || '0', 10);
+  const minor = parseInt(parts[1] || '0', 10);
+  const patch = parseInt(parts[2] || '0', 10);
 
   // Check if this is a major version (x.0.0 where x > 0)
   if (major > 0 && minor === 0 && patch === 0) return 'major';
@@ -134,7 +134,7 @@ export async function parseChangelog(): Promise<ChangelogEntry[]> {
         /## \d+\.\d+\.\d+/.test(trimmedLine)
       ) {
         // Save previous entry if exists
-        if (currentEntry && currentEntry.version) {
+        if (currentEntry?.version) {
           // Save any remaining change type
           if (currentChangeType && currentItems.length > 0) {
             currentEntry.changes = currentEntry.changes || [];
@@ -224,7 +224,7 @@ export async function parseChangelog(): Promise<ChangelogEntry[]> {
     }
 
     // Don't forget the last entry
-    if (currentEntry && currentEntry.version) {
+    if (currentEntry?.version) {
       if (currentChangeType && currentItems.length > 0) {
         currentEntry.changes = currentEntry.changes || [];
         currentEntry.changes.push({

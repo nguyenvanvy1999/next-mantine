@@ -98,9 +98,7 @@ export default function FileManagerLayout({
 
   return (
     <>
-      <>
-        <title>File Manager | DesignSparx</title>
-      </>
+      <title>File Manager | DesignSparx</title>
       <Container fluid>
         <Grid>
           <Grid.Col span={{ base: 12, md: 6, lg: 8, xl: 9 }}>

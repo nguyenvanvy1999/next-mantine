@@ -17,7 +17,7 @@ const INITIAL_EVENTS = [
   {
     id: createEventId(),
     title: 'Happy Hour',
-    start: dateOps(3) + 'T16:00:00',
+    start: `${dateOps(3)}T16:00:00`,
   },
   {
     id: createEventId(),
@@ -29,7 +29,7 @@ const INITIAL_EVENTS = [
   {
     id: createEventId(),
     title: 'Meeting',
-    start: todayStr + 'T12:00:00',
+    start: `${todayStr}T12:00:00`,
   },
   {
     id: createEventId(),
