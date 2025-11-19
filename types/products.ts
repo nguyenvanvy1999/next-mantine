@@ -3,34 +3,34 @@
 
 export interface IProduct {
   id: string;
-  title: any;
-  description: any;
+  title: string;
+  description: string;
   price: number;
   quantityInStock: number;
-  sku: any;
-  imageUrl: any;
+  sku: string;
+  imageUrl: string;
   isActive: boolean;
   status: number;
   category: IProductCategory;
   categoryId: string;
-  categoryName: any;
+  categoryName: string;
   created: string;
   modified: string;
-  createdById: any;
-  createdBy: any; // Use OpenAPI types for new development
-  modifiedById: any;
-  modifiedBy: any; // Use OpenAPI types for new development
+  createdById: string;
+  createdBy: string; // Use OpenAPI types for new development
+  modifiedById: string;
+  modifiedBy: string; // Use OpenAPI types for new development
 }
 
 export interface IProductCategory {
   id: string;
-  title: any;
-  description: any;
+  title: string;
+  description: string;
   created: string;
   modified: string;
-  createdById: any;
-  createdBy: any; // Use OpenAPI types for new development
-  modifiedById: any;
-  modifiedBy: any; // Use OpenAPI types for new development
+  createdById: string;
+  createdBy: string; // Use OpenAPI types for new development
+  modifiedById: string;
+  modifiedBy: string; // Use OpenAPI types for new development
   productCount: number;
 }

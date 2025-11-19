@@ -15,6 +15,7 @@ import {
 } from '@mantine/core';
 import { useColorScheme } from '@mantine/hooks';
 import { IconRefresh } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 
 import { FilterDateMenu, Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
@@ -37,9 +38,14 @@ const PageHeader = (props: PageHeaderProps) => {
     ...others
   } = props;
   const { user } = useAuth();
+  const [mounted, setMounted] = useState(false);
 
   const theme = useMantineTheme();
   const colorScheme = useColorScheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const BREADCRUMBS_PROPS: Omit<BreadcrumbsProps, 'children'> = {
     style: {
@@ -98,7 +104,9 @@ const PageHeader = (props: PageHeaderProps) => {
           >
             <Stack gap={4}>
               <Title order={3}>{title}</Title>
-              <Text>Welcome back, {user?.name}!</Text>
+              <Text>
+                Welcome back{mounted && user?.name ? `, ${user.name}` : ''}!
+              </Text>
             </Stack>
             {renderActions()}
           </Flex>

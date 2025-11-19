@@ -1,6 +1,10 @@
 'use client';
 
-import { formatDate } from '@fullcalendar/core';
+import {
+  type EventClickArg,
+  type EventContentArg,
+  formatDate,
+} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
@@ -23,7 +27,7 @@ const items = [
   </Anchor>
 ));
 
-function renderEventContent(eventInfo: any) {
+function renderEventContent(eventInfo: EventContentArg) {
   return (
     <>
       <b>{eventInfo.timeText}</b>
@@ -72,7 +76,7 @@ function Calendar() {
     }
   };
 
-  const handleEventClick = (clickInfo: any) => {
+  const handleEventClick = (clickInfo: EventClickArg) => {
     if (
       confirm(
         `Are you sure you want to delete the event '${clickInfo.event.title}'`,
@@ -146,10 +150,10 @@ function Calendar() {
               eventsSet={handleEvents}
               // called after events are initialized/added/changed/removed
               /* you can update a remote database when these fire:
-        eventAdd={function(){}}
-        eventChange={function(){}}
-        eventRemove={function(){}}
-        */
+  eventAdd={function(){}}
+  eventChange={function(){}}
+  eventRemove={function(){}}
+  */
             />
           </Surface>
         </Stack>

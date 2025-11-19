@@ -48,7 +48,7 @@ export const NewChatModal = ({
     if (!opened) {
       form.reset();
     }
-  }, [opened, form]);
+  }, [opened, form.reset]);
 
   return (
     <Modal

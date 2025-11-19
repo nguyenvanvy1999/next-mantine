@@ -13,7 +13,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { Dropzone } from '@mantine/dropzone';
+import { Dropzone, type FileRejection } from '@mantine/dropzone';
 import {
   IconChevronRight,
   IconCloudUpload,
@@ -60,11 +60,7 @@ function FileManager() {
     loading: filesLoading,
     error: filesError,
   } = useFetchData('/mocks/Files.json');
-  const {
-    data: foldersData,
-    loading: foldersLoading,
-    error: foldersError,
-  } = useFetchData('/mocks/Folders.json');
+  const { data: foldersData } = useFetchData('/mocks/Folders.json');
   const [value, setValue] = useState('View all');
 
   const refinedFolders: IFolder[] = useMemo(() => {
@@ -87,8 +83,10 @@ function FileManager() {
         </SimpleGrid>
         <Surface>
           <Dropzone
-            onDrop={(files) => console.log('accepted files', files)}
-            onReject={(files) => console.log('rejected files', files)}
+            onDrop={(files: File[]) => console.log('accepted files', files)}
+            onReject={(files: FileRejection[]) =>
+              console.log('rejected files', files)
+            }
             maxSize={5 * 1024 ** 2}
           >
             <Flex
