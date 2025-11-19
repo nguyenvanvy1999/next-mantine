@@ -3,7 +3,6 @@
 import {
   Anchor,
   Button,
-  Paper,
   type PaperProps,
   SimpleGrid,
   Skeleton,
@@ -73,7 +72,7 @@ function Projects() {
           spacing={{ base: 10, sm: 'xl' }}
           verticalSpacing={{ base: 'md', sm: 'xl' }}
         >
-          {Array.from({ length: 8 }).map((o, i) => (
+          {Array.from({ length: 8 }).map((_o, i) => (
             <Skeleton
               key={`project-loading-${i}`}
               visible={true}
@@ -128,13 +127,12 @@ function Projects() {
 
   return (
     <>
-      <>
-        <title>Projects | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
-      </>
+      <title>Projects | DesignSparx</title>
+      <meta
+        name="description"
+        content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
+      />
+
       <PageHeader
         title="Projects"
         breadcrumbItems={items}

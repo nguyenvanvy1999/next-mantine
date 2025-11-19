@@ -19,7 +19,6 @@ import {
   Timeline,
   Title,
   Typography,
-  TypographyStylesProvider,
 } from '@mantine/core';
 import {
   IconAlertTriangle,

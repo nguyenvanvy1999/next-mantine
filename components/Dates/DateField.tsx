@@ -11,7 +11,7 @@ type DateFieldProps = DatePickerInputProps;
  * @constructor
  */
 const DateField = ({ ...others }: DateFieldProps) => {
-  const [value, setValue] = useState<Date | null>(null);
+  const [_value, _setValue] = useState<Date | null>(null);
   return (
     // @ts-expect-error
     <DateInput label="Pick date" placeholder="Pick date" {...others} />

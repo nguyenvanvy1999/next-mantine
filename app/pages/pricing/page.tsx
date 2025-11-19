@@ -14,7 +14,6 @@ import {
   Title,
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
-import { Metadata } from 'next';
 import { useState } from 'react';
 
 import { Faqs, PageHeader, PricingCard, Surface } from '@/components';
@@ -30,7 +29,7 @@ const items = [
   </Anchor>
 ));
 
-const ICON_SIZE = 16;
+const _ICON_SIZE = 16;
 
 const PAPER_PROPS: PaperProps = {
   p: 'md',
@@ -98,13 +97,12 @@ function Pricing() {
 
   return (
     <>
-      <>
-        <title>Pricing | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
-      </>
+      <title>Pricing | DesignSparx</title>
+      <meta
+        name="description"
+        content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
+      />
+
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="Pricing" breadcrumbItems={items} />

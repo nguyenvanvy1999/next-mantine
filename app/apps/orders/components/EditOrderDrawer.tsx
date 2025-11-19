@@ -144,7 +144,7 @@ export const EditOrderDrawer = ({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order]);
+  }, [order, form.setValues]);
 
   const statusOptions = [
     { value: '1', label: 'Pending' },
@@ -162,7 +162,7 @@ export const EditOrderDrawer = ({
     { value: '5', label: 'Bank Transfer' },
   ];
 
-  const formatCurrency = (amount: number) => {
+  const _formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',

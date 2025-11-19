@@ -1,7 +1,5 @@
 import {
   Box,
-  Button,
-  ColorSwatch,
   Divider,
   Group,
   Paper,
@@ -16,7 +14,6 @@ import {
   IconBorderRadius,
   IconCards,
   IconCircleHalf2,
-  IconComponents,
   IconCube,
   IconGlass,
   IconMoonStars,
@@ -25,9 +22,8 @@ import {
   IconSunHigh,
   IconZoomIn,
 } from '@tabler/icons-react';
-import React from 'react';
 
-import { COLOR_SCHEMES, type ThemeConfig } from '@/contexts/theme-customizer';
+import type { ThemeConfig } from '@/contexts/theme-customizer';
 
 import { ColorPicker } from '../components/ColorPicker';
 

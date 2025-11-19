@@ -205,7 +205,7 @@ export const InvoicesTable = ({
             <ActionIcon
               variant="subtle"
               size="sm"
-              onClick={() => onView && onView(invoice)}
+              onClick={() => onView?.(invoice)}
             >
               <IconEye size={16} />
             </ActionIcon>
@@ -220,13 +220,13 @@ export const InvoicesTable = ({
               <Menu.Dropdown>
                 <Menu.Item
                   leftSection={<IconEye size={14} />}
-                  onClick={() => onView && onView(invoice)}
+                  onClick={() => onView?.(invoice)}
                 >
                   View
                 </Menu.Item>
                 <Menu.Item
                   leftSection={<IconEdit size={14} />}
-                  onClick={() => onEdit && onEdit(invoice)}
+                  onClick={() => onEdit?.(invoice)}
                   disabled={!isCreator}
                 >
                   Edit
@@ -235,7 +235,7 @@ export const InvoicesTable = ({
                 <Menu.Item
                   color="red"
                   leftSection={<IconTrash size={14} />}
-                  onClick={() => onDelete && onDelete(invoice)}
+                  onClick={() => onDelete?.(invoice)}
                   disabled={!isCreator}
                 >
                   Delete

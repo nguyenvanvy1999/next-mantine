@@ -11,7 +11,6 @@ import {
   Textarea,
   TextInput,
 } from '@mantine/core';
-import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { useCallback, useEffect, useState } from 'react';
@@ -40,7 +39,7 @@ export const NewProductDrawer = ({
       const response = await fetch('/api/product-categories', {
         method: 'GET',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
       });
@@ -101,7 +100,7 @@ export const NewProductDrawer = ({
       const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),

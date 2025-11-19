@@ -3,7 +3,6 @@
 import {
   Anchor,
   Button,
-  Paper,
   type PaperProps,
   SimpleGrid,
   Skeleton,
@@ -52,13 +51,13 @@ function Products() {
     refetch: refetchProducts,
   } = useFetch<IApiResponse<IProduct[]>>('/api/products', {
     headers: {
-      Authorization: 'Bearer ' + accessToken,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
   });
 
   // Check if the user has permission to add products (now using new RBAC system)
-  const canAddProduct = hasPermission('Permissions.Team.Projects'); // Update permission name to match RBAC config
+  const _canAddProduct = hasPermission('Permissions.Team.Projects'); // Update permission name to match RBAC config
 
   const [newDrawerOpened, { open: newProductOpen, close: newProductClose }] =
     useDisclosure(false);
@@ -151,13 +150,12 @@ function Products() {
 
   return (
     <>
-      <>
-        <title>Products | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components."
-        />
-      </>
+      <title>Products | DesignSparx</title>
+      <meta
+        name="description"
+        content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components."
+      />
+
       <PageHeader
         title="Products"
         breadcrumbItems={items}

@@ -166,7 +166,7 @@ export const EditInvoiceDrawer = ({
       setIsCreator(user?.id === invoice.created_by_id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [invoice, user]);
+  }, [invoice, user, form.setValues]);
 
   const statusOptions = [
     { value: InvoiceStatus.Draft.toString(), label: 'Draft' },

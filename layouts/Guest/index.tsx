@@ -15,19 +15,15 @@ function GuestLayout({ children }: GuestLayoutProps) {
   const pinned = useHeadroom({ fixedAt: 120 });
 
   return (
-    <>
-      <AppShell header={{ height: 60, collapsed: !pinned, offset: false }}>
-        <AppShell.Header>
-          <HeaderNav />
-        </AppShell.Header>
-        <AppShell.Main>
-          <Box style={{ backgroundColor: theme.colors.gray[0] }}>
-            {children}
-          </Box>
-          <FooterNav />
-        </AppShell.Main>
-      </AppShell>
-    </>
+    <AppShell header={{ height: 60, collapsed: !pinned, offset: false }}>
+      <AppShell.Header>
+        <HeaderNav />
+      </AppShell.Header>
+      <AppShell.Main>
+        <Box style={{ backgroundColor: theme.colors.gray[0] }}>{children}</Box>
+        <FooterNav />
+      </AppShell.Main>
+    </AppShell>
   );
 }
 

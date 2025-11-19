@@ -39,7 +39,7 @@ type LanguagePickerProps = {
 };
 
 const LanguagePicker = ({ type }: LanguagePickerProps) => {
-  const [opened, setOpened] = useState(false);
+  const [_opened, setOpened] = useState(false);
   const [selected, setSelected] = useState(data[0]);
   const items = data.map((item) => (
     <Menu.Item

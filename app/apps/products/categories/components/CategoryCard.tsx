@@ -30,7 +30,7 @@ export const CategoryCard = ({ data, onEdit }: ProductCategoryCardProps) => {
         <Button
           variant="subtle"
           leftSection={<IconEdit size={16} />}
-          onClick={() => onEdit && onEdit(data)}
+          onClick={() => onEdit?.(data)}
           // Show edit button for all but only enable for creator
           disabled={!isCreator}
           title={

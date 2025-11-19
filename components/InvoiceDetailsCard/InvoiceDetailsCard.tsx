@@ -5,7 +5,6 @@ import {
   Divider,
   Flex,
   Menu,
-  Paper,
   type PaperProps,
   Stack,
   Table,

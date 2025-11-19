@@ -5,7 +5,6 @@ import {
   Button,
   Flex,
   Input,
-  Paper,
   type PaperProps,
   rem,
   SegmentedControl,
@@ -26,7 +25,7 @@ import {
   IconUpload,
   IconX,
 } from '@tabler/icons-react';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import {
   ActionButton,
@@ -76,9 +75,7 @@ function FileManager() {
 
   return (
     <>
-      <>
-        <title>File Manager | DesignSparx</title>
-      </>
+      <title>File Manager | DesignSparx</title>
       <Stack>
         <PageHeader title="File manager" breadcrumbItems={items} />
         <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}>

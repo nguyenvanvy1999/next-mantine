@@ -1,4 +1,4 @@
-import { type ApiResponse, type components, useApiGet } from './api-utils';
+import { useApiGet } from './api-utils';
 
 // Note: Using any since LanguageDto doesn't exist in api.d.ts schema
 // Replace with proper type when available in OpenAPI schema

@@ -57,7 +57,7 @@ type Props = {
 const KanbanCard = (props: Props) => {
   const { task, deleteTask, updateTask } = props;
   const theme = useMantineTheme();
-  const [mouseIsOver, setMouseIsOver] = useState(false);
+  const [_mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const {
     setNodeRef,

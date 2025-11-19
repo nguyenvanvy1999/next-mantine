@@ -16,9 +16,7 @@ const items = [
 function Tasks() {
   return (
     <>
-      <>
-        <title>Tasks | DesignSparx</title>
-      </>
+      <title>Tasks | DesignSparx</title>
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="Tasks" breadcrumbItems={items} />

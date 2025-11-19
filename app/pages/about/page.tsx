@@ -48,19 +48,19 @@ const CARDS = [
     title: 'Report Bug',
     description: 'Something not working? Report a bug',
     icon: IconBug,
-    link: PATH_GITHUB.repo + '/issues/new/choose',
+    link: `${PATH_GITHUB.repo}/issues/new/choose`,
   },
   {
     title: 'Request Feature',
     description: 'Need something? Request a new feature.',
     icon: IconBulb,
-    link: PATH_GITHUB.repo + '/issues/new/choose',
+    link: `${PATH_GITHUB.repo}/issues/new/choose`,
   },
   {
     title: 'Contribute',
     description: 'Contribute to this project.',
     icon: IconCode,
-    link: PATH_GITHUB.repo + '/blob/main/CONTRIBUTING.md',
+    link: `${PATH_GITHUB.repo}/blob/main/CONTRIBUTING.md`,
   },
 ];
 
@@ -81,13 +81,12 @@ function Pricing() {
 
   return (
     <>
-      <>
-        <title>About | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
-      </>
+      <title>About | DesignSparx</title>
+      <meta
+        name="description"
+        content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
+      />
+
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="About" breadcrumbItems={items} />

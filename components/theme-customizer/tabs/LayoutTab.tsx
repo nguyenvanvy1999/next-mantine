@@ -16,7 +16,6 @@ import {
   IconRectangle,
   IconSquare,
 } from '@tabler/icons-react';
-import React from 'react';
 
 import type { ThemeConfig } from '@/contexts/theme-customizer';
 
@@ -87,7 +86,10 @@ export const LayoutTab = ({ config, onConfigUpdate }: LayoutTabProps) => {
               ]}
               value={config.layout.sidebar.width.toString()}
               onChange={(value) =>
-                onConfigUpdate(['layout', 'sidebar', 'width'], parseInt(value))
+                onConfigUpdate(
+                  ['layout', 'sidebar', 'width'],
+                  parseInt(value, 10),
+                )
               }
             />
           </Box>
@@ -160,7 +162,10 @@ export const LayoutTab = ({ config, onConfigUpdate }: LayoutTabProps) => {
               ]}
               value={config.layout.header.height.toString()}
               onChange={(value) =>
-                onConfigUpdate(['layout', 'header', 'height'], parseInt(value))
+                onConfigUpdate(
+                  ['layout', 'header', 'height'],
+                  parseInt(value, 10),
+                )
               }
             />
           </Box>

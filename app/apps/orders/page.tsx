@@ -158,10 +158,9 @@ function Orders() {
 
   return (
     <>
-      <>
-        <title>Orders | DesignSparx</title>
-        <meta name="description" content="Manage orders in your dashboard" />
-      </>
+      <title>Orders | DesignSparx</title>
+      <meta name="description" content="Manage orders in your dashboard" />
+
       <PageHeader
         title="Orders"
         breadcrumbItems={items}

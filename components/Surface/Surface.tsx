@@ -43,7 +43,6 @@ const Surface = createPolymorphicComponent<'div', SurfaceProps>(
           case 'glassmorphism':
             classes.push('surface-glassmorphism');
             break;
-          case 'elevated':
           default:
             classes.push('surface-elevated');
             break;

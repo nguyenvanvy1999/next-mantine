@@ -32,7 +32,7 @@ const ACTION_ICON_PROPS: ActionIconProps = {
 };
 
 const FooterNav = () => {
-  const mobile_match = useMediaQuery('(max-width: 425px)');
+  const _mobile_match = useMediaQuery('(max-width: 425px)');
 
   return (
     <footer className={classes.footer}>

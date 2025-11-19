@@ -6,7 +6,6 @@ import {
   Button,
   Container,
   Group,
-  PaperProps,
   SegmentedControl,
   SimpleGrid,
   Skeleton,
@@ -24,7 +23,6 @@ import {
 import { useCallback, useState } from 'react';
 
 import { ErrorAlert, PageHeader, Surface } from '@/components';
-import { PermissionGate } from '@/lib/api/permissions';
 import {
   type components,
   useInvoicesWithMutations,
@@ -213,10 +211,8 @@ function Invoices() {
 
   return (
     <>
-      <>
-        <title>Invoices | DesignSparx</title>
-        <meta name="description" content="Manage invoices in your dashboard" />
-      </>
+      <title>Invoices | DesignSparx</title>
+      <meta name="description" content="Manage invoices in your dashboard" />
 
       <Container fluid>
         <Stack gap="lg">

@@ -122,7 +122,7 @@ export const OrderCard = ({
             variant="subtle"
             size="xs"
             leftSection={<IconEye size={14} />}
-            onClick={() => onView && onView(data)}
+            onClick={() => onView?.(data)}
           >
             View
           </Button>
@@ -130,7 +130,7 @@ export const OrderCard = ({
             variant="subtle"
             size="xs"
             leftSection={<IconEdit size={14} />}
-            onClick={() => onEdit && onEdit(data)}
+            onClick={() => onEdit?.(data)}
           >
             Edit
           </Button>

@@ -34,7 +34,7 @@ export default function StatsGrid({
           verticalSpacing={{ base: 'md', sm: 'xl' }}
         >
           {loading
-            ? Array.from({ length: 4 }).map((o, i) => (
+            ? Array.from({ length: 4 }).map((_o, i) => (
                 <Skeleton
                   key={`stats-loading-${i}`}
                   visible={true}

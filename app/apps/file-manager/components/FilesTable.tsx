@@ -66,7 +66,7 @@ export function FilesTable({ data, loading, error }: FilesTableProps) {
 
   useEffect(() => {
     setPage(1);
-  }, [pageSize]);
+  }, []);
 
   useEffect(() => {
     const from = (page - 1) * pageSize;
@@ -76,7 +76,7 @@ export function FilesTable({ data, loading, error }: FilesTableProps) {
     const filtered = sortStatus.direction === 'desc' ? dd.reverse() : dd;
 
     setRecords(filtered);
-  }, [sortStatus, data, page, pageSize, debouncedQuery, selectedStatuses]);
+  }, [sortStatus, data, page, pageSize]);
 
   return error ? (
     <ErrorAlert title="Error loading orders" message={error.toString()} />

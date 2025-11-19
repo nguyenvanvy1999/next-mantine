@@ -101,7 +101,7 @@ async function getCurrentTokenAndPermissions(): Promise<{
       token: sessionData?.session?.token || null,
       permissions: sessionData?.user?.permissions,
     };
-  } catch (error) {
+  } catch (_error) {
     return { token: null, permissions: undefined };
   }
 }

@@ -62,7 +62,7 @@ export const EditCategoryDrawer = ({
         {
           method: 'PUT',
           headers: {
-            Authorization: 'Bearer ' + accessToken,
+            Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(payload),
@@ -118,7 +118,7 @@ export const EditCategoryDrawer = ({
         {
           method: 'DELETE',
           headers: {
-            Authorization: 'Bearer ' + accessToken,
+            Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
         },
@@ -169,7 +169,7 @@ export const EditCategoryDrawer = ({
       setIsCreator(user?.id === productCategory.createdById);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productCategory, user]);
+  }, [productCategory, user, form.setValues]);
 
   return (
     <Drawer {...drawerProps} title="Edit product category">

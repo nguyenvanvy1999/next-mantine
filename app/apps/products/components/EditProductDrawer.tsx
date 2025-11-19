@@ -72,7 +72,7 @@ export const EditProductDrawer = ({
       const response = await fetch('/api/product-categories', {
         method: 'GET',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
       });
@@ -120,7 +120,7 @@ export const EditProductDrawer = ({
       setIsCreator(user?.id === product.createdById);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product, user]);
+  }, [product, user, form.setValues]);
 
   const handleSubmit = async (values: typeof form.values) => {
     if (!product || !isCreator || !canEditProduct) return;
@@ -135,7 +135,7 @@ export const EditProductDrawer = ({
       const response = await fetch(`/api/products/${product.id}`, {
         method: 'PUT',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
@@ -188,7 +188,7 @@ export const EditProductDrawer = ({
       const response = await fetch(`/api/products/${product.id}`, {
         method: 'DELETE',
         headers: {
-          Authorization: 'Bearer ' + accessToken,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
       });

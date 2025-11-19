@@ -49,7 +49,7 @@ function InvoiceDetails({ params }: InvoiceDetailsProps) {
     error: invoiceError,
   } = useFetch<IApiResponse<IInvoice>>(`/api/invoices/${params.id}`, {
     headers: {
-      Authorization: 'Bearer ' + accessToken,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
   });

@@ -9,7 +9,6 @@ import {
   Group,
   type MantineColor,
   type PaperProps,
-  Progress,
   Stack,
   Text,
   Tooltip,
@@ -19,12 +18,10 @@ import { IconNotebook, IconShare } from '@tabler/icons-react';
 import { Surface } from '@/components';
 import type { components } from '@/lib/endpoints';
 
-import classes from './ProjectsCard.module.css';
-
 // Use OpenAPI type
 type ProjectDto = components['schemas']['ProjectDto'];
 
-const avatars = [
+const _avatars = [
   'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
   'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
   'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGVyc29ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',

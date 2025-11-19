@@ -6,7 +6,6 @@ import {
   Container,
   Flex,
   Grid,
-  Paper,
   type PaperProps,
   Stack,
   Text,

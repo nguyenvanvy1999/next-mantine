@@ -119,7 +119,6 @@ export function generateSidebarStyles(
       styles.boxShadow =
         '2px 0 20px rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.3)';
       break;
-    case 'default':
     default:
       // Default uses CSS variables for light/dark mode handling
       break;
@@ -167,7 +166,6 @@ export function generateHeaderStyles(
       styles.boxShadow =
         '0 2px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
       break;
-    case 'default':
     default:
       // Default uses CSS variables for light/dark mode handling
       break;

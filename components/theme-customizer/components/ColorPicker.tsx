@@ -1,5 +1,4 @@
 import { ActionIcon, ColorSwatch, SimpleGrid, Tooltip } from '@mantine/core';
-import React from 'react';
 
 import { COLOR_SCHEMES, type PrimaryColor } from '@/contexts/theme-customizer';
 

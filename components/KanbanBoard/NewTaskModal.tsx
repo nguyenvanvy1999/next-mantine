@@ -54,7 +54,7 @@ export const NewTaskModal = ({
       form.reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [opened]);
+  }, [opened, form.reset]);
 
   const handleSubmit = (values: typeof form.values) => {
     // Map columnId to status

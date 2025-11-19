@@ -42,7 +42,7 @@ export function LinksGroup(props: LinksGroupProps) {
   const pathname = usePathname();
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
-  const [currentPath, setCurrentPath] = useState<string | undefined>();
+  const [_currentPath, setCurrentPath] = useState<string | undefined>();
   const ChevronIcon = IconChevronRight;
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
@@ -106,34 +106,32 @@ export function LinksGroup(props: LinksGroupProps) {
     let view: React.ReactElement;
     if (isMini) {
       view = (
-        <>
-          <Menu
-            position="right-start"
-            withArrow
-            arrowPosition="center"
-            trigger="hover"
-            openDelay={100}
-            closeDelay={400}
-          >
-            <Menu.Target>
-              <UnstyledButton
-                onClick={handleMiniButtonClick}
-                className={classes.control}
-                data-active={opened || undefined}
-                data-mini={isMini}
+        <Menu
+          position="right-start"
+          withArrow
+          arrowPosition="center"
+          trigger="hover"
+          openDelay={100}
+          closeDelay={400}
+        >
+          <Menu.Target>
+            <UnstyledButton
+              onClick={handleMiniButtonClick}
+              className={classes.control}
+              data-active={opened || undefined}
+              data-mini={isMini}
+            >
+              <Tooltip
+                label={label}
+                position="right"
+                transitionProps={{ duration: 0 }}
               >
-                <Tooltip
-                  label={label}
-                  position="right"
-                  transitionProps={{ duration: 0 }}
-                >
-                  <Icon size={24} />
-                </Tooltip>
-              </UnstyledButton>
-            </Menu.Target>
-            <Menu.Dropdown>{items}</Menu.Dropdown>
-          </Menu>
-        </>
+                <Icon size={24} />
+              </Tooltip>
+            </UnstyledButton>
+          </Menu.Target>
+          <Menu.Dropdown>{items}</Menu.Dropdown>
+        </Menu>
       );
     } else {
       view = (
@@ -178,7 +176,6 @@ export function LinksGroup(props: LinksGroupProps) {
     isMini,
     items,
     label,
-    link,
     opened,
     handleMainButtonClick,
     handleMiniButtonClick,

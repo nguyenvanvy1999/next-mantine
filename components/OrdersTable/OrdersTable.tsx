@@ -235,7 +235,7 @@ const OrdersTable = ({
 
   useEffect(() => {
     setPage(1);
-  }, [pageSize]);
+  }, []);
 
   useEffect(() => {
     const from = (page - 1) * pageSize;
@@ -267,7 +267,15 @@ const OrdersTable = ({
     }
 
     setRecords(filtered);
-  }, [sortStatus, data, page, pageSize, debouncedQuery, selectedStatuses]);
+  }, [
+    sortStatus,
+    data,
+    page,
+    pageSize,
+    debouncedQuery,
+    selectedStatuses,
+    getStatusLabel,
+  ]);
 
   return error ? (
     <ErrorAlert title="Error loading orders" message={error.toString()} />

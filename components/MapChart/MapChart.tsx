@@ -3,7 +3,6 @@
 import {
   ActionIcon,
   Group,
-  Paper,
   type PaperProps,
   Text,
   useMantineTheme,
@@ -12,7 +11,7 @@ import { IconDotsVertical } from '@tabler/icons-react';
 import { csv } from 'd3-fetch';
 import { scaleLinear } from 'd3-scale';
 import sortBy from 'lodash/sortBy';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ComposableMap,
   Geographies,

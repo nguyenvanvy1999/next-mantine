@@ -140,13 +140,12 @@ function Chat() {
 
   return (
     <>
-      <>
-        <title>Chat | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
-      </>
+      <title>Chat | DesignSparx</title>
+      <meta
+        name="description"
+        content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
+      />
+
       <Container fluid>
         <Stack>
           <PageHeader
@@ -190,7 +189,7 @@ function Chat() {
                         slideGap={{ base: 0, sm: 'md', md: 'md', lg: 'lg' }}
                       >
                         {chatsListLoading ? (
-                          Array.from({ length: 6 }).map((o, i) => (
+                          Array.from({ length: 6 }).map((_o, i) => (
                             <Carousel.Slide
                               key={`chat-carousel-list-${i}`}
                               mr="md"
@@ -226,7 +225,7 @@ function Chat() {
                   ) : (
                     <Stack gap={0}>
                       {chatsListLoading ? (
-                        Array.from({ length: 6 }).map((o, i) => (
+                        Array.from({ length: 6 }).map((_o, i) => (
                           <Box key={`chat-list-${i}`}>
                             <Skeleton height={48} radius={0} />
                             <Divider />

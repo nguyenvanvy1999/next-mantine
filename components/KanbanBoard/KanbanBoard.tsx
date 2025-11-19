@@ -13,7 +13,7 @@ import {
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import { Box, Button, LoadingOverlay, Portal, ScrollArea } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconNewSection, IconPlus } from '@tabler/icons-react';
+import { IconNewSection } from '@tabler/icons-react';
 import { useEffect, useId, useMemo, useState } from 'react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
@@ -53,7 +53,7 @@ const defaultCols: IColumn[] = [
   },
 ];
 
-const defaultTasks: ITask[] = [
+const _defaultTasks: ITask[] = [
   {
     id: '1',
     columnId: 'todo',

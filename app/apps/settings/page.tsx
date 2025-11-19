@@ -49,7 +49,7 @@ const BIO =
   'Enthusiastic pioneer, constantly seeking the next big thing in tech. Eager to apply my passion and skills at Alternate Limited to bring ideas to life.';
 
 function Settings() {
-  const [file, setFile] = useState<File | null>(null);
+  const [_file, setFile] = useState<File | null>(null);
   const { user } = useAuth();
 
   const {
@@ -93,7 +93,13 @@ function Settings() {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile]);
+  }, [
+    profile,
+    accountForm.setValues,
+    accountInfoForm.setValues,
+    user?.email,
+    user?.name,
+  ]);
 
   const handleSaveAccountInfo = async () => {
     try {
@@ -103,7 +109,7 @@ function Settings() {
         message: 'Profile updated successfully',
         color: 'green',
       });
-    } catch (error) {
+    } catch (_error) {
       notifications.show({
         title: 'Error',
         message: 'Failed to update profile',
@@ -114,13 +120,12 @@ function Settings() {
 
   return (
     <>
-      <>
-        <title>Settings | DesignSparx</title>
-        <meta
-          name="description"
-          content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
-        />
-      </>
+      <title>Settings | DesignSparx</title>
+      <meta
+        name="description"
+        content="Explore our versatile dashboard website template featuring a stunning array of themes and meticulously crafted components. Elevate your web project with seamless integration, customizable themes, and a rich variety of components for a dynamic user experience. Effortlessly bring your data to life with our intuitive dashboard template, designed to streamline development and captivate users. Discover endless possibilities in design and functionality today!"
+      />
+
       <Container fluid>
         <Stack gap="lg">
           <PageHeader title="Settings" breadcrumbItems={items} />

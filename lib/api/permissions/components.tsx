@@ -136,5 +136,5 @@ export function ConditionalRender({
   children,
   fallback,
 }: ConditionalRenderProps) {
-  return condition ? <>{children}</> : <>{fallback}</>;
+  return condition ? children : fallback;
 }

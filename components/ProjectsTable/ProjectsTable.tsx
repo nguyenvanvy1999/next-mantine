@@ -7,7 +7,7 @@ import type { components } from '@/lib/api';
 
 type Status = 'In Progress' | 'Cancelled' | 'Completed' | 'Pending' | string;
 
-const StatusBadge = ({ status }: { status: Status }) => {
+const _StatusBadge = ({ status }: { status: Status }) => {
   let color: MantineColor = '';
 
   switch (status) {

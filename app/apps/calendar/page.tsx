@@ -86,7 +86,7 @@ function Calendar() {
     setCurrentEvents(events);
   };
 
-  const renderSidebar = () => {
+  const _renderSidebar = () => {
     return (
       <div className="demo-app-sidebar">
         <div className="demo-app-sidebar-section">

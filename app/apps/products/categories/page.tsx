@@ -3,7 +3,6 @@
 import {
   Anchor,
   Button,
-  Paper,
   SimpleGrid,
   Skeleton,
   Stack,
@@ -47,7 +46,7 @@ function Categories() {
     refetch: refetchCategories,
   } = useFetch<IApiResponse<IProductCategory[]>>('/api/product-categories', {
     headers: {
-      Authorization: 'Bearer ' + accessToken,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
   });
@@ -149,13 +148,12 @@ function Categories() {
 
   return (
     <>
-      <>
-        <title>Product Categories | DesignSparx</title>
-        <meta
-          name="description"
-          content="Manage product categories in your dashboard"
-        />
-      </>
+      <title>Product Categories | DesignSparx</title>
+      <meta
+        name="description"
+        content="Manage product categories in your dashboard"
+      />
+
       <PageHeader
         title="Product Categories"
         breadcrumbItems={items}

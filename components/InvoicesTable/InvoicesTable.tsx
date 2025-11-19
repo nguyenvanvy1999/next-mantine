@@ -201,7 +201,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
 
   useEffect(() => {
     setPage(1);
-  }, [pageSize]);
+  }, []);
 
   useEffect(() => {
     const from = (page - 1) * pageSize;

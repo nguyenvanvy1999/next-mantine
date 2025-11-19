@@ -11,7 +11,7 @@ const ROOTS_INVOICES = '/invoices';
 const ROOTS_TASKS = '/tasks';
 const ROOTS_CALENDAR = '/calendar';
 const ROOTS_AUTH = '/auth';
-const ROOTS_ERRORS = '/error';
+const _ROOTS_ERRORS = '/error';
 const ROOTS_CHANGELOG = '/changelog';
 const ROOTS_AUTH_PROVIDERS = '/authProviders';
 const ROOTS_ABOUT = '/pages/about';
@@ -30,9 +30,9 @@ export const PATH_APPS = {
   chat: path(ROOT_APPS, '/chat'),
   invoices: {
     root: path(ROOT_APPS, ROOTS_INVOICES),
-    sample: path(ROOT_APPS, ROOTS_INVOICES + `/details/`),
+    sample: path(ROOT_APPS, `${ROOTS_INVOICES}/details/`),
     invoice_details: (id: string): string =>
-      path(ROOT_APPS, ROOTS_INVOICES + `/details/${id}`),
+      path(ROOT_APPS, `${ROOTS_INVOICES}/details/${id}`),
   },
   orders: path(ROOT_APPS, '/orders'),
   profile: path(ROOT_APPS, '/profile'),
@@ -44,7 +44,7 @@ export const PATH_APPS = {
   },
   products: {
     root: path(ROOT_APPS, ROOTS_PRODUCTS),
-    categories: path(ROOT_APPS, ROOTS_PRODUCTS + '/categories'),
+    categories: path(ROOT_APPS, `${ROOTS_PRODUCTS}/categories`),
   },
 };
 

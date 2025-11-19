@@ -42,10 +42,7 @@ export function ProductsCard({ data, onEdit, ...props }: ProductsCardProps) {
       </Group>
 
       <Text size="sm" mt="md">
-        Category:{' '}
-        {data.categoryName ||
-          (data.category && data.category.title) ||
-          'Uncategorized'}
+        Category: {data.categoryName || data.category?.title || 'Uncategorized'}
       </Text>
 
       <Text size="xs" c="dimmed" mt="sm" mb="md">
@@ -56,7 +53,7 @@ export function ProductsCard({ data, onEdit, ...props }: ProductsCardProps) {
         <Button
           variant="subtle"
           leftSection={<IconEdit size={16} />}
-          onClick={() => onEdit && onEdit(data)}
+          onClick={() => onEdit?.(data)}
           // Show edit button for all but only enable for creator
           disabled={!isCreator}
           title={

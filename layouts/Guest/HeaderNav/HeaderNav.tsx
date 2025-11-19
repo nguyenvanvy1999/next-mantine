@@ -41,7 +41,7 @@ const LINK_ITEMS = [
   },
 ];
 
-const HEADER_HEIGHT = rem(60);
+const _HEADER_HEIGHT = rem(60);
 
 const HeaderNav = () => {
   const theme = useMantineTheme();
