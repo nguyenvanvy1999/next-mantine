@@ -14,7 +14,7 @@ import { IconBrandGithub, IconPlayerPlay } from '@tabler/icons-react';
 import Link from 'next/link';
 
 import { Logo } from '@/components';
-import { PATH_AUTH, PATH_DASHBOARD, PATH_DOCS, PATH_GITHUB } from '@/routes';
+import { PATH_AUTH, PATH_DOCS, PATH_GITHUB } from '@/routes';
 
 import classes from './HeaderNav.module.css';
 
@@ -124,7 +124,7 @@ const HeaderNav = () => {
           >
             Give us a star
           </Button>
-          <Button component={Link} href={PATH_DASHBOARD.default}>
+          <Button component={Link} href={PATH_AUTH.signin}>
             Live Previews
           </Button>
         </ScrollArea>

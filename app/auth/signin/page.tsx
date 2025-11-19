@@ -20,7 +20,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { Surface } from '@/components';
 import { authClient } from '@/lib/auth-client';
-import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+import { PATH_AUTH } from '@/routes';
 
 import classes from './page.module.css';
 
@@ -31,7 +31,7 @@ const LINK_PROPS: TextProps = {
 function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || PATH_DASHBOARD.default;
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 

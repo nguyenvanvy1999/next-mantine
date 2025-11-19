@@ -15,7 +15,7 @@ import { IconChevronLeft } from '@tabler/icons-react';
 import Link from 'next/link';
 
 import { Surface } from '@/components';
-import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+import { PATH_AUTH } from '@/routes';
 
 import classes from './page.module.css';
 
@@ -54,7 +54,7 @@ function Page() {
           </UnstyledButton>
           <Button
             component={Link}
-            href={PATH_DASHBOARD.default}
+            href={PATH_AUTH.signin}
             fullWidth={mobile_match}
           >
             Reset password

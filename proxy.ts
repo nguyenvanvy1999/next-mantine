@@ -1,6 +1,5 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { PATH_DASHBOARD } from '@/routes';
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -24,7 +23,7 @@ export async function proxy(request: NextRequest) {
 
   // Redirect authenticated users away from auth pages
   if (isAuthenticated && pathname.startsWith('/auth')) {
-    return NextResponse.redirect(new URL(PATH_DASHBOARD.default, request.url));
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   // Redirect unauthenticated users to login page for protected routes

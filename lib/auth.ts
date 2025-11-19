@@ -5,6 +5,7 @@ import { admin } from 'better-auth/plugins';
 import { ac, roles } from '@/lib/auth-access';
 import { env } from '@/lib/env';
 import { PrismaClient } from '@/lib/generated/prisma/client';
+import { adminClient } from 'better-auth/client/plugins';
 
 const adapter = new PrismaPg({
   connectionString: env.DATABASE_URL,
@@ -39,6 +40,7 @@ export const auth = betterAuth({
       roles,
       defaultRole: 'user',
     }),
+    adminClient()
   ],
   trustedOrigins: [env.BETTER_AUTH_URL || 'http://localhost:3000'],
 });

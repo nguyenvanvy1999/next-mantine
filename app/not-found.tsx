@@ -13,8 +13,6 @@ import { IconChevronLeft, IconHome2 } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { PATH_DASHBOARD } from '@/routes';
-
 import classes from './error.module.css';
 
 function Error404() {
@@ -62,7 +60,7 @@ function Error404() {
               variant="outline"
               component={Link}
               leftSection={<IconHome2 size={18} />}
-              href={PATH_DASHBOARD.default}
+              href="/"
             >
               Take me to home page
             </Button>

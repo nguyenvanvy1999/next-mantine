@@ -28,7 +28,6 @@ import { useRouter } from 'next/navigation';
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { ErrorAlert } from '@/components';
-import { PATH_INVOICES } from '@/routes';
 
 const PAGE_SIZES = [5, 10, 20];
 
@@ -185,15 +184,12 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
               <IconCloudDownload size={ICON_SIZE} />
             </ActionIcon>
           </Tooltip>
-          <Tooltip label="View invoice details">
-            <ActionIcon
-              onClick={() =>
-                router.push(PATH_INVOICES.invoices.invoice_details(item.id))
-              }
-            >
+          {/* Invoice details page removed - functionality disabled */}
+          {/* <Tooltip label="View invoice details">
+            <ActionIcon>
               <IconEye size={ICON_SIZE} />
             </ActionIcon>
-          </Tooltip>
+          </Tooltip> */}
         </Group>
       ),
     },

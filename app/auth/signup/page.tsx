@@ -22,7 +22,7 @@ import { z } from 'zod';
 
 import { Surface } from '@/components';
 import { authClient } from '@/lib/auth-client';
-import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+import { PATH_AUTH } from '@/routes';
 
 import classes from './page.module.css';
 
@@ -81,7 +81,7 @@ function Page() {
         return;
       }
 
-      router.push(PATH_DASHBOARD.default);
+      router.push('/');
     } catch (err) {
       setError('An unexpected error occurred');
       console.error('Registration error:', err);

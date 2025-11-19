@@ -8,7 +8,7 @@ import {
   usePermissions,
 } from '@/lib/api/permissions';
 import { authClient } from '@/lib/auth-client';
-import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+import { PATH_AUTH } from '@/routes';
 
 // Type aliases for compatibility
 type LoginDto = components['schemas']['LoginDto'];
@@ -53,7 +53,7 @@ export const useAuth = () => {
         password,
         fetchOptions: {
           onSuccess: () => {
-            router.push(PATH_DASHBOARD.default);
+            router.push('/dashboard');
           },
           onError: (ctx) => {
             console.error('Login error:', ctx.error);
@@ -79,11 +79,11 @@ export const useAuth = () => {
   // Extract user data from Better Auth session
   const user = session?.user
     ? {
-        id: session.user.id,
-        email: session.user.email,
-        name: session.user.name,
-        image: session.user.image,
-      }
+      id: session.user.id,
+      email: session.user.email,
+      name: session.user.name,
+      image: session.user.image,
+    }
     : undefined;
 
   // Extract permissions and roles from user
