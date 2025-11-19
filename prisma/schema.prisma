@@ -20,25 +20,28 @@ model user {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   
-  // Custom fields for permissions and roles
-  permissions   String[]  @default([])
-  roles         String[]  @default([])
+  // Better Auth Admin Plugin fields
+  role          String    @default("user")
+  banned        Boolean   @default(false)
+  banReason     String?
+  banExpires    DateTime?
   
   sessions      session[]
   accounts      account[]
 }
 
 model session {
-  id        String   @id @default(cuid())
-  userId    String
-  expiresAt DateTime
-  token     String   @unique
-  ipAddress String?
-  userAgent String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             String   @id @default(cuid())
+  userId         String
+  expiresAt      DateTime
+  token          String   @unique
+  ipAddress      String?
+  userAgent      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  impersonatedBy String?
   
-  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user           user     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   @@index([userId])
 }

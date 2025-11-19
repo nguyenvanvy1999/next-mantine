@@ -1,6 +1,8 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
+import { admin } from 'better-auth/plugins';
+import { ac, roles } from '@/lib/auth-access';
 import { env } from '@/lib/env';
 import { PrismaClient } from '@/lib/generated/prisma/client';
 
@@ -31,20 +33,13 @@ export const auth = betterAuth({
     expiresIn: 60 * 60, // 1 hour in seconds
     updateAge: 60 * 5, // Update session every 5 minutes
   },
-  user: {
-    additionalFields: {
-      permissions: {
-        type: 'string[]',
-        required: false,
-        defaultValue: [],
-      },
-      roles: {
-        type: 'string[]',
-        required: false,
-        defaultValue: [],
-      },
-    },
-  },
+  plugins: [
+    admin({
+      ac,
+      roles,
+      defaultRole: 'user',
+    }),
+  ],
   trustedOrigins: [env.BETTER_AUTH_URL || 'http://localhost:3000'],
 });
 
