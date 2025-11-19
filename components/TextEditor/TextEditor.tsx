@@ -34,6 +34,7 @@ const TextEditor = ({ content, label, width, ...others }: TextEditorProps) => {
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
     ],
     content,
+    immediatelyRender: false,
   });
 
   return (

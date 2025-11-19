@@ -29,10 +29,10 @@ import {
   IconSend,
 } from '@tabler/icons-react';
 import Placeholder from '@tiptap/extension-placeholder';
-import { BubbleMenu, useEditor } from '@tiptap/react';
+import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useEffect, useMemo, useState } from 'react';
-
+import { BubbleMenu } from '@tiptap/react/menus'
 import {
   ChatItem,
   ChatsList,
@@ -83,6 +83,7 @@ function Chat() {
       Placeholder.configure({ placeholder: 'Type your message' }),
     ],
     content: '',
+    immediatelyRender: false,
   });
 
   // Fetch chats list
