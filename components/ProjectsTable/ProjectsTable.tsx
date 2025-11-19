@@ -1,10 +1,9 @@
-import { ReactNode } from 'react';
-
-import { Badge, MantineColor } from '@mantine/core';
+import { Badge, type MantineColor } from '@mantine/core';
 import { DataTable } from 'mantine-datatable';
+import type { ReactNode } from 'react';
 
 import { ErrorAlert } from '@/components';
-import { components } from '@/lib/api';
+import type { components } from '@/lib/api';
 
 type Status = 'In Progress' | 'Cancelled' | 'Completed' | 'Pending' | string;
 

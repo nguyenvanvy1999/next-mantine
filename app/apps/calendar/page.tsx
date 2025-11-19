@@ -1,17 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-
 import { formatDate } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { Anchor, Container, Paper, Stack } from '@mantine/core';
+import { Anchor, Container, Stack } from '@mantine/core';
+import { useState } from 'react';
 
 import { PageHeader, Surface } from '@/components';
 import { PATH_DASHBOARD } from '@/routes';
-import { INITIAL_EVENTS, createEventId } from '@/utils';
+import { createEventId, INITIAL_EVENTS } from '@/utils';
 import './page.css';
 
 const items = [
@@ -57,8 +56,8 @@ function Calendar() {
   };
 
   const handleDateSelect = (selectInfo: any) => {
-    let title = prompt('Please enter a new title for your event');
-    let calendarApi = selectInfo.view.calendar;
+    const title = prompt('Please enter a new title for your event');
+    const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
 
@@ -149,10 +148,10 @@ function Calendar() {
               eventsSet={handleEvents}
               // called after events are initialized/added/changed/removed
               /* you can update a remote database when these fire:
-              eventAdd={function(){}}
-              eventChange={function(){}}
-              eventRemove={function(){}}
-              */
+          eventAdd={function(){}}
+          eventChange={function(){}}
+          eventRemove={function(){}}
+          */
             />
           </Surface>
         </Stack>

@@ -1,16 +1,15 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
-
 import {
   ColorSchemeScript,
   MantineProvider,
-  MantineTheme,
+  type MantineTheme,
 } from '@mantine/core';
 import { DatesProvider } from '@mantine/dates';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { Open_Sans } from 'next/font/google';
+import { useEffect, useMemo } from 'react';
 
 import { AuthProvider } from '@/components/auth/AuthProvider';
 import {
@@ -19,7 +18,9 @@ import {
   useThemeCustomizer,
 } from '@/contexts/theme-customizer';
 import { createDynamicTheme } from '@/theme';
-import '@mantine/core/styles.css';
+import '@mantine/core/styles/global.css';
+import '@mantine/core/styles/baseline.css';
+import '@mantine/core/styles/default-css-variables.css';
 import '@mantine/dates/styles.css';
 import '@mantine/tiptap/styles.css';
 import '@mantine/carousel/styles.css';
@@ -103,7 +104,6 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
         settings={{
           firstDayOfWeek: 0,
           weekendDays: [0],
-          timezone: 'UTC',
         }}
       >
         <Notifications position="bottom-right" zIndex={1000} />

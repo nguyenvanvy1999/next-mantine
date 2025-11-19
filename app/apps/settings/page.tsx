@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import {
   Anchor,
   Box,
@@ -11,7 +9,7 @@ import {
   Grid,
   Group,
   Image,
-  PaperProps,
+  type PaperProps,
   Stack,
   Text,
   TextInput,
@@ -19,6 +17,7 @@ import {
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { IconCloudUpload, IconDeviceFloppy } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 
 import { PageHeader, Surface, TextEditor } from '@/components';
 import { useAuth } from '@/hooks/useAuth';

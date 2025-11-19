@@ -1,5 +1,3 @@
-import { useEffect, useMemo, useState } from 'react';
-
 import {
   Box,
   Collapse,
@@ -13,6 +11,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconChevronRight } from '@tabler/icons-react';
 import * as _ from 'lodash';
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
 
 import classes from './NavLinks.module.css';
 

@@ -1,12 +1,10 @@
 'use client';
 
-import { useCallback, useState } from 'react';
-
 import {
   Anchor,
   Button,
   Paper,
-  PaperProps,
+  type PaperProps,
   SimpleGrid,
   Skeleton,
   Stack,
@@ -15,6 +13,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure, useFetch } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
+import { useCallback, useState } from 'react';
 
 import EditProductDrawer from '@/app/apps/products/components/EditProductDrawer';
 import NewProductDrawer from '@/app/apps/products/components/NewProductDrawer';
@@ -23,8 +22,8 @@ import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { PermissionGate } from '@/lib/api/permissions';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
-import { IProduct } from '@/types/products';
+import type { IApiResponse } from '@/types/api-response';
+import type { IProduct } from '@/types/products';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

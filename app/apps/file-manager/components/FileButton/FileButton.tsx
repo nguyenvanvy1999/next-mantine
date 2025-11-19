@@ -1,11 +1,10 @@
-import { Flex, PaperProps, Stack, Text } from '@mantine/core';
+import { Flex, type PaperProps, Stack, Text } from '@mantine/core';
 import { IconPointFilled } from '@tabler/icons-react';
 
-import { IFile } from '@/app/apps/file-manager/types';
+import type { IFile } from '@/app/apps/file-manager/types';
 import { Surface } from '@/components';
-
-import classes from './FileButton.module.css';
 import { resolveFileIcon } from '../../utils';
+import classes from './FileButton.module.css';
 
 type FileButtonProps = PaperProps & {
   file: IFile;

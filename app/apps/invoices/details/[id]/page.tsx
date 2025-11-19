@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import {
   Anchor,
   Badge,
@@ -11,7 +9,7 @@ import {
   Grid,
   Group,
   Paper,
-  PaperProps,
+  type PaperProps,
   Stack,
   Table,
   Text,
@@ -19,15 +17,16 @@ import {
 } from '@mantine/core';
 import { useFetch } from '@mantine/hooks';
 import { IconDownload, IconEdit, IconPrinter } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 
 import { PageHeader } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
+import type { IApiResponse } from '@/types/api-response';
 import {
-  IInvoice,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
+  type IInvoice,
 } from '@/types/invoice';
 
 const PAPER_PROPS: PaperProps = {

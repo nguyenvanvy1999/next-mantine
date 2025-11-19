@@ -1,14 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-
 import {
   Anchor,
   Button,
   Container,
   Flex,
   Paper,
-  PaperProps,
+  type PaperProps,
   SimpleGrid,
   Stack,
   Switch,
@@ -17,6 +15,7 @@ import {
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import { Metadata } from 'next';
+import { useState } from 'react';
 
 import { Faqs, PageHeader, PricingCard, Surface } from '@/components';
 import { PATH_DASHBOARD } from '@/routes';

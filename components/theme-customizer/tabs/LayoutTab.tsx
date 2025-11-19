@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   Box,
   Group,
@@ -18,8 +16,9 @@ import {
   IconRectangle,
   IconSquare,
 } from '@tabler/icons-react';
+import React from 'react';
 
-import { ThemeConfig } from '@/contexts/theme-customizer';
+import type { ThemeConfig } from '@/contexts/theme-customizer';
 
 interface LayoutTabProps {
   config: ThemeConfig;

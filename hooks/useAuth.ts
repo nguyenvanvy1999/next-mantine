@@ -2,14 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
-
-import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
+import type { components } from '@/lib/api';
 import {
-  usePermissions,
   clearUserPermissions,
   type Permission,
+  usePermissions,
 } from '@/lib/api/permissions';
-import type { components } from '@/lib/api';
+import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';
 
 // Type aliases for compatibility
 type LoginDto = components['schemas']['LoginDto'];

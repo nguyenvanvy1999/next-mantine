@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import {
   ActionIcon,
   Badge,
@@ -24,13 +22,14 @@ import {
   IconSearch,
   IconTrash,
 } from '@tabler/icons-react';
+import { useState } from 'react';
 
 import { useAuth } from '@/hooks/useAuth';
-import { type components } from '@/lib/endpoints';
+import type { components } from '@/lib/endpoints';
 import {
-  InvoiceStatus,
   getInvoiceStatusColor,
   getInvoiceStatusLabel,
+  InvoiceStatus,
 } from '@/types/invoice';
 
 // Use the correct OpenAPI DTO type

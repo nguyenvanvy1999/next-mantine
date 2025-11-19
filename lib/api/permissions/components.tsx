@@ -1,7 +1,6 @@
-import React from 'react';
-
 import { Alert, Text } from '@mantine/core';
 import { IconLock } from '@tabler/icons-react';
+import type React from 'react';
 
 import {
   useHasAllPermissions,

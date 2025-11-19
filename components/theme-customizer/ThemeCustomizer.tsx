@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import {
   Badge,
   Box,
@@ -21,6 +19,7 @@ import {
   IconRefresh,
   IconX,
 } from '@tabler/icons-react';
+import { useEffect } from 'react';
 
 import { useThemeCustomizer } from '@/contexts/theme-customizer';
 

@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import {
   Alert,
   Button,
@@ -12,7 +10,7 @@ import {
   PasswordInput,
   Text,
   TextInput,
-  TextProps,
+  type TextProps,
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
@@ -20,6 +18,7 @@ import { IconAlertCircle } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 
 import { Surface } from '@/components';
 import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';

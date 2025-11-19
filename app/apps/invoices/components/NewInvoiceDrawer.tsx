@@ -1,27 +1,26 @@
 'use client';
 
-import { useState } from 'react';
-
 import {
   Button,
   Divider,
   Drawer,
-  DrawerProps,
+  type DrawerProps,
   Group,
   LoadingOverlay,
   NumberInput,
   Select,
   Stack,
-  TextInput,
   Textarea,
+  TextInput,
   Title,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { useState } from 'react';
 
 import { useAuth } from '@/hooks/useAuth';
-import { type ApiResponse, type components } from '@/lib/endpoints';
+import type { ApiResponse, components } from '@/lib/endpoints';
 import { InvoiceStatus } from '@/types/invoice';
 
 // Use the correct OpenAPI DTO type

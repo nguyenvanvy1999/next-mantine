@@ -19,7 +19,7 @@ import {
 } from '@mantine/core';
 import { IconComponents } from '@tabler/icons-react';
 
-import { COLOR_SCHEMES, ThemeConfig } from '@/contexts/theme-customizer';
+import { COLOR_SCHEMES, type ThemeConfig } from '@/contexts/theme-customizer';
 
 interface ThemePreviewCanvasProps {
   config: ThemeConfig;

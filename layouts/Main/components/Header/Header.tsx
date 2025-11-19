@@ -7,11 +7,11 @@ import {
   Group,
   Indicator,
   Menu,
+  rem,
   Stack,
   Text,
   TextInput,
   Tooltip,
-  rem,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
@@ -27,7 +27,10 @@ import {
 import { LanguagePicker } from '@/components';
 import { MESSAGES } from '@/constants/messages';
 import { NOTIFICATIONS } from '@/constants/notifications';
-import { HeaderVariant, useSidebarConfig } from '@/contexts/theme-customizer';
+import {
+  type HeaderVariant,
+  useSidebarConfig,
+} from '@/contexts/theme-customizer';
 import { useAuth } from '@/hooks/useAuth';
 
 const ICON_SIZE = 20;

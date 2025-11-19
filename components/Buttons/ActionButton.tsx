@@ -1,4 +1,4 @@
-import { ActionIcon, ActionIconProps, rem } from '@mantine/core';
+import { ActionIcon, type ActionIconProps, rem } from '@mantine/core';
 import { IconUser } from '@tabler/icons-react';
 
 type ActionButtonProps = { iconSize?: number } & ActionIconProps;

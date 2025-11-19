@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import {
@@ -24,9 +22,10 @@ import {
   IconMessageCircle,
   IconTrash,
 } from '@tabler/icons-react';
+import { useState } from 'react';
 
 import { Surface } from '@/components';
-import { type components } from '@/lib/endpoints';
+import type { components } from '@/lib/endpoints';
 
 import classes from './KanbanCard.module.css';
 

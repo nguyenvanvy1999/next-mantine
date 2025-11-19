@@ -1,4 +1,4 @@
-import { Accordion, Box, BoxProps, Title } from '@mantine/core';
+import { Accordion, Box, type BoxProps, Title } from '@mantine/core';
 
 import classes from './Faqs.module.css';
 

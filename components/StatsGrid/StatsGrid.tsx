@@ -1,6 +1,5 @@
-import { ReactNode } from 'react';
-
-import { PaperProps, SimpleGrid, Skeleton } from '@mantine/core';
+import { type PaperProps, SimpleGrid, Skeleton } from '@mantine/core';
+import type { ReactNode } from 'react';
 
 import { ErrorAlert } from '@/components';
 import StatsCard from '@/components/StatsCard/StatsCard';

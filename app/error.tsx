@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import {
   Button,
   Center,
@@ -14,6 +12,7 @@ import {
 } from '@mantine/core';
 import { IconHome2, IconRefresh } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import classes from './error.module.css';
 

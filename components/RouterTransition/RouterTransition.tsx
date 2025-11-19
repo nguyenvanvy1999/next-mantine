@@ -1,8 +1,8 @@
 'use client';
-import { useEffect } from 'react';
 
 import { NavigationProgress, nprogress } from '@mantine/nprogress';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const RouterTransition = () => {
   const router = useRouter();

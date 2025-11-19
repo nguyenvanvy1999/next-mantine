@@ -1,8 +1,7 @@
+import { ActionIcon, ColorSwatch, SimpleGrid, Tooltip } from '@mantine/core';
 import React from 'react';
 
-import { ActionIcon, ColorSwatch, SimpleGrid, Tooltip } from '@mantine/core';
-
-import { COLOR_SCHEMES, PrimaryColor } from '@/contexts/theme-customizer';
+import { COLOR_SCHEMES, type PrimaryColor } from '@/contexts/theme-customizer';
 
 interface ColorPickerProps {
   value: PrimaryColor;

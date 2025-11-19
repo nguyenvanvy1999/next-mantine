@@ -25,7 +25,7 @@ import {
   IconVideo,
 } from '@tabler/icons-react';
 
-import { IFileType, IFolderType } from '@/app/apps/file-manager/types';
+import type { IFileType, IFolderType } from '@/app/apps/file-manager/types';
 
 export function resolveFileIcon(fileType: IFileType) {
   const iconMap: Record<IFileType, React.ElementType> = {

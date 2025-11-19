@@ -3,11 +3,11 @@ import {
   Group,
   List,
   Paper,
-  PaperProps,
+  type PaperProps,
+  rem,
   Text,
   ThemeIcon,
   Title,
-  rem,
 } from '@mantine/core';
 import { IconArrowRight, IconCheck } from '@tabler/icons-react';
 import CountUp from 'react-countup';

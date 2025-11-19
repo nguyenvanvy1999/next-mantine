@@ -1,8 +1,7 @@
 'use client';
 
+import { YearPickerInput, type YearPickerInputProps } from '@mantine/dates';
 import { useState } from 'react';
-
-import { YearPickerInput, YearPickerInputProps } from '@mantine/dates';
 
 type YearFieldProps = YearPickerInputProps;
 
@@ -19,7 +18,7 @@ const YearField = ({ ...others }: YearFieldProps) => {
       label="Pick date"
       placeholder="Pick date"
       value={value}
-      // @ts-ignore
+      // @ts-expect-error
       onChange={setValue}
       {...others}
     />

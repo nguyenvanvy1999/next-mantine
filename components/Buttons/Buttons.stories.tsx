@@ -1,8 +1,6 @@
-import { IconNotebook } from '@tabler/icons-react';
-
-import Buttons from './Buttons';
-
 import type { StoryObj } from '@storybook/react';
+import { IconNotebook } from '@tabler/icons-react';
+import Buttons from './Buttons';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

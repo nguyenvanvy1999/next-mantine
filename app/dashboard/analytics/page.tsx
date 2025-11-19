@@ -3,11 +3,11 @@
 import {
   Container,
   Grid,
-  PaperProps,
+  type PaperProps,
+  rem,
   SimpleGrid,
   Skeleton,
   Stack,
-  rem,
 } from '@mantine/core';
 
 import {

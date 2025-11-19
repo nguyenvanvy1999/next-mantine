@@ -9,7 +9,7 @@ import {
   Grid,
   Group,
   Paper,
-  PaperProps,
+  type PaperProps,
   SimpleGrid,
   Stack,
   Text,

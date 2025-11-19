@@ -1,7 +1,5 @@
 'use client';
 
-import { ComponentProps } from 'react';
-
 import {
   Avatar,
   Flex,
@@ -9,9 +7,10 @@ import {
   Stack,
   Text,
   UnstyledButton,
-  UnstyledButtonProps,
+  type UnstyledButtonProps,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import type { ComponentProps } from 'react';
 
 import classes from './ChatsList.module.css';
 

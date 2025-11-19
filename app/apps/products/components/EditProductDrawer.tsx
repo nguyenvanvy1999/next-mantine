@@ -1,11 +1,9 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-
 import {
   Button,
   Drawer,
-  DrawerProps,
+  type DrawerProps,
   Group,
   LoadingOverlay,
   NumberInput,
@@ -13,14 +11,15 @@ import {
   Stack,
   Switch,
   Text,
-  TextInput,
   Textarea,
+  TextInput,
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useAuth } from '@/hooks/useAuth';
-import { IProduct, IProductCategory } from '@/types/products';
+import type { IProduct, IProductCategory } from '@/types/products';
 
 type EditProductDrawerProps = Omit<DrawerProps, 'title' | 'children'> & {
   product: IProduct | null;

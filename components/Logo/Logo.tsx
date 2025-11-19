@@ -2,7 +2,7 @@ import {
   Group,
   Text,
   UnstyledButton,
-  UnstyledButtonProps,
+  type UnstyledButtonProps,
 } from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';

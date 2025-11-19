@@ -1,8 +1,6 @@
-import MOCKS from '@/public/mocks/Traffic.json';
-
-import TrafficTable from './TrafficTable';
-
 import type { StoryObj } from '@storybook/react';
+import MOCKS from '@/public/mocks/Traffic.json';
+import TrafficTable from './TrafficTable';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

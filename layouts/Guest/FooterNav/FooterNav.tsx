@@ -1,6 +1,6 @@
 import {
   ActionIcon,
-  ActionIconProps,
+  type ActionIconProps,
   Container,
   Divider,
   Flex,

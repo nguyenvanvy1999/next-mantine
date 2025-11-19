@@ -1,7 +1,5 @@
 'use client';
 
-import { ReactNode, useEffect, useMemo, useState } from 'react';
-
 import {
   ActionIcon,
   Avatar,
@@ -9,7 +7,7 @@ import {
   Flex,
   Group,
   HoverCard,
-  MantineColor,
+  type MantineColor,
   MultiSelect,
   Stack,
   Text,
@@ -23,10 +21,11 @@ import { IconCloudDownload, IconEye, IconSearch } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
 import {
   DataTable,
-  DataTableProps,
-  DataTableSortStatus,
+  type DataTableProps,
+  type DataTableSortStatus,
 } from 'mantine-datatable';
 import { useRouter } from 'next/navigation';
+import { type ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { ErrorAlert } from '@/components';
 import { PATH_INVOICES } from '@/routes';
@@ -91,7 +90,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
   const router = useRouter();
   const statuses = useMemo(() => {
     const statuses = new Set(data.map((e) => e.status));
-    // @ts-ignore
+    // @ts-expect-error
     return [...statuses];
   }, [data]);
 
@@ -223,7 +222,7 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
             return false;
           }
 
-          // @ts-ignore
+          // @ts-expect-error
           if (
             selectedStatuses.length &&
             !selectedStatuses.some((s) => s === status)
@@ -246,11 +245,11 @@ const InvoicesTable = ({ data, error, loading }: InvoicesTableProps) => {
       verticalSpacing="xs"
       striped
       highlightOnHover
-      // @ts-ignore
+      // @ts-expect-error
       columns={columns}
       records={records}
       selectedRecords={selectedRecords}
-      // @ts-ignore
+      // @ts-expect-error
       onSelectedRecordsChange={setSelectedRecords}
       totalRecords={
         debouncedQuery || selectedStatuses.length > 0

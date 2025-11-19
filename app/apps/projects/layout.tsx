@@ -1,8 +1,7 @@
 'use client';
 
-import { PropsWithChildren } from 'react';
-
 import { Container, Stack } from '@mantine/core';
+import type { PropsWithChildren } from 'react';
 
 export default function DashboardLayout({ children }: PropsWithChildren) {
   return (

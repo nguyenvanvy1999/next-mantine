@@ -1,6 +1,5 @@
-import NextAuth from 'next-auth';
-import { NextAuthOptions } from 'next-auth';
-import { JWT } from 'next-auth/jwt';
+import NextAuth, { type NextAuthOptions } from 'next-auth';
+import type { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 // Helper function to refresh the token
@@ -226,18 +225,18 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id as string;
 
         // Add custom fields to session
-        // @ts-ignore - Adding custom properties
+        // @ts-expect-error - Adding custom properties
         session.accessToken = token.accessToken;
-        // @ts-ignore
+        // @ts-expect-error
         session.roles = token.roles;
-        // @ts-ignore
+        // @ts-expect-error
         session.permissions = token.permissions;
-        // @ts-ignore
+        // @ts-expect-error
         session.expiration = token.expiration;
 
         // Add refresh token error to session if it exists
         if (token.error) {
-          // @ts-ignore
+          // @ts-expect-error
           session.error = token.error;
         }
       }

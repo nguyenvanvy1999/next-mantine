@@ -1,22 +1,21 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import {
   Button,
   Drawer,
-  DrawerProps,
+  type DrawerProps,
   Group,
   LoadingOverlay,
   Stack,
-  TextInput,
   Textarea,
+  TextInput,
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { useEffect, useState } from 'react';
 
 import { useAuth } from '@/hooks/useAuth';
-import { IProductCategory } from '@/types/products';
+import type { IProductCategory } from '@/types/products';
 
 type EditCategoryDrawer = Omit<DrawerProps, 'title' | 'children'> & {
   productCategory: IProductCategory | null;

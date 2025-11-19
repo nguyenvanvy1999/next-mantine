@@ -1,14 +1,13 @@
-import { createElement } from 'react';
-
 import {
   Flex,
-  MantineColor,
-  PaperProps,
+  type MantineColor,
+  type PaperProps,
   Progress,
   Stack,
   Text,
   ThemeIcon,
 } from '@mantine/core';
+import { createElement } from 'react';
 import CountUp from 'react-countup';
 
 import { Surface } from '@/components';

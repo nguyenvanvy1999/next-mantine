@@ -1,13 +1,12 @@
-import { ReactNode } from 'react';
-
 import {
   Avatar,
   Group,
   Text,
   UnstyledButton,
-  UnstyledButtonProps,
+  type UnstyledButtonProps,
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
+import type { ReactNode } from 'react';
 
 import classes from './UserButton.module.css';
 

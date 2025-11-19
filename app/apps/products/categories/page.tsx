@@ -1,7 +1,5 @@
 'use client';
 
-import { useCallback, useState } from 'react';
-
 import {
   Anchor,
   Button,
@@ -14,13 +12,14 @@ import {
 } from '@mantine/core';
 import { useDisclosure, useFetch } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
+import { useCallback, useState } from 'react';
 
 import NewCategoryDrawer from '@/app/apps/products/categories/components/NewCategoryDrawer';
 import { ErrorAlert, PageHeader, Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { PATH_DASHBOARD } from '@/routes';
-import { IApiResponse } from '@/types/api-response';
-import { IProductCategory } from '@/types/products';
+import type { IApiResponse } from '@/types/api-response';
+import type { IProductCategory } from '@/types/products';
 
 import { CategoryCard } from './components/CategoryCard';
 import EditCategoryDrawer from './components/EditCategoryDrawer';

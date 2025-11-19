@@ -1,4 +1,4 @@
-import { Badge, Group, PaperProps, Text } from '@mantine/core';
+import { Badge, Group, type PaperProps, Text } from '@mantine/core';
 import { IconArrowDownRight, IconArrowUpRight } from '@tabler/icons-react';
 
 import { Surface } from '@/components';

@@ -1,6 +1,6 @@
 let eventGuid = 0;
 const d = new Date();
-let todayStr = d.toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
+const todayStr = d.toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
 const INITIAL_EVENTS = [
   {

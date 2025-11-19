@@ -1,12 +1,10 @@
 'use client';
 
-import { ReactNode } from 'react';
-
 import { AppShell, Box, useMantineTheme } from '@mantine/core';
 import { useHeadroom } from '@mantine/hooks';
-
-import HeaderNav from './HeaderNav/HeaderNav';
+import type { ReactNode } from 'react';
 import FooterNav from '../Main/components/Footer';
+import HeaderNav from './HeaderNav/HeaderNav';
 
 type GuestLayoutProps = {
   children: ReactNode;

@@ -1,8 +1,7 @@
 'use client';
 
+import { DateInput, type DatePickerInputProps } from '@mantine/dates';
 import { useState } from 'react';
-
-import { DateInput, DatePickerInputProps } from '@mantine/dates';
 
 type DateFieldProps = DatePickerInputProps;
 
@@ -14,7 +13,7 @@ type DateFieldProps = DatePickerInputProps;
 const DateField = ({ ...others }: DateFieldProps) => {
   const [value, setValue] = useState<Date | null>(null);
   return (
-    // @ts-ignore
+    // @ts-expect-error
     <DateInput label="Pick date" placeholder="Pick date" {...others} />
   );
 };

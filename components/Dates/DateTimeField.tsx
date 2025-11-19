@@ -1,4 +1,4 @@
-import { DateTimePicker, DateTimePickerProps } from '@mantine/dates';
+import { DateTimePicker, type DateTimePickerProps } from '@mantine/dates';
 
 type DateTimeFieldProps = DateTimePickerProps;
 

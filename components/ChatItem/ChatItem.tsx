@@ -1,4 +1,11 @@
-import { Avatar, Box, BoxProps, Flex, Skeleton, Text } from '@mantine/core';
+import {
+  Avatar,
+  Box,
+  type BoxProps,
+  Flex,
+  Skeleton,
+  Text,
+} from '@mantine/core';
 
 import { Surface } from '@/components';
 

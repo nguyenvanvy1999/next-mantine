@@ -1,6 +1,5 @@
-import ChatItem from './ChatItem';
-
 import type { StoryObj } from '@storybook/react';
+import ChatItem from './ChatItem';
 
 const MOCKS = {
   id: '50d72d75-93b2-4c38-9d48-53a8292bf4bc',

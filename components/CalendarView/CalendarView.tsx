@@ -1,4 +1,4 @@
-import { Calendar, CalendarProps } from '@mantine/dates';
+import { Calendar, type CalendarProps } from '@mantine/dates';
 
 type CalendarViewProps = CalendarProps;
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { Slider, SliderProps } from '@mantine/core';
+import { Slider, type SliderProps } from '@mantine/core';
 
 type SliderInputProps = SliderProps;
 

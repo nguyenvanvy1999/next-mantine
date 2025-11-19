@@ -1,6 +1,5 @@
-import { FC } from 'react';
-
-import { PaperProps, Text } from '@mantine/core';
+import { type PaperProps, Text } from '@mantine/core';
+import type { FC } from 'react';
 
 import { Surface } from '@/components';
 

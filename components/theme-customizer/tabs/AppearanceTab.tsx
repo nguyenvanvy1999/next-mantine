@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   Box,
   Button,
@@ -27,8 +25,9 @@ import {
   IconSunHigh,
   IconZoomIn,
 } from '@tabler/icons-react';
+import React from 'react';
 
-import { COLOR_SCHEMES, ThemeConfig } from '@/contexts/theme-customizer';
+import { COLOR_SCHEMES, type ThemeConfig } from '@/contexts/theme-customizer';
 
 import { ColorPicker } from '../components/ColorPicker';
 

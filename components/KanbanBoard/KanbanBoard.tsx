@@ -1,21 +1,20 @@
 'use client';
 
-import { useEffect, useId, useMemo, useState } from 'react';
-
 import {
   DndContext,
-  DragEndEvent,
-  DragOverEvent,
+  type DragEndEvent,
+  type DragOverEvent,
   DragOverlay,
-  DragStartEvent,
+  type DragStartEvent,
   PointerSensor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { SortableContext, arrayMove } from '@dnd-kit/sortable';
+import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import { Box, Button, LoadingOverlay, Portal, ScrollArea } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconNewSection, IconPlus } from '@tabler/icons-react';
+import { useEffect, useId, useMemo, useState } from 'react';
 
 import { KanbanCard, KanbanColumn } from '@/components';
 import { type components, useKanbanTasksWithMutations } from '@/lib/endpoints';

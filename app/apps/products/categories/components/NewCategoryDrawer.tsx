@@ -1,18 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-
 import {
   Button,
   Drawer,
-  DrawerProps,
+  type DrawerProps,
   LoadingOverlay,
   Stack,
-  TextInput,
   Textarea,
+  TextInput,
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { useState } from 'react';
 
 import { useAuth } from '@/hooks/useAuth';
 

@@ -3,7 +3,7 @@
 import {
   ActionIcon,
   Group,
-  PaperProps,
+  type PaperProps,
   Text,
   useMantineColorScheme,
   useMantineTheme,

@@ -7,13 +7,14 @@ import '@mantine/carousel/styles.css';
 import '@mantine/notifications/styles.css';
 import 'mantine-datatable/styles.layer.css';
 
-import React, { useEffect } from 'react';
-import { addons } from '@storybook/preview-api';
-import { DARK_MODE_EVENT_NAME } from 'storybook-dark-mode';
 import { MantineProvider, useMantineColorScheme } from '@mantine/core';
+import { addons } from '@storybook/preview-api';
+import type { Preview } from '@storybook/react';
 import { themes } from '@storybook/theming';
-import { Preview } from '@storybook/react';
-// @ts-ignore
+import type React from 'react';
+import { useEffect } from 'react';
+import { DARK_MODE_EVENT_NAME } from 'storybook-dark-mode';
+// @ts-expect-error
 import { myTheme } from '../theme';
 
 // theme.ts file from previous step

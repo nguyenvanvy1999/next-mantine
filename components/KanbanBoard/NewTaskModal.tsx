@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import {
   Button,
   Group,
@@ -11,8 +9,9 @@ import {
   Textarea,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useEffect } from 'react';
 
-import { type components } from '@/lib/endpoints';
+import type { components } from '@/lib/endpoints';
 
 type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
 type TaskStatus = components['schemas']['TaskStatus'];

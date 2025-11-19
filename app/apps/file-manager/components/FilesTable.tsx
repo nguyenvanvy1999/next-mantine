@@ -1,17 +1,15 @@
 'use client';
 
-import React, { ReactNode, useEffect, useState } from 'react';
-
 import { Flex, Text, ThemeIcon } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import sortBy from 'lodash/sortBy';
 import {
   DataTable,
-  DataTableProps,
-  DataTableSortStatus,
+  type DataTableProps,
+  type DataTableSortStatus,
 } from 'mantine-datatable';
-
-import { IFile } from '@/app/apps/file-manager/types';
+import { type ReactNode, useEffect, useState } from 'react';
+import type { IFile } from '@/app/apps/file-manager/types';
 import { resolveFileIcon } from '@/app/apps/file-manager/utils';
 import { ErrorAlert } from '@/components';
 
@@ -32,9 +30,9 @@ export function FilesTable({ data, loading, error }: FilesTableProps) {
     columnAccessor: 'product',
     direction: 'asc',
   });
-  const [query, setQuery] = useState('');
+  const [query, _setQuery] = useState('');
   const [debouncedQuery] = useDebouncedValue(query, 200);
-  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+  const [selectedStatuses, _setSelectedStatuses] = useState<string[]>([]);
 
   const columns: DataTableProps<IFile>['columns'] = [
     {
@@ -75,7 +73,7 @@ export function FilesTable({ data, loading, error }: FilesTableProps) {
     const to = from + pageSize;
     const d = sortBy(data, sortStatus.columnAccessor) as IFile[];
     const dd = d.slice(from, to) as IFile[];
-    let filtered = sortStatus.direction === 'desc' ? dd.reverse() : dd;
+    const filtered = sortStatus.direction === 'desc' ? dd.reverse() : dd;
 
     setRecords(filtered);
   }, [sortStatus, data, page, pageSize, debouncedQuery, selectedStatuses]);
@@ -87,11 +85,11 @@ export function FilesTable({ data, loading, error }: FilesTableProps) {
       minHeight={200}
       verticalSpacing="sm"
       striped={true}
-      // @ts-ignore
+      // @ts-expect-error
       columns={columns}
       records={records}
       selectedRecords={selectedRecords}
-      // @ts-ignore
+      // @ts-expect-error
       onSelectedRecordsChange={setSelectedRecords}
       totalRecords={
         debouncedQuery || selectedStatuses.length > 0

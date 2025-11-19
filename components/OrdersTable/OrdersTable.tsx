@@ -1,12 +1,10 @@
 'use client';
 
-import { ReactNode, useEffect, useMemo, useState } from 'react';
-
 import {
   ActionIcon,
   Badge,
   Group,
-  MantineColor,
+  type MantineColor,
   MultiSelect,
   TextInput,
   Tooltip,
@@ -16,12 +14,13 @@ import { IconEdit, IconEye, IconSearch } from '@tabler/icons-react';
 import sortBy from 'lodash/sortBy';
 import {
   DataTable,
-  DataTableProps,
-  DataTableSortStatus,
+  type DataTableProps,
+  type DataTableSortStatus,
 } from 'mantine-datatable';
+import { type ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { ErrorAlert } from '@/components';
-import { type components } from '@/lib/endpoints';
+import type { components } from '@/lib/endpoints';
 
 type OrderDto = components['schemas']['OrderDto'];
 type OrderStatus = components['schemas']['OrderStatus'];

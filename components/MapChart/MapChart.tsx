@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
-
 import {
   ActionIcon,
   Group,
   Paper,
-  PaperProps,
+  type PaperProps,
   Text,
   useMantineTheme,
 } from '@mantine/core';
@@ -14,6 +12,7 @@ import { IconDotsVertical } from '@tabler/icons-react';
 import { csv } from 'd3-fetch';
 import { scaleLinear } from 'd3-scale';
 import sortBy from 'lodash/sortBy';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   ComposableMap,
   Geographies,
@@ -62,7 +61,7 @@ const MapChart = ({ ...others }: MapChartProps) => {
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
             geographies.map((geo) => (
-              // @ts-ignore
+              // @ts-expect-error
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
@@ -73,7 +72,7 @@ const MapChart = ({ ...others }: MapChartProps) => {
         </Geographies>
         {data.map(({ city_code, lng, lat, population }: any) => {
           return (
-            // @ts-ignore
+            // @ts-expect-error
             <Marker key={city_code} coordinates={[lng, lat]}>
               <circle
                 fill={theme.colors[theme.primaryColor][7]}

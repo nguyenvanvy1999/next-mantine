@@ -7,8 +7,8 @@ import {
   Divider,
   Flex,
   Group,
-  MantineColor,
-  PaperProps,
+  type MantineColor,
+  type PaperProps,
   Progress,
   Stack,
   Text,
@@ -17,7 +17,7 @@ import {
 import { IconNotebook, IconShare } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { type components } from '@/lib/endpoints';
+import type { components } from '@/lib/endpoints';
 
 import classes from './ProjectsCard.module.css';
 

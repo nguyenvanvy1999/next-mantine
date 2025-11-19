@@ -1,14 +1,14 @@
 'use client';
 
 import React, {
-  ReactNode,
   createContext,
+  type ReactNode,
   useContext,
   useEffect,
   useState,
 } from 'react';
 
-import { ThemeConfig, defaultThemeConfig } from './types';
+import { defaultThemeConfig, type ThemeConfig } from './types';
 import { useConfigUpdater } from './useConfigUpdater';
 import { ThemeCSS, ThemeStorage } from './utils';
 

@@ -1,12 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import {
   Badge,
   Button,
   Drawer,
-  DrawerProps,
+  type DrawerProps,
   Group,
   LoadingOverlay,
   NumberInput,
@@ -18,6 +16,7 @@ import {
 } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { useEffect, useState } from 'react';
 
 import { type components, deleteOrder, updateOrder } from '@/lib/endpoints';
 

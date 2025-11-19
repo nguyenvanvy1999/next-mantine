@@ -1,7 +1,5 @@
 'use client';
 
-import { ReactNode } from 'react';
-
 import { DonutChart } from '@mantine/charts';
 import {
   Button,
@@ -9,7 +7,7 @@ import {
   Flex,
   Grid,
   Paper,
-  PaperProps,
+  type PaperProps,
   Stack,
   Text,
   ThemeIcon,
@@ -19,8 +17,9 @@ import {
 } from '@mantine/core';
 import { IconChevronRight, IconPointFilled } from '@tabler/icons-react';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
-import { IFileActivity, IFolder } from '@/app/apps/file-manager/types';
+import type { IFileActivity, IFolder } from '@/app/apps/file-manager/types';
 import {
   resolveActionIcon,
   resolveFileIcon,
@@ -41,16 +40,8 @@ export default function FileManagerLayout({
 }: {
   children: ReactNode;
 }) {
-  const {
-    data: foldersData,
-    loading: foldersLoading,
-    error: foldersError,
-  } = useFetchData('/mocks/Folders.json');
-  const {
-    data: fileActivityData,
-    loading: fileActivityLoading,
-    error: fileActivityError,
-  } = useFetchData('/mocks/FileActivities.json');
+  const { data: foldersData } = useFetchData('/mocks/Folders.json');
+  const { data: fileActivityData } = useFetchData('/mocks/FileActivities.json');
 
   const folders = foldersData.slice(0, 5).map((folder: IFolder) => {
     const Icon = resolveFolderIcon(folder.name);

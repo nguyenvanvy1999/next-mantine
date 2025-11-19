@@ -1,7 +1,5 @@
 'use client';
 
-import { ReactNode } from 'react';
-
 import {
   ActionIcon,
   Affix,
@@ -12,6 +10,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { IconPalette } from '@tabler/icons-react';
+import type { ReactNode } from 'react';
 
 import { ThemeCustomizer } from '@/components';
 import {

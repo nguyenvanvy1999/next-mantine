@@ -1,8 +1,7 @@
-import { ReactNode } from 'react';
-
-import { ActionIcon, Group, PaperProps, Text } from '@mantine/core';
+import { ActionIcon, Group, type PaperProps, Text } from '@mantine/core';
 import { IconDotsVertical } from '@tabler/icons-react';
 import { DataTable } from 'mantine-datatable';
+import type { ReactNode } from 'react';
 
 import { ErrorAlert, Surface } from '@/components';
 

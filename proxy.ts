@@ -1,10 +1,8 @@
 import { clerkMiddleware } from '@clerk/nextjs/server';
+import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-
 import { PATH_DASHBOARD } from '@/routes';
-
-import type { NextRequest } from 'next/server';
 
 export default clerkMiddleware();
 

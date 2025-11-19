@@ -4,7 +4,7 @@ import {
   Anchor,
   Container,
   Paper,
-  PaperProps,
+  type PaperProps,
   Stack,
   Text,
 } from '@mantine/core';

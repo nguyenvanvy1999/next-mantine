@@ -122,24 +122,21 @@ export async function apiPost<T>(
   data?: any,
   options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
-  return withPermissionCheck(
-    async () => {
-      const { token } = await getCurrentTokenAndPermissions();
+  return withPermissionCheck(async () => {
+    const { token } = await getCurrentTokenAndPermissions();
 
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'POST',
-        headers: getAuthHeaders(token),
-        body: data ? JSON.stringify(data) : undefined,
-      });
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'POST',
+      headers: getAuthHeaders(token),
+      body: data ? JSON.stringify(data) : undefined,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
 
-      return response.json();
-    },
-    options?.permission,
-  );
+    return response.json();
+  }, options?.permission);
 }
 
 // Simple PUT function with NextAuth and optional permission check
@@ -148,24 +145,21 @@ export async function apiPut<T>(
   data?: any,
   options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
-  return withPermissionCheck(
-    async () => {
-      const { token } = await getCurrentTokenAndPermissions();
+  return withPermissionCheck(async () => {
+    const { token } = await getCurrentTokenAndPermissions();
 
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'PUT',
-        headers: getAuthHeaders(token),
-        body: data ? JSON.stringify(data) : undefined,
-      });
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(token),
+      body: data ? JSON.stringify(data) : undefined,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
 
-      return response.json();
-    },
-    options?.permission,
-  );
+    return response.json();
+  }, options?.permission);
 }
 
 // Simple DELETE function with NextAuth and optional permission check
@@ -173,23 +167,20 @@ export async function apiDelete<T>(
   endpoint: string,
   options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
-  return withPermissionCheck(
-    async () => {
-      const { token } = await getCurrentTokenAndPermissions();
+  return withPermissionCheck(async () => {
+    const { token } = await getCurrentTokenAndPermissions();
 
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'DELETE',
-        headers: getAuthHeaders(token),
-      });
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(token),
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
 
-      return response.json();
-    },
-    options?.permission,
-  );
+    return response.json();
+  }, options?.permission);
 }
 
 // Simple permission hook for components

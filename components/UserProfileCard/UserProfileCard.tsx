@@ -1,4 +1,4 @@
-import { Avatar, Button, PaperProps, Stack, Text } from '@mantine/core';
+import { Avatar, Button, type PaperProps, Stack, Text } from '@mantine/core';
 import { IconSend } from '@tabler/icons-react';
 
 import { Surface } from '@/components';

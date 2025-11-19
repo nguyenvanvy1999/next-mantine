@@ -1,20 +1,18 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
-
 import {
   Anchor,
   Button,
   Flex,
   Input,
   Paper,
-  PaperProps,
+  type PaperProps,
+  rem,
   SegmentedControl,
   SimpleGrid,
   Stack,
   Text,
   Title,
-  rem,
 } from '@mantine/core';
 import { Dropzone } from '@mantine/dropzone';
 import {
@@ -28,6 +26,7 @@ import {
   IconUpload,
   IconX,
 } from '@tabler/icons-react';
+import React, { useMemo, useState } from 'react';
 
 import {
   ActionButton,
@@ -38,7 +37,7 @@ import { PageHeader, Surface } from '@/components';
 import { useFetchData } from '@/hooks';
 import { PATH_DASHBOARD } from '@/routes';
 
-import { IFile, IFolder } from './types';
+import type { IFile, IFolder } from './types';
 
 const items = [
   { title: 'Dashboard', href: PATH_DASHBOARD.default },

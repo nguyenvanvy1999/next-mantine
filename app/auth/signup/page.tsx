@@ -8,7 +8,7 @@ import {
   PasswordInput,
   Text,
   TextInput,
-  TextProps,
+  type TextProps,
   Title,
   useMantineTheme,
 } from '@mantine/core';

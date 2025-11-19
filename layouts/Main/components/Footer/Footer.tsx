@@ -1,7 +1,7 @@
 import {
   ActionIcon,
   Button,
-  ButtonProps,
+  type ButtonProps,
   Group,
   Menu,
   Text,

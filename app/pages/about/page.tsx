@@ -1,14 +1,12 @@
 'use client';
 
-import { createElement } from 'react';
-
 import {
   Anchor,
   Button,
   Container,
   Flex,
   Paper,
-  PaperProps,
+  type PaperProps,
   SimpleGrid,
   Stack,
   Text,
@@ -24,6 +22,7 @@ import {
   IconCode,
   IconExternalLink,
 } from '@tabler/icons-react';
+import { createElement } from 'react';
 
 import { PageHeader, Surface } from '@/components';
 import { PATH_DASHBOARD, PATH_GITHUB } from '@/routes';

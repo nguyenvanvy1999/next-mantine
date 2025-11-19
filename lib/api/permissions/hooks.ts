@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
-
 import { useSession } from 'next-auth/react';
-
+import { useCallback, useEffect, useState } from 'react';
+import type { Permission, PermissionCheck, UserPermissions } from './types';
 import {
   checkPermission,
   getUserPermissions,
@@ -10,8 +9,6 @@ import {
   hasPermission,
   isAdmin,
 } from './utils';
-
-import type { Permission, PermissionCheck, UserPermissions } from './types';
 
 /**
  * Hook to get current user permissions

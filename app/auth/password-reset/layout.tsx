@@ -1,9 +1,8 @@
 'use client';
 
-import { ReactNode } from 'react';
-
 import { Center, Stack } from '@mantine/core';
 import Image from 'next/image';
+import type { ReactNode } from 'react';
 
 type AuthProps = {
   children: ReactNode;

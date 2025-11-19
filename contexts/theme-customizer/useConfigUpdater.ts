@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { CardFeel, ColorScheme, PrimaryColor, ThemeConfig } from './types';
+import type { CardFeel, ColorScheme, PrimaryColor, ThemeConfig } from './types';
 
 interface UseConfigUpdaterProps {
   config: ThemeConfig;

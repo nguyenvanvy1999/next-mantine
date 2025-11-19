@@ -3,7 +3,7 @@
 import {
   ActionIcon,
   Group,
-  PaperProps,
+  type PaperProps,
   Text,
   useMantineColorScheme,
   useMantineTheme,
@@ -63,7 +63,7 @@ const SalesChart = ({ ...others }: SalesChartProps) => {
             total: {
               show: true,
               showAlways: true,
-              formatter: function (w: any) {
+              formatter: (w: any) => {
                 const totals = w.globals.seriesTotals;
 
                 const result = totals.reduce(

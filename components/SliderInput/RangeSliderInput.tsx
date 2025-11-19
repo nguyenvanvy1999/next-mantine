@@ -1,6 +1,6 @@
 'use client';
 
-import { RangeSlider, RangeSliderProps } from '@mantine/core';
+import { RangeSlider, type RangeSliderProps } from '@mantine/core';
 
 type RangeSliderInputProps = RangeSliderProps;
 

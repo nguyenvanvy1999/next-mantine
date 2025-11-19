@@ -1,12 +1,10 @@
 'use client';
 
-import { useCallback } from 'react';
-
 import {
   Anchor,
   Button,
   Paper,
-  PaperProps,
+  type PaperProps,
   SimpleGrid,
   Skeleton,
   Stack,
@@ -15,6 +13,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconMoodEmpty, IconPlus } from '@tabler/icons-react';
+import { useCallback } from 'react';
 
 import NewProjectDrawer from '@/app/apps/projects/components/NewProjectDrawer';
 import ProjectsCard from '@/app/apps/projects/components/ProjectsCard/ProjectsCard';

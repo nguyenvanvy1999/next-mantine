@@ -1,11 +1,18 @@
 'use client';
 
-import { Badge, Button, Group, PaperProps, Text, Title } from '@mantine/core';
+import {
+  Badge,
+  Button,
+  Group,
+  type PaperProps,
+  Text,
+  Title,
+} from '@mantine/core';
 import { IconEdit } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
-import { IProduct } from '@/types/products';
+import type { IProduct } from '@/types/products';
 
 interface ProductsCardProps extends Omit<PaperProps, 'children'> {
   data: IProduct;

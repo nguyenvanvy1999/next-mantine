@@ -2,7 +2,7 @@ import {
   Badge,
   Button,
   Group,
-  PaperProps,
+  type PaperProps,
   Stack,
   Text,
   Title,
@@ -10,7 +10,7 @@ import {
 import { IconEdit, IconEye } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
-import { type components } from '@/lib/endpoints';
+import type { components } from '@/lib/endpoints';
 
 type OrderDto = components['schemas']['OrderDto'];
 type OrderStatus = components['schemas']['OrderStatus'];

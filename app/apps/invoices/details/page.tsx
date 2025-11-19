@@ -1,7 +1,7 @@
 'use client';
 
-import { Anchor, Container, PaperProps, Stack } from '@mantine/core';
-import { Metadata } from 'next';
+import { Anchor, Container, type PaperProps, Stack } from '@mantine/core';
+import type { Metadata } from 'next';
 
 import { InvoiceDetailsCard, PageHeader } from '@/components';
 import { PATH_DASHBOARD, PATH_INVOICES } from '@/routes';

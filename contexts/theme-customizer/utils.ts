@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 
-import { COLOR_SCHEMES, ThemeConfig } from './types';
+import { COLOR_SCHEMES, type ThemeConfig } from './types';
 
 // Storage utilities
 export const ThemeStorage = {

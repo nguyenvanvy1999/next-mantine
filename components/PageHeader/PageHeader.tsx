@@ -3,14 +3,14 @@
 import {
   ActionIcon,
   Breadcrumbs,
-  BreadcrumbsProps,
+  type BreadcrumbsProps,
   Divider,
   Flex,
-  PaperProps,
+  type PaperProps,
+  rem,
   Stack,
   Text,
   Title,
-  rem,
   useMantineTheme,
 } from '@mantine/core';
 import { useColorScheme } from '@mantine/hooks';

@@ -1,13 +1,12 @@
 'use client';
 
-import { ReactNode, forwardRef } from 'react';
-
 import {
   Box,
-  BoxProps,
-  PaperProps,
+  type BoxProps,
   createPolymorphicComponent,
+  type PaperProps,
 } from '@mantine/core';
+import { forwardRef, type ReactNode } from 'react';
 
 import { useAppearanceConfig } from '@/contexts/theme-customizer';
 

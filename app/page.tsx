@@ -1,18 +1,17 @@
 'use client';
 
-import { createElement } from 'react';
-
 import {
   Box,
   Button,
   Container,
-  ContainerProps,
+  type ContainerProps,
   Flex,
   Grid,
   Group,
   Image,
   Paper,
-  PaperProps,
+  type PaperProps,
+  rem,
   SimpleGrid,
   Spoiler,
   Stack,
@@ -21,7 +20,6 @@ import {
   Title,
   Tooltip,
   UnstyledButton,
-  rem,
   useMantineColorScheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -31,6 +29,7 @@ import {
   IconPlayerPlay,
 } from '@tabler/icons-react';
 import Link from 'next/link';
+import { createElement } from 'react';
 
 import { HOME_APPS } from '@/constants/home-apps';
 import { HOME_DASHBOARDS } from '@/constants/home-dashboard';

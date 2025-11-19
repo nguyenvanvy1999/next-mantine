@@ -6,11 +6,11 @@ import {
   Flex,
   Menu,
   Paper,
-  PaperProps,
+  type PaperProps,
   Stack,
   Table,
   Text,
-  TextProps,
+  type TextProps,
   useMantineTheme,
 } from '@mantine/core';
 import { useColorScheme, useMediaQuery } from '@mantine/hooks';

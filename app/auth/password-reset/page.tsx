@@ -1,20 +1,19 @@
 'use client';
 
-import React from 'react';
-
 import {
   Button,
   Group,
   Paper,
+  rem,
   Text,
   TextInput,
   Title,
   UnstyledButton,
-  rem,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconChevronLeft } from '@tabler/icons-react';
 import Link from 'next/link';
+import React from 'react';
 
 import { Surface } from '@/components';
 import { PATH_AUTH, PATH_DASHBOARD } from '@/routes';

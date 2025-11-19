@@ -6,7 +6,7 @@ import {
   Grid,
   Group,
   Paper,
-  PaperProps,
+  type PaperProps,
   Stack,
   Text,
 } from '@mantine/core';

@@ -1,8 +1,7 @@
 'use client';
 
+import { MonthPickerInput, type MonthPickerInputProps } from '@mantine/dates';
 import { useState } from 'react';
-
-import { MonthPickerInput, MonthPickerInputProps } from '@mantine/dates';
 
 type MonthFieldProps = MonthPickerInputProps;
 
@@ -19,7 +18,7 @@ const MonthField = ({ ...others }: MonthFieldProps) => {
       label="Pick date"
       placeholder="Pick date"
       value={value}
-      // @ts-ignore
+      // @ts-expect-error
       onChange={setValue}
       {...others}
     />

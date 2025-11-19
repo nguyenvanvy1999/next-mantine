@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import {
   Alert,
   Anchor,
@@ -14,13 +12,13 @@ import {
   List,
   Loader,
   Paper,
+  rem,
   Stack,
   Text,
   ThemeIcon,
   Timeline,
   Title,
   TypographyStylesProvider,
-  rem,
 } from '@mantine/core';
 import {
   IconAlertTriangle,
@@ -36,8 +34,9 @@ import {
   IconTools,
   IconTrash,
 } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 
-import { ChangelogEntry } from '@/lib/changelog';
+import type { ChangelogEntry } from '@/lib/changelog';
 
 const getVersionBadgeColor = (type: string) => {
   switch (type) {

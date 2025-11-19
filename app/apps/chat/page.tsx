@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-
 import { Carousel } from '@mantine/carousel';
 import {
   ActionIcon,
@@ -12,14 +10,14 @@ import {
   Divider,
   Flex,
   Grid,
-  PaperProps,
+  type PaperProps,
+  rem,
   ScrollArea,
   Skeleton,
   Stack,
   Text,
   TextInput,
   Tooltip,
-  rem,
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
@@ -33,6 +31,7 @@ import {
 import Placeholder from '@tiptap/extension-placeholder';
 import { BubbleMenu, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { useEffect, useMemo, useState } from 'react';
 
 import {
   ChatItem,
@@ -179,8 +178,7 @@ function Chat() {
                     <>
                       <Carousel
                         height="100%"
-                        align="start"
-                        slidesToScroll={1}
+                        emblaOptions={{ align: 'start', slidesToScroll: 1 }}
                         px={32}
                         slideSize={{
                           base: '27.5%',
@@ -337,9 +335,7 @@ function Chat() {
                           size="xl"
                           radius="xl"
                           color={theme.colors[theme.primaryColor][7]}
-                          disabled={
-                            !Boolean(editor?.getText()) || !selectedChatId
-                          }
+                          disabled={!editor?.getText() || !selectedChatId}
                           loading={chatsListLoading || chatsItemsLoading}
                           onClick={handleSendMessage}
                         >

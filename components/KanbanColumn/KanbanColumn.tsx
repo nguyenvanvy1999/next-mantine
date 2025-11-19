@@ -1,7 +1,5 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-
 import { SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import {
@@ -11,20 +9,21 @@ import {
   Flex,
   Menu,
   Paper,
-  PaperProps,
+  type PaperProps,
+  rem,
   ScrollArea,
   Stack,
   Text,
   TextInput,
-  rem,
   useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
 import { IconDots, IconEdit, IconPlus, IconTrash } from '@tabler/icons-react';
+import { useMemo, useState } from 'react';
 
 import { KanbanCard } from '@/components';
-import { type components } from '@/lib/endpoints';
+import type { components } from '@/lib/endpoints';
 
 type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
 type TaskStatus = components['schemas']['TaskStatus'];

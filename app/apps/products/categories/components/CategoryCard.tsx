@@ -1,9 +1,9 @@
-import { Button, Group, PaperProps, Text, Title } from '@mantine/core';
+import { Button, Group, type PaperProps, Text, Title } from '@mantine/core';
 import { IconEdit } from '@tabler/icons-react';
 
 import { Surface } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
-import { IProductCategory } from '@/types/products';
+import type { IProductCategory } from '@/types/products';
 
 interface ProductCategoryCardProps extends Omit<PaperProps, 'children'> {
   data: IProductCategory;

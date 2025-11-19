@@ -1,4 +1,4 @@
-import { MantineTheme, createTheme, rem } from '@mantine/core';
+import { createTheme, type MantineTheme, rem } from '@mantine/core';
 
 // Create a dynamic theme that responds to our theme customizer
 export const createDynamicTheme = (config: {
