@@ -1,5 +1,6 @@
+import { APIError } from 'better-auth/api';
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/auth';
+import { auth, prisma } from '@/lib/auth';
 import type { RegisterRequestDto } from '@/types/user';
 
 // POST /api/auth/register - Custom registration endpoint with baseCurrencyId
@@ -55,33 +56,33 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create user using Better Auth by calling its signup endpoint internally
+    // Create user using Better Auth API
     const name = `${firstName} ${lastName}`.trim();
-    const baseUrl = request.headers.get('origin') || 'http://localhost:3000';
-    const signUpUrl = new URL('/api/auth/sign-up/email', baseUrl);
 
-    const signUpResponse = await fetch(signUpUrl.toString(), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        name,
-      }),
-    });
-
-    if (!signUpResponse.ok) {
-      const errorData = await signUpResponse.json().catch(() => ({}));
-      return NextResponse.json(
-        {
-          success: false,
-          message: errorData.message || 'Registration failed',
-          data: null,
+    try {
+      await auth.api.signUpEmail({
+        body: {
+          email,
+          password,
+          name,
         },
-        { status: signUpResponse.status },
-      );
+        headers: request.headers,
+      });
+    } catch (error) {
+      // Handle Better Auth API errors
+      if (error instanceof APIError) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: error.message || 'Registration failed',
+            data: null,
+          },
+          { status: 500 },
+        );
+      }
+
+      // Re-throw unexpected errors
+      throw error;
     }
 
     // Get the created user by email

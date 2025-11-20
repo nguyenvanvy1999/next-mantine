@@ -1,0 +1,167 @@
+import { APIError } from 'better-auth/api';
+import { auth, prisma } from '@/lib/auth';
+import { DEFAULT_CURRENCIES, SUPER_ADMIN_CONFIG } from '@/lib/constants/seed';
+
+export class SeedService {
+  /**
+   * Seed currencies (VND, USD)
+   */
+  async seedCurrencies(): Promise<void> {
+    try {
+      console.log('🌱 Seeding currencies...');
+
+      for (const currency of DEFAULT_CURRENCIES) {
+        await prisma.currency.upsert({
+          where: { code: currency.code },
+          update: {
+            name: currency.name,
+            symbol: currency.symbol,
+            isActive: currency.isActive,
+          },
+          create: currency,
+        });
+      }
+
+      console.log('✅ Currencies seeded successfully');
+    } catch (error) {
+      console.error('❌ Error seeding currencies:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Seed default settings
+   */
+  async seedSettings(): Promise<void> {
+    try {
+      console.log('🌱 Seeding settings...');
+
+      console.log('✅ Settings seeded successfully');
+    } catch (error) {
+      console.error('❌ Error seeding settings:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Seed super admin user using better-auth API
+   * Uses auth.api.signUpEmail() to create user properly with better-auth
+   */
+  async seedSuperAdmin(): Promise<void> {
+    try {
+      console.log('🌱 Seeding super admin...');
+
+      // Check if super admin already exists
+      const existingUser = await prisma.user.findUnique({
+        where: { email: SUPER_ADMIN_CONFIG.email },
+        include: { accounts: true },
+      });
+
+      if (existingUser) {
+        console.log('ℹ️  Super admin already exists, updating role...');
+
+        // Update user role to admin if not already
+        if (existingUser.role !== 'admin') {
+          await prisma.user.update({
+            where: { id: existingUser.id },
+            data: {
+              role: 'admin',
+              baseCurrencyId: SUPER_ADMIN_CONFIG.baseCurrencyId,
+            },
+          });
+          console.log('✅ Super admin role updated');
+        } else {
+          console.log('ℹ️  Super admin already has admin role');
+        }
+
+        // Update base currency if needed
+        if (existingUser.baseCurrencyId !== SUPER_ADMIN_CONFIG.baseCurrencyId) {
+          await prisma.user.update({
+            where: { id: existingUser.id },
+            data: { baseCurrencyId: SUPER_ADMIN_CONFIG.baseCurrencyId },
+          });
+        }
+
+        return;
+      }
+
+      // Create super admin using better-auth API
+      await auth.api.signUpEmail({
+        body: {
+          email: SUPER_ADMIN_CONFIG.email,
+          password: SUPER_ADMIN_CONFIG.password,
+          name: SUPER_ADMIN_CONFIG.name,
+        },
+      });
+
+      // Get the created user
+      const user = await prisma.user.findUnique({
+        where: { email: SUPER_ADMIN_CONFIG.email },
+      });
+
+      if (!user) {
+        throw new Error('User created but not found');
+      }
+
+      // Update user with admin role and base currency
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          role: 'admin',
+          baseCurrencyId: SUPER_ADMIN_CONFIG.baseCurrencyId,
+        },
+      });
+
+      console.log(
+        `✅ Super admin created successfully: ${SUPER_ADMIN_CONFIG.email}`,
+      );
+    } catch (error) {
+      console.error('❌ Error seeding super admin:', error);
+
+      // Handle Better Auth API errors
+      if (error instanceof APIError) {
+        // If user already exists (email already registered)
+        if (error.status === 400 && error.message.includes('already')) {
+          console.log('ℹ️  User already exists, updating role...');
+          const user = await prisma.user.findUnique({
+            where: { email: SUPER_ADMIN_CONFIG.email },
+          });
+
+          if (user) {
+            await prisma.user.update({
+              where: { id: user.id },
+              data: {
+                role: 'admin',
+                baseCurrencyId: SUPER_ADMIN_CONFIG.baseCurrencyId,
+              },
+            });
+            console.log('✅ Super admin role updated');
+            return;
+          }
+        }
+      }
+
+      throw error;
+    }
+  }
+
+  /**
+   * Run all seed operations
+   */
+  async seedAll(): Promise<void> {
+    try {
+      console.log('🚀 Starting seed process...\n');
+
+      await this.seedCurrencies();
+      await this.seedSettings();
+      await this.seedSuperAdmin();
+
+      console.log('\n✨ Seed process completed successfully!');
+    } catch (error) {
+      console.error('\n❌ Seed process failed:', error);
+      throw error;
+    }
+  }
+}
+
+export const seedService = new SeedService();

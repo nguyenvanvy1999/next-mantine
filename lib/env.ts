@@ -1,14 +1,17 @@
 import { z } from 'zod';
 
 const clientSchema = z.object({
-  NEXT_PUBLIC_API_URL: z.string().url().optional(),
-  NEXT_PUBLIC_BASE_URL: z.string().url().optional(),
+  NEXT_PUBLIC_API_URL: z.url().optional(),
+  NEXT_PUBLIC_BASE_URL: z.url().optional(),
 });
 
 const serverSchema = z.object({
-  DATABASE_URL: z.string().url(),
+  DATABASE_URL: z.url(),
   BETTER_AUTH_SECRET: z.string().min(1),
-  BETTER_AUTH_URL: z.string().url(),
+  BETTER_AUTH_URL: z.url(),
+  SUPER_ADMIN_EMAIL: z.email().optional(),
+  SUPER_ADMIN_PASSWORD: z.string().min(1).optional(),
+  SUPER_ADMIN_NAME: z.string().optional(),
 });
 
 const _clientEnv = clientSchema.safeParse(process.env);
