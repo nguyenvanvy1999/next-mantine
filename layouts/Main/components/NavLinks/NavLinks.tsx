@@ -47,17 +47,22 @@ export function LinksGroup(props: LinksGroupProps) {
   const tablet_match = useMediaQuery('(max-width: 768px)');
 
   const LinkItem = ({ link }: { link: { label: string; link: string } }) => {
+    const linkPath = link.link.toLowerCase();
+    const currentPath = pathname.toLowerCase();
+    const isLinkActive =
+      currentPath === linkPath ||
+      (currentPath.startsWith(`${linkPath}/`) && linkPath !== '/dashboard');
+
     return (
       <Text
         className={classes.link}
         onClick={() => {
           router.push(link.link);
-          // Only close sidebar on mobile screens or when in overlay mode
           if (tablet_match) {
             closeSidebar();
           }
         }}
-        data-active={link.link.toLowerCase() === pathname || undefined}
+        data-active={isLinkActive || undefined}
         data-mini={isMini}
       >
         {link.label}
@@ -102,6 +107,27 @@ export function LinksGroup(props: LinksGroupProps) {
     }
   };
 
+  const isActive = useMemo(() => {
+    const currentPath = pathname.toLowerCase();
+    if (hasLinks) {
+      return links?.some((l) => {
+        const linkPath = l.link.toLowerCase();
+        return (
+          currentPath === linkPath ||
+          (currentPath.startsWith(`${linkPath}/`) && linkPath !== '/dashboard')
+        );
+      });
+    }
+    if (link) {
+      const linkPath = link.toLowerCase();
+      return (
+        currentPath === linkPath ||
+        (currentPath.startsWith(`${linkPath}/`) && linkPath !== '/dashboard')
+      );
+    }
+    return false;
+  }, [hasLinks, links, link, pathname]);
+
   const content: React.ReactElement = useMemo(() => {
     let view: React.ReactElement;
     if (isMini) {
@@ -118,7 +144,7 @@ export function LinksGroup(props: LinksGroupProps) {
             <UnstyledButton
               onClick={handleMiniButtonClick}
               className={classes.control}
-              data-active={opened || undefined}
+              data-active={isActive || undefined}
               data-mini={isMini}
             >
               <Tooltip
@@ -139,7 +165,7 @@ export function LinksGroup(props: LinksGroupProps) {
           <UnstyledButton
             onClick={handleMainButtonClick}
             className={classes.control}
-            data-active={opened || undefined}
+            data-active={isActive || undefined}
             data-mini={isMini}
           >
             <Group justify="space-between" gap={0}>
@@ -177,6 +203,7 @@ export function LinksGroup(props: LinksGroupProps) {
     items,
     label,
     opened,
+    isActive,
     handleMainButtonClick,
     handleMiniButtonClick,
   ]);
