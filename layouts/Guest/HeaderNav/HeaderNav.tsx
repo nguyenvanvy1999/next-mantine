@@ -20,10 +20,6 @@ import classes from './HeaderNav.module.css';
 
 const LINK_ITEMS = [
   {
-    link: '/changelog',
-    label: 'changelog',
-  },
-  {
     link: 'https://github.com/orgs/design-sparx/projects/5',
     label: 'roadmap',
   },
@@ -41,7 +37,6 @@ const LINK_ITEMS = [
   },
 ];
 
-const _HEADER_HEIGHT = rem(60);
 
 const HeaderNav = () => {
   const theme = useMantineTheme();

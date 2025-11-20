@@ -3,7 +3,6 @@ function path(root: string, sublink: string) {
 }
 
 const ROOTS_AUTH = '/auth';
-const ROOTS_CHANGELOG = '/changelog';
 
 export const PATH_DASHBOARD = {
   default: '/dashboard',
@@ -14,10 +13,6 @@ export const PATH_AUTH = {
   signin: path(ROOTS_AUTH, '/signin'),
   signup: path(ROOTS_AUTH, '/signup'),
   passwordReset: path(ROOTS_AUTH, '/password-reset'),
-};
-
-export const PATH_CHANGELOG = {
-  root: ROOTS_CHANGELOG,
 };
 
 export const PATH_DOCS = {

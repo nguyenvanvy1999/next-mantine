@@ -1,18 +1,9 @@
 'use client';
 
-import {
-  ActionIcon,
-  Affix,
-  Box,
-  Container,
-  rem,
-  useMantineTheme,
-} from '@mantine/core';
+import { Box, Container, rem, useMantineTheme } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { IconPalette } from '@tabler/icons-react';
 import type { ReactNode } from 'react';
 
-import { ThemeCustomizer } from '@/components';
 import {
   generateContentStyles,
   generateHeaderStyles,
@@ -36,15 +27,8 @@ export function MainLayout({ children }: Props) {
   const [mobileOpened, { toggle: toggleMobile, close: closeMobile }] =
     useDisclosure();
 
-  const {
-    config,
-    isCustomizerOpen,
-    openCustomizer,
-    closeCustomizer,
-    toggleSidebarVisibility,
-    showSidebar,
-    hideSidebar,
-  } = useThemeCustomizer();
+  const { config, toggleSidebarVisibility, showSidebar, hideSidebar } =
+    useThemeCustomizer();
 
   // Generate dynamic styles based on theme config
   const sidebarStyles = generateSidebarStyles(config.layout.sidebar);
@@ -204,23 +188,6 @@ export function MainLayout({ children }: Props) {
           <FooterNav />
         </Container>
       </Box>
-
-      {/* Theme Customizer Drawer */}
-      <ThemeCustomizer opened={isCustomizerOpen} onClose={closeCustomizer} />
-
-      {/* Floating Action Button for Theme Customizer */}
-      {!isCustomizerOpen && (
-        <Affix position={{ bottom: 80, right: 20 }}>
-          <ActionIcon
-            size="xl"
-            radius="xl"
-            variant="filled"
-            onClick={openCustomizer}
-          >
-            <IconPalette size={24} />
-          </ActionIcon>
-        </Affix>
-      )}
     </Box>
   );
 }

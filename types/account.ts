@@ -1,6 +1,6 @@
 import type { AccountType } from '@/lib/generated/prisma/enums';
-import type { AccountModel } from '@/lib/generated/prisma/models/Account';
 import type { CurrencyModel } from '@/lib/generated/prisma/models/Currency';
+import type { FinancialAccountModel } from '@/lib/generated/prisma/models/FinancialAccount';
 import type {
   ActionRes,
   DateToString,
@@ -19,7 +19,7 @@ export type CurrencyDto = Pick<
 export type AccountResponse = DateToString<
   DecimalToString<
     Pick<
-      AccountModel,
+      FinancialAccountModel,
       | 'id'
       | 'type'
       | 'name'

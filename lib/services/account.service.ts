@@ -78,7 +78,7 @@ export class AccountService extends BaseService {
     }
 
     if (data.id) {
-      await this.db.account.update({
+      await this.db.financialAccount.update({
         where: { id: data.id },
         data: {
           type: data.type,
@@ -94,7 +94,7 @@ export class AccountService extends BaseService {
       });
       return { success: true, message: 'Account updated successfully' };
     } else {
-      await this.db.account.create({
+      await this.db.financialAccount.create({
         data: {
           id: this.idUtil.dbIdWithUserId(DB_PREFIX.ACCOUNT, userId),
           type: data.type,
@@ -118,7 +118,7 @@ export class AccountService extends BaseService {
     userId: string,
     accountId: string,
   ): Promise<AccountResponse> {
-    const account = await this.db.account.findFirst({
+    const account = await this.db.financialAccount.findFirst({
       where: {
         id: accountId,
         userId,
@@ -179,15 +179,15 @@ export class AccountService extends BaseService {
     const { skip, take } = calculatePagination(page, limit);
 
     const [accounts, total, summaryGroups] = await Promise.all([
-      this.db.account.findMany({
+      this.db.financialAccount.findMany({
         where,
         orderBy,
         skip,
         take,
         select: ACCOUNT_SELECT_FULL,
       }),
-      this.db.account.count({ where }),
-      this.db.account.groupBy({
+      this.db.financialAccount.count({ where }),
+      this.db.financialAccount.groupBy({
         by: ['currencyId'],
         where,
         _sum: {
@@ -243,7 +243,7 @@ export class AccountService extends BaseService {
       'Account not found',
     );
 
-    await this.db.account.delete({
+    await this.db.financialAccount.delete({
       where: { id: accountId },
     });
 

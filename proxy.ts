@@ -10,6 +10,7 @@ export async function proxy(request: NextRequest) {
     pathname === '/' ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api/auth') ||
+    pathname.startsWith('/api/currencies') || // Allow currencies API without auth
     pathname.startsWith('/images') ||
     pathname.startsWith('/fonts') ||
     // Match static file extensions
@@ -27,7 +28,14 @@ export async function proxy(request: NextRequest) {
   }
 
   // Redirect unauthenticated users to login page for protected routes
+  // But allow API routes to return 401 instead of redirecting
   if (!isAuthenticated && !isPublicPath) {
+    // For API routes, don't redirect - let them handle auth themselves
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.next();
+    }
+
+    // For page routes, redirect to login
     const redirectUrl = new URL('/auth/signin', request.url);
     redirectUrl.searchParams.set('callbackUrl', encodeURI(request.url));
     return NextResponse.redirect(redirectUrl);

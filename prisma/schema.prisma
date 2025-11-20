@@ -27,10 +27,10 @@ model User {
   banExpires DateTime? @map("ban_expires")
 
   sessions Session[]
-  accounts AuthAccount[]
+  accounts Account[]
 
   // Business relations
-  userAccounts                Account[]                @relation("userAccounts")
+  userAccounts                FinancialAccount[]       @relation("userAccounts")
   userCategories              Category[]               @relation("userCategories")
   userInvestments             Investment[]             @relation("userInvestments")
   userTransactions            Transaction[]            @relation("userTransactions")
@@ -68,7 +68,8 @@ model Session {
   @@map("session")
 }
 
-model AuthAccount {
+// Better Auth Account model (for authentication)
+model Account {
   id                    String    @id @default(cuid())
   userId                String    @map("user_id")
   accountId             String    @map("account_id")
@@ -213,7 +214,7 @@ model Currency {
   created  DateTime @default(now())
   modified DateTime @updatedAt
 
-  accounts                            Account[]
+  accounts                            FinancialAccount[]
   investments                         Investment[]             @relation("InvestmentCurrency")
   investmentsBaseCurrency             Investment[]             @relation("InvestmentBaseCurrency")
   transactions                        Transaction[]
@@ -232,7 +233,7 @@ model Currency {
 }
 
 // User financial accounts (cash, bank, credit card, investment)
-model Account {
+model FinancialAccount {
   id               String      @id
   userId           String      @map("user_id")
   type             AccountType
@@ -320,15 +321,15 @@ model Transaction {
   created             DateTime        @default(now())
   modified            DateTime        @updatedAt
 
-  currency   Currency         @relation(fields: [currencyId], references: [id], onDelete: Restrict)
-  user       User             @relation("userTransactions", fields: [userId], references: [id], onDelete: Cascade)
-  account    Account          @relation("AccountTransactions", fields: [accountId], references: [id], onDelete: Cascade)
-  toAccount  Account?         @relation("ToAccountTransactions", fields: [toAccountId], references: [id], onDelete: SetNull)
-  category   Category         @relation(fields: [categoryId], references: [id], onDelete: Restrict)
-  investment Investment?      @relation(fields: [investmentId], references: [id], onDelete: SetNull)
-  entity     Entity?          @relation(fields: [entityId], references: [id], onDelete: SetNull)
-  event      Event?           @relation(fields: [eventId], references: [id], onDelete: SetNull)
-  trade      InvestmentTrade? @relation("TransactionTrade")
+  currency   Currency          @relation(fields: [currencyId], references: [id], onDelete: Restrict)
+  user       User              @relation("userTransactions", fields: [userId], references: [id], onDelete: Cascade)
+  account    FinancialAccount  @relation("AccountTransactions", fields: [accountId], references: [id], onDelete: Cascade)
+  toAccount  FinancialAccount? @relation("ToAccountTransactions", fields: [toAccountId], references: [id], onDelete: SetNull)
+  category   Category          @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  investment Investment?       @relation(fields: [investmentId], references: [id], onDelete: SetNull)
+  entity     Entity?           @relation(fields: [entityId], references: [id], onDelete: SetNull)
+  event      Event?            @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  trade      InvestmentTrade?  @relation("TransactionTrade")
 
   @@index([userId], name: "transaction_userId_idx")
   @@index([accountId], name: "transaction_accountId_idx")
@@ -364,10 +365,10 @@ model RecurringTransaction {
   created    DateTime           @default(now())
   modified   DateTime           @updatedAt
 
-  currency Currency  @relation(fields: [currencyId], references: [id], onDelete: Restrict)
-  user     User      @relation("userRecurringTransactions", fields: [userId], references: [id], onDelete: Cascade)
-  account  Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  currency Currency         @relation(fields: [currencyId], references: [id], onDelete: Restrict)
+  user     User             @relation("userRecurringTransactions", fields: [userId], references: [id], onDelete: Cascade)
+  account  FinancialAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  category Category?        @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
   @@index([userId], name: "recurringTransaction_userId_idx")
   @@index([currencyId], name: "recurringTransaction_currencyId_idx")
@@ -433,12 +434,12 @@ model InvestmentTrade {
   created  DateTime @default(now())
   modified DateTime @updatedAt
 
-  currency     Currency     @relation(fields: [currencyId], references: [id], onDelete: Restrict)
-  baseCurrency Currency?    @relation("TradeBaseCurrency", fields: [baseCurrencyId], references: [id], onDelete: Restrict)
-  user         User         @relation("userInvestmentTrades", fields: [userId], references: [id], onDelete: Cascade)
-  investment   Investment   @relation(fields: [investmentId], references: [id], onDelete: Cascade)
-  account      Account      @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  transaction  Transaction? @relation("TransactionTrade", fields: [transactionId], references: [id], onDelete: SetNull)
+  currency     Currency         @relation(fields: [currencyId], references: [id], onDelete: Restrict)
+  baseCurrency Currency?        @relation("TradeBaseCurrency", fields: [baseCurrencyId], references: [id], onDelete: Restrict)
+  user         User             @relation("userInvestmentTrades", fields: [userId], references: [id], onDelete: Cascade)
+  investment   Investment       @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+  account      FinancialAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  transaction  Transaction?     @relation("TransactionTrade", fields: [transactionId], references: [id], onDelete: SetNull)
 
   @@index([userId, investmentId], name: "trade_user_investment_idx")
   @@index([investmentId, timestamp], name: "trade_investment_time_idx")
@@ -465,11 +466,11 @@ model InvestmentContribution {
   created              DateTime         @default(now())
   modified             DateTime         @updatedAt
 
-  user         User       @relation("userInvestmentContributions", fields: [userId], references: [id], onDelete: Cascade)
-  investment   Investment @relation(fields: [investmentId], references: [id], onDelete: Cascade)
-  account      Account?   @relation(fields: [accountId], references: [id], onDelete: SetNull)
-  currency     Currency   @relation(fields: [currencyId], references: [id], onDelete: Restrict)
-  baseCurrency Currency?  @relation("ContributionBaseCurrency", fields: [baseCurrencyId], references: [id], onDelete: Restrict)
+  user         User              @relation("userInvestmentContributions", fields: [userId], references: [id], onDelete: Cascade)
+  investment   Investment        @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+  account      FinancialAccount? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  currency     Currency          @relation(fields: [currencyId], references: [id], onDelete: Restrict)
+  baseCurrency Currency?         @relation("ContributionBaseCurrency", fields: [baseCurrencyId], references: [id], onDelete: Restrict)
 
   @@index([userId], name: "investmentContribution_userId_idx")
   @@index([investmentId], name: "investmentContribution_investmentId_idx")
@@ -577,8 +578,8 @@ model BudgetAccount {
   accountId String   @map("account_id")
   created   DateTime @default(now())
 
-  budget  Budget  @relation(fields: [budgetId], references: [id], onDelete: Cascade)
-  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  budget  Budget           @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  account FinancialAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
   @@unique([budgetId, accountId], name: "budget_account_unique")
   @@index([budgetId], name: "budget_account_budgetId_idx")
@@ -633,8 +634,8 @@ model GoalAccount {
   accountId String   @map("account_id")
   created   DateTime @default(now())
 
-  goal    Goal    @relation(fields: [goalId], references: [id], onDelete: Cascade)
-  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  goal    Goal             @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  account FinancialAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
   @@unique([goalId, accountId], name: "goal_account_unique")
   @@index([goalId], name: "goal_account_goalId_idx")
