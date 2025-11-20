@@ -13,11 +13,7 @@ export async function GET(
 
     const result = await tagService.getTag(user.id, id);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Tag retrieved successfully',
-      data: result,
-    });
+    return NextResponse.json(result);
   } catch (error) {
     if (error instanceof AppError) {
       return NextResponse.json(

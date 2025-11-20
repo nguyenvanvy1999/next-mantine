@@ -48,11 +48,7 @@ export async function GET(request: NextRequest) {
 
     const result = await accountService.listAccounts(user.id, query);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Accounts retrieved successfully',
-      data: result,
-    });
+    return NextResponse.json(result);
   } catch (error) {
     if (error instanceof AppError) {
       return NextResponse.json(

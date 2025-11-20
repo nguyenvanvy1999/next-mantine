@@ -40,11 +40,7 @@ export async function GET(request: NextRequest) {
 
     const result = await tagService.listTags(user.id, query);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Tags retrieved successfully',
-      data: result,
-    });
+    return NextResponse.json(result);
   } catch (error) {
     if (error instanceof AppError) {
       return NextResponse.json(

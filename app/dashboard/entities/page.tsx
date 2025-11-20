@@ -184,11 +184,7 @@ export default function EntitiesPage() {
       </Group>
 
       <EntitiesTable
-        entities={
-          (entitiesData && 'entities' in entitiesData
-            ? entitiesData.entities
-            : []) || []
-        }
+        entities={entitiesData?.data ?? []}
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
@@ -196,11 +192,7 @@ export default function EntitiesPage() {
         onPageChange={setPage}
         pageSize={pageSize}
         onPageSizeChange={setPageSize}
-        totalRecords={
-          entitiesData && 'pagination' in entitiesData
-            ? entitiesData.pagination?.total
-            : undefined
-        }
+        totalRecords={entitiesData?.pagination?.total}
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
       />

@@ -23,15 +23,6 @@ interface NextApiResponse<T> {
   errors?: string[];
 }
 
-function unwrapNextApiResponse<T>(response: {
-  data: ApiResponse<NextApiResponse<T>> | null;
-}): T | undefined {
-  if (response.data?.data?.data) {
-    return response.data.data.data;
-  }
-  return undefined;
-}
-
 export function useTags(
   params?: ListTagsQuery,
   options?: { enabled?: boolean },
@@ -45,32 +36,18 @@ export function useTags(
   if (params?.sortBy) queryParams.sortBy = params.sortBy;
   if (params?.sortOrder) queryParams.sortOrder = params.sortOrder;
 
-  const result = useApiGet<NextApiResponse<TagListResponse>>(ENDPOINTS.list, {
+  return useApiGet<TagListResponse>(ENDPOINTS.list, {
     params: queryParams,
     enabled,
   });
-
-  const unwrappedData = unwrapNextApiResponse<TagListResponse>(result);
-
-  return {
-    ...result,
-    data: unwrappedData,
-  } as typeof result & { data: TagListResponse | undefined };
 }
 
 export function useTag(id: string, options?: { enabled?: boolean }) {
   const { enabled = true } = options || {};
 
-  const result = useApiGet<NextApiResponse<TagResponse>>(ENDPOINTS.byId(id), {
+  return useApiGet<TagResponse>(ENDPOINTS.byId(id), {
     enabled: enabled && !!id,
   });
-
-  const unwrappedData = unwrapNextApiResponse<TagResponse>(result);
-
-  return {
-    ...result,
-    data: unwrappedData,
-  } as typeof result & { data: TagResponse | undefined };
 }
 
 function adaptResponse<T>(response: NextApiResponse<T>): ApiResponse<T> {

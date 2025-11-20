@@ -219,9 +219,7 @@ export default function EventsPage() {
       </Group>
 
       <EventsTable
-        events={
-          (eventsData && 'events' in eventsData ? eventsData.events : []) || []
-        }
+        events={eventsData?.data ?? []}
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
@@ -229,11 +227,7 @@ export default function EventsPage() {
         onPageChange={setPage}
         pageSize={pageSize}
         onPageSizeChange={setPageSize}
-        totalRecords={
-          eventsData && 'pagination' in eventsData
-            ? eventsData.pagination?.total
-            : undefined
-        }
+        totalRecords={eventsData?.pagination?.total}
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
       />

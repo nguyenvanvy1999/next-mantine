@@ -227,7 +227,7 @@ export class AccountService extends BaseService {
       );
 
     return {
-      accounts: accounts.map(mapAccount),
+      data: accounts.map(mapAccount),
       pagination: this.buildPaginationResponse(page, limit, total, [])
         .pagination,
       summary,

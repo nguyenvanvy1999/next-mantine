@@ -26,7 +26,7 @@ export type EntityResponse = DateToString<
 >;
 
 export interface EntityListResponse {
-  entities: EntityResponse[];
+  data: EntityResponse[];
   pagination: PaginationMeta;
 }
 

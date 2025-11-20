@@ -38,11 +38,7 @@ export async function GET(request: NextRequest) {
 
     const result = await eventService.listEvents(user.id, query);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Events retrieved successfully',
-      data: result,
-    });
+    return NextResponse.json(result);
   } catch (error) {
     if (error instanceof AppError) {
       return NextResponse.json(

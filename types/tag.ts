@@ -12,7 +12,7 @@ export type TagResponse = DateToString<
 >;
 
 export interface TagListResponse {
-  tags: TagResponse[];
+  data: TagResponse[];
   pagination: PaginationMeta;
 }
 

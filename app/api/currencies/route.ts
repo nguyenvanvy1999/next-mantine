@@ -16,9 +16,7 @@ export async function GET() {
     });
 
     return NextResponse.json({
-      success: true,
-      message: 'Currencies retrieved successfully',
-      data: { currencies },
+      data: currencies,
     });
   } catch (error) {
     console.error('Error getting currencies:', error);

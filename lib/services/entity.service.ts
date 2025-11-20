@@ -154,7 +154,7 @@ export class EntityService extends BaseService {
     ]);
 
     return {
-      entities: entities.map(mapEntity),
+      data: entities.map(mapEntity),
       pagination: this.buildPaginationResponse(page, limit, total, [])
         .pagination,
     };

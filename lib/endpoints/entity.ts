@@ -16,22 +16,6 @@ const ENDPOINTS = {
   deleteMany: '/api/entities/delete-many',
 } as const;
 
-interface NextApiResponse<T> {
-  success: boolean;
-  message: string;
-  data: T;
-  errors?: string[];
-}
-
-function unwrapNextApiResponse<T>(response: {
-  data: ApiResponse<NextApiResponse<T>> | null;
-}): T | undefined {
-  if (response.data?.data?.data) {
-    return response.data.data.data;
-  }
-  return undefined;
-}
-
 export function useEntities(
   params?: ListEntitiesQuery,
   options?: { enabled?: boolean },
@@ -48,38 +32,18 @@ export function useEntities(
     queryParams.type = params.type.join(',');
   }
 
-  const result = useApiGet<NextApiResponse<EntityListResponse>>(
-    ENDPOINTS.list,
-    {
-      params: queryParams,
-      enabled,
-    },
-  );
-
-  const unwrappedData = unwrapNextApiResponse<EntityListResponse>(result);
-
-  return {
-    ...result,
-    data: unwrappedData,
-  } as typeof result & { data: EntityListResponse | undefined };
+  return useApiGet<EntityListResponse>(ENDPOINTS.list, {
+    params: queryParams,
+    enabled,
+  });
 }
 
 export function useEntity(id: string, options?: { enabled?: boolean }) {
   const { enabled = true } = options || {};
 
-  const result = useApiGet<NextApiResponse<EntityResponse>>(
-    ENDPOINTS.byId(id),
-    {
-      enabled: enabled && !!id,
-    },
-  );
-
-  const unwrappedData = unwrapNextApiResponse<EntityResponse>(result);
-
-  return {
-    ...result,
-    data: unwrappedData,
-  } as typeof result & { data: EntityResponse | undefined };
+  return useApiGet<EntityResponse>(ENDPOINTS.byId(id), {
+    enabled: enabled && !!id,
+  });
 }
 
 function adaptResponse<T>(response: NextApiResponse<T>): ApiResponse<T> {

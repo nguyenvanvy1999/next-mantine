@@ -14,11 +14,7 @@ export async function GET(
 
     const result = await accountService.getAccount(user.id, id);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Account retrieved successfully',
-      data: result,
-    });
+    return NextResponse.json(result);
   } catch (error) {
     if (error instanceof AppError) {
       return NextResponse.json(

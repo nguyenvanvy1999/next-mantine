@@ -12,7 +12,7 @@ export type EventResponse = DateToString<
 >;
 
 export interface EventListResponse {
-  events: EventResponse[];
+  data: EventResponse[];
   pagination: PaginationMeta;
 }
 

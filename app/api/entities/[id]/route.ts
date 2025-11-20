@@ -13,11 +13,7 @@ export async function GET(
 
     const result = await entityService.getEntity(user.id, id);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Entity retrieved successfully',
-      data: result,
-    });
+    return NextResponse.json(result);
   } catch (error) {
     if (error instanceof AppError) {
       return NextResponse.json(

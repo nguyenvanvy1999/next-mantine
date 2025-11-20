@@ -140,7 +140,7 @@ export class TagService extends BaseService {
     ]);
 
     return {
-      tags: tags.map(mapTag),
+      data: tags.map(mapTag),
       pagination: this.buildPaginationResponse(page, limit, total, [])
         .pagination,
     };

@@ -44,7 +44,7 @@ export interface AccountSummary {
 }
 
 export interface AccountListResponse {
-  accounts: AccountResponse[];
+  data: AccountResponse[];
   pagination: PaginationMeta;
   summary: AccountSummary[];
 }

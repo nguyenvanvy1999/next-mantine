@@ -70,7 +70,7 @@ export function useApiGet<T>(
 
   const shouldFetch = enabled && !!accessToken && hasRequiredPermission;
 
-  const result = useFetch<ApiResponse<T>>(shouldFetch ? url.toString() : '', {
+  const result = useFetch<T>(shouldFetch ? url.toString() : '', {
     headers: getAuthHeaders(accessToken),
   });
 

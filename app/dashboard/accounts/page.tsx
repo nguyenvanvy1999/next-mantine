@@ -120,13 +120,7 @@ export default function AccountsPage() {
 
   // Statistics
   const stats = useMemo(() => {
-    if (
-      !accountsData ||
-      !('summary' in accountsData) ||
-      !accountsData.summary ||
-      accountsData.summary.length === 0
-    )
-      return [];
+    if (!accountsData?.summary || accountsData.summary.length === 0) return [];
     return accountsData.summary.map((item: AccountSummary) => {
       const formattedValue = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -261,11 +255,7 @@ export default function AccountsPage() {
 
       {/* Table */}
       <AccountsTable
-        accounts={
-          (accountsData && 'accounts' in accountsData
-            ? accountsData.accounts
-            : []) || []
-        }
+        accounts={accountsData?.data ?? []}
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
@@ -273,11 +263,7 @@ export default function AccountsPage() {
         onPageChange={setPage}
         pageSize={pageSize}
         onPageSizeChange={setPageSize}
-        totalRecords={
-          accountsData && 'pagination' in accountsData
-            ? accountsData.pagination?.total
-            : undefined
-        }
+        totalRecords={accountsData?.pagination?.total}
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
       />

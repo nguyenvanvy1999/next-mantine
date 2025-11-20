@@ -25,21 +25,6 @@ export interface ListAccountsParams {
   sortOrder?: 'asc' | 'desc';
 }
 
-interface NextApiResponse<T> {
-  success: boolean;
-  message: string;
-  data: T;
-  errors?: string[];
-}
-
-function unwrapNextApiResponse<T>(response: {
-  data: ApiResponse<NextApiResponse<T>> | null;
-}): T | undefined {
-  if (response.data?.data?.data) {
-    return response.data.data.data;
-  }
-  return undefined;
-}
 export function useAccounts(
   params?: ListAccountsParams,
   options?: { enabled?: boolean },
@@ -63,38 +48,18 @@ export function useAccounts(
     });
   }
 
-  const result = useApiGet<NextApiResponse<AccountListResponse>>(
-    ENDPOINTS.list,
-    {
-      params: queryParams,
-      enabled,
-    },
-  );
-
-  const unwrappedData = unwrapNextApiResponse<AccountListResponse>(result);
-
-  return {
-    ...result,
-    data: unwrappedData,
-  } as typeof result & { data: AccountListResponse | undefined };
+  return useApiGet<AccountListResponse>(ENDPOINTS.list, {
+    params: queryParams,
+    enabled,
+  });
 }
 
 export function useAccount(id: string, options?: { enabled?: boolean }) {
   const { enabled = true } = options || {};
 
-  const result = useApiGet<NextApiResponse<AccountResponse>>(
-    ENDPOINTS.byId(id),
-    {
-      enabled: enabled && !!id,
-    },
-  );
-
-  const unwrappedData = unwrapNextApiResponse<AccountResponse>(result);
-
-  return {
-    ...result,
-    data: unwrappedData,
-  } as typeof result & { data: AccountResponse | undefined };
+  return useApiGet<AccountResponse>(ENDPOINTS.byId(id), {
+    enabled: enabled && !!id,
+  });
 }
 
 function adaptResponse<T>(response: NextApiResponse<T>): ApiResponse<T> {

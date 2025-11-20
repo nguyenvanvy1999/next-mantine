@@ -23,15 +23,6 @@ interface NextApiResponse<T> {
   errors?: string[];
 }
 
-function unwrapNextApiResponse<T>(response: {
-  data: ApiResponse<NextApiResponse<T>> | null;
-}): T | undefined {
-  if (response.data?.data?.data) {
-    return response.data.data.data;
-  }
-  return undefined;
-}
-
 export function useEvents(
   params?: ListEventsQuery,
   options?: { enabled?: boolean },
@@ -49,32 +40,18 @@ export function useEvents(
   if (params?.endAtFrom) queryParams.endAtFrom = params.endAtFrom;
   if (params?.endAtTo) queryParams.endAtTo = params.endAtTo;
 
-  const result = useApiGet<NextApiResponse<EventListResponse>>(ENDPOINTS.list, {
+  return useApiGet<EventListResponse>(ENDPOINTS.list, {
     params: queryParams,
     enabled,
   });
-
-  const unwrappedData = unwrapNextApiResponse<EventListResponse>(result);
-
-  return {
-    ...result,
-    data: unwrappedData,
-  } as typeof result & { data: EventListResponse | undefined };
 }
 
 export function useEvent(id: string, options?: { enabled?: boolean }) {
   const { enabled = true } = options || {};
 
-  const result = useApiGet<NextApiResponse<EventResponse>>(ENDPOINTS.byId(id), {
+  return useApiGet<EventResponse>(ENDPOINTS.byId(id), {
     enabled: enabled && !!id,
   });
-
-  const unwrappedData = unwrapNextApiResponse<EventResponse>(result);
-
-  return {
-    ...result,
-    data: unwrappedData,
-  } as typeof result & { data: EventResponse | undefined };
 }
 
 function adaptResponse<T>(response: NextApiResponse<T>): ApiResponse<T> {

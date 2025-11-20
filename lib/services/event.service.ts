@@ -183,7 +183,7 @@ export class EventService extends BaseService {
     ]);
 
     return {
-      events: events.map(mapEvent),
+      data: events.map(mapEvent),
       pagination: this.buildPaginationResponse(page, limit, total, [])
         .pagination,
     };

@@ -144,7 +144,7 @@ export default function TagsPage() {
       </Group>
 
       <TagsTable
-        tags={(tagsData && 'tags' in tagsData ? tagsData.tags : []) || []}
+        tags={tagsData?.data ?? []}
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
@@ -152,11 +152,7 @@ export default function TagsPage() {
         onPageChange={setPage}
         pageSize={pageSize}
         onPageSizeChange={setPageSize}
-        totalRecords={
-          tagsData && 'pagination' in tagsData
-            ? tagsData.pagination?.total
-            : undefined
-        }
+        totalRecords={tagsData?.pagination?.total}
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
       />

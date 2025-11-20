@@ -39,11 +39,7 @@ export async function GET(request: NextRequest) {
 
     const result = await entityService.listEntities(user.id, query);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Entities retrieved successfully',
-      data: result,
-    });
+    return NextResponse.json(result);
   } catch (error) {
     if (error instanceof AppError) {
       return NextResponse.json(
