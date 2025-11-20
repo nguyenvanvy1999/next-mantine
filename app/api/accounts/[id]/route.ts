@@ -1,0 +1,53 @@
+import { type NextRequest, NextResponse } from 'next/server';
+import { accountService } from '@/lib/services/account.service';
+import { requireAuth } from '@/lib/utils/auth.util';
+import { AppError } from '@/lib/utils/error.util';
+
+// GET /api/accounts/[id] - Get account by ID
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    const user = await requireAuth();
+    const { id } = await params;
+
+    const result = await accountService.getAccount(user.id, id);
+
+    return NextResponse.json({
+      success: true,
+      message: 'Account retrieved successfully',
+      data: result,
+    });
+  } catch (error) {
+    if (error instanceof AppError) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: error.message,
+          data: null,
+        },
+        { status: 400 },
+      );
+    }
+    if (error instanceof Error && error.message === 'Unauthorized') {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'Unauthorized',
+          data: null,
+        },
+        { status: 401 },
+      );
+    }
+    console.error('Error getting account:', error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: 'Internal server error',
+        data: null,
+      },
+      { status: 500 },
+    );
+  }
+}

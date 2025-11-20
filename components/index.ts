@@ -1,3 +1,5 @@
+import AccountDialog from '@/components/AccountDialog/AccountDialog';
+import AccountsTable from '@/components/AccountsTable/AccountsTable';
 import AddTaskCard from '@/components/AddTaskCard/AddTaskCard';
 import ChatItem from '@/components/ChatItem/ChatItem';
 import ChatsList from '@/components/ChatsList/ChatsList';
@@ -73,4 +75,6 @@ export {
   UserButton,
   ErrorAlert,
   ThemeCustomizer,
+  AccountDialog,
+  AccountsTable,
 };

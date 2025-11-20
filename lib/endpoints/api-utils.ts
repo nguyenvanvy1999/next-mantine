@@ -12,9 +12,8 @@ function hasPermission(
 }
 
 // Base configuration
-import { env } from '@/lib/env';
-
-const API_BASE_URL = env.NEXT_PUBLIC_API_URL || 'http://localhost:5080';
+// For Next.js API routes, use relative paths (same origin)
+const API_BASE_URL = '';
 
 // Standard API response type
 export type ApiResponse<T> = {
@@ -52,7 +51,11 @@ export function useApiGet<T>(
   const { data: session } = authClient.useSession();
 
   // Build URL with query params
-  const url = new URL(endpoint, API_BASE_URL);
+  // For relative paths (same origin), use endpoint directly
+  const baseUrl =
+    API_BASE_URL ||
+    (typeof window !== 'undefined' ? window.location.origin : '');
+  const url = new URL(endpoint, baseUrl);
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
