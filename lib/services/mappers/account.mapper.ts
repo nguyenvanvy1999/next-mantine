@@ -7,7 +7,7 @@ import {
 import type { AccountResponse } from '@/types/account';
 import type { ACCOUNT_SELECT_FULL } from '../selects';
 
-type AccountRecord = Prisma.AccountGetPayload<{
+type AccountRecord = Prisma.FinancialAccountGetPayload<{
   select: typeof ACCOUNT_SELECT_FULL;
 }>;
 

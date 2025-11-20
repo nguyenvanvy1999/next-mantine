@@ -147,7 +147,7 @@ export class AccountService extends BaseService {
       sortOrder = 'desc',
     } = query;
 
-    const where: Prisma.AccountWhereInput = {
+    const where: Prisma.FinancialAccountWhereInput = {
       userId,
     };
 
@@ -169,12 +169,12 @@ export class AccountService extends BaseService {
     type AccountSortKey = NonNullable<ListAccountsQuery['sortBy']>;
     const orderBy = this.buildOrderBy<
       AccountSortKey,
-      Prisma.AccountOrderByWithRelationInput
+      Prisma.FinancialAccountOrderByWithRelationInput
     >(sortBy, sortOrder, {
       name: 'name',
       created: 'created',
       balance: 'balance',
-    }) as Prisma.AccountOrderByWithRelationInput | undefined;
+    }) as Prisma.FinancialAccountOrderByWithRelationInput | undefined;
 
     const { skip, take } = calculatePagination(page, limit);
 

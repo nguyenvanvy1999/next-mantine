@@ -37,7 +37,6 @@ const LINK_ITEMS = [
   },
 ];
 
-
 const HeaderNav = () => {
   const theme = useMantineTheme();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
