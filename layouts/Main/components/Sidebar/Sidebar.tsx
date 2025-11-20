@@ -1,6 +1,7 @@
 import { ActionIcon, Box, Flex, Group, ScrollArea, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconX } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 import { Logo, UserProfileButton } from '@/components';
 import { SIDEBAR_LINKS } from '@/constants/sidebar-links';
 import { useSidebarConfig } from '@/contexts/theme-customizer';
@@ -18,9 +19,10 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
   const tablet_match = useMediaQuery('(max-width: 768px)');
   const sidebarConfig = useSidebarConfig();
   const { user } = useAuth();
+  const { t } = useTranslation();
 
-  const links = SIDEBAR_LINKS.map((m) => (
-    <Box key={m.title} pl={0} mb="md">
+  const links = SIDEBAR_LINKS.map((section) => (
+    <Box key={section.titleKey} pl={0} mb="md">
       <Text
         tt="uppercase"
         size="xs"
@@ -29,12 +31,13 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
         mb="sm"
         className={classes.linkHeader}
       >
-        {m.title}
+        {t(section.titleKey)}
       </Text>
-      {m.links.map((item) => (
+      {section.links.map(({ labelKey, ...linkProps }) => (
         <LinksGroup
-          key={item.label}
-          {...item}
+          key={labelKey}
+          {...linkProps}
+          label={t(labelKey)}
           closeSidebar={() => {
             setTimeout(() => {
               onClose();

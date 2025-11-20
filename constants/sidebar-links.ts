@@ -16,13 +16,33 @@ import {
 
 export const SIDEBAR_LINKS = [
   {
-    title: 'Main',
+    titleKey: 'sidebar.sectionMain',
     links: [
-      { label: 'Dashboard', icon: IconHome, link: PATH_DASHBOARD.default },
-      { label: 'Accounts', icon: IconWallet, link: PATH_ACCOUNTS.root },
-      { label: 'Entities', icon: IconBuilding, link: PATH_ENTITIES.root },
-      { label: 'Events', icon: IconCalendar, link: PATH_EVENTS.root },
-      { label: 'Tags', icon: IconTag, link: PATH_TAGS.root },
+      {
+        labelKey: 'sidebar.links.dashboard',
+        icon: IconHome,
+        link: PATH_DASHBOARD.default,
+      },
+      {
+        labelKey: 'sidebar.links.accounts',
+        icon: IconWallet,
+        link: PATH_ACCOUNTS.root,
+      },
+      {
+        labelKey: 'sidebar.links.entities',
+        icon: IconBuilding,
+        link: PATH_ENTITIES.root,
+      },
+      {
+        labelKey: 'sidebar.links.events',
+        icon: IconCalendar,
+        link: PATH_EVENTS.root,
+      },
+      {
+        labelKey: 'sidebar.links.tags',
+        icon: IconTag,
+        link: PATH_TAGS.root,
+      },
     ],
   },
-];
+] as const;

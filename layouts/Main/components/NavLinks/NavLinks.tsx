@@ -8,15 +8,21 @@ import {
   UnstyledButton,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconChevronRight } from '@tabler/icons-react';
+import { IconChevronRight, type TablerIconsProps } from '@tabler/icons-react';
 import * as _ from 'lodash';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import {
+  type ComponentType,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import classes from './NavLinks.module.css';
 
 interface LinksGroupProps {
-  icon?: any;
+  icon?: ComponentType<TablerIconsProps>;
   label: string;
   initiallyOpened?: boolean;
   link?: string;
@@ -80,32 +86,35 @@ export function LinksGroup(props: LinksGroupProps) {
     ),
   );
 
-  const handleMainButtonClick = () => {
+  const handleMainButtonClick = useCallback(() => {
     if (hasLinks) {
-      // If it has nested links, just toggle the collapse
       setOpened((o) => !o);
-    } else if (link) {
-      // If it's a direct link, navigate and close sidebar only on mobile
+      return;
+    }
+    if (link) {
       router.push(link);
       if (tablet_match) {
         closeSidebar();
       }
     }
-  };
+  }, [closeSidebar, hasLinks, link, router, tablet_match]);
 
-  const handleMiniButtonClick = (evt: React.MouseEvent) => {
-    evt.preventDefault();
-    if (hasLinks) {
-      // For mini mode with nested links, just toggle
-      setOpened((o) => !o);
-    } else if (link) {
-      // For mini mode with direct link, navigate and close only on mobile
-      router.push(link);
-      if (tablet_match) {
-        closeSidebar();
+  const handleMiniButtonClick = useCallback(
+    (evt: React.MouseEvent) => {
+      evt.preventDefault();
+      if (hasLinks) {
+        setOpened((o) => !o);
+        return;
       }
-    }
-  };
+      if (link) {
+        router.push(link);
+        if (tablet_match) {
+          closeSidebar();
+        }
+      }
+    },
+    [closeSidebar, hasLinks, link, router, tablet_match],
+  );
 
   const isActive = useMemo(() => {
     const currentPath = pathname.toLowerCase();
@@ -210,9 +219,19 @@ export function LinksGroup(props: LinksGroupProps) {
 
   useEffect(() => {
     const paths = pathname.split('/');
-    setOpened(paths.includes(label.toLowerCase()));
+    if (hasLinks && links?.length) {
+      const shouldOpen = links.some((linkItem) => {
+        const linkPath = linkItem.link.toLowerCase();
+        const currentPath = pathname.toLowerCase();
+        return (
+          currentPath === linkPath ||
+          (currentPath.startsWith(`${linkPath}/`) && linkPath !== '/dashboard')
+        );
+      });
+      setOpened(shouldOpen);
+    }
     setCurrentPath(_.last(paths)?.toLowerCase() || undefined);
-  }, [pathname, label]);
+  }, [pathname, hasLinks, links]);
 
   return <>{content}</>;
 }

@@ -125,6 +125,23 @@ To make this template awesome, I used the following packages:
 
 # Quick start
 
+## Localization (i18n)
+
+This project ships with a client-side i18next setup located in `i18n/` with typed resources defined in `types/i18next.d.ts`.
+
+- **Dependencies:** `i18next`, `react-i18next`, and `i18next-browser-languagedetector` handle resource loading and language detection (localStorage + cookies).
+- **Structure:** Place translation files under `i18n/locales/<locale>/translation.json` and register them via `resources` inside `i18n/index.ts`.
+- **Provider:** `providers/I18nProvider.tsx` wraps the hierarchy in `app/layout.tsx`, so hooks such as `useTranslation()` work anywhere in client components.
+- **Type-safety:** Extend `CustomTypeOptions` (see `types/i18next.d.ts`) whenever you add or rename namespaces/keys to keep autocompletion up to date.
+- **Adding a locale:** Duplicate an existing JSON file, update `resources` and `LanguagePicker.tsx`, then restart the dev server so Next reloads the JSON modules.
+
+### Manual test checklist
+
+1. Run `npm run dev` (or `bun dev`) and open `http://localhost:3000/dashboard`.
+2. Use the language picker in the header/sidebar to switch between English and Vietnamese.
+3. Verify hero text, CTA buttons, sidebar labels, and dashboard stats update instantly.
+4. Refresh the page to confirm the detector restores the previously selected locale.
+
 ## Download
 
 - Clone this repo git clone `https://github.com/design-sparx/mantine-analytics-dashboard.git`

@@ -1,0 +1,37 @@
+{
+  "home": {
+    "heroTitle": "Bảng điều khiển phân tích mạnh mẽ",
+    "heroDescription": "Theo dõi doanh thu, chuyển đổi và vận hành theo thời gian thực."
+  },
+  "buttons": {
+    "getStarted": "Bắt đầu ngay",
+    "learnMore": "Tìm hiểu thêm",
+    "settings": "Cài đặt"
+  },
+  "auth": {
+    "signIn": "Đăng nhập",
+    "signUp": "Tạo tài khoản"
+  },
+  "dashboard": {
+    "totalRevenue": "Tổng doanh thu",
+    "activeUsers": "Người dùng hoạt động",
+    "activeSessions": "Phiên hoạt động",
+    "recentActivity": "Hoạt động gần đây",
+    "activityEmpty": "Chưa có dữ liệu. Hãy sử dụng ứng dụng để xem hoạt động."
+  },
+  "language": {
+    "label": "Ngôn ngữ",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
+  },
+  "sidebar": {
+    "sectionMain": "Chính",
+    "links": {
+      "dashboard": "Bảng điều khiển",
+      "accounts": "Tài khoản",
+      "entities": "Tổ chức",
+      "events": "Sự kiện",
+      "tags": "Thẻ"
+    }
+  }
+}

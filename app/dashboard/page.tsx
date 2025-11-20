@@ -19,20 +19,32 @@ import {
   IconSettings,
   IconUsers,
 } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 import { Surface } from '@/components';
 
 export default function DashboardPage() {
   const theme = useMantineTheme();
+  const { t } = useTranslation();
 
   const stats = [
-    { label: 'Total Users', value: '1,234', icon: IconUsers, color: 'blue' },
     {
-      label: 'Active Sessions',
+      label: t('dashboard.totalRevenue'),
+      value: '$12,345',
+      icon: IconChartBar,
+      color: 'violet',
+    },
+    {
+      label: t('dashboard.activeUsers'),
+      value: '1,234',
+      icon: IconUsers,
+      color: 'blue',
+    },
+    {
+      label: t('dashboard.activeSessions'),
       value: '456',
       icon: IconRocket,
       color: 'green',
     },
-    { label: 'Revenue', value: '$12,345', icon: IconChartBar, color: 'violet' },
   ];
 
   return (
@@ -49,12 +61,10 @@ export default function DashboardPage() {
         >
           <Stack gap="xs">
             <Title order={2} c="white">
-              Welcome to your new App
+              {t('home.heroTitle')}
             </Title>
             <Text c="white" opacity={0.9} maw={600}>
-              This is the starting point for your new application. You have a
-              clean slate to build something amazing. Start by exploring the
-              documentation or configuring your settings.
+              {t('home.heroDescription')}
             </Text>
             <Group mt="md">
               <Button
@@ -62,7 +72,7 @@ export default function DashboardPage() {
                 c={theme.primaryColor}
                 rightSection={<IconArrowRight size={16} />}
               >
-                Get Started
+                {t('buttons.getStarted')}
               </Button>
               <Button
                 variant="outline"
@@ -70,7 +80,7 @@ export default function DashboardPage() {
                 style={{ borderColor: 'rgba(255,255,255,0.3)' }}
                 leftSection={<IconSettings size={16} />}
               >
-                Settings
+                {t('buttons.settings')}
               </Button>
             </Group>
           </Stack>
@@ -108,10 +118,10 @@ export default function DashboardPage() {
           style={{ minHeight: 400 }}
         >
           <Title order={4} mb="md">
-            Recent Activity
+            {t('dashboard.recentActivity')}
           </Title>
           <Text c="dimmed" ta="center" py="xl">
-            No activity yet. Start using the app to see data here.
+            {t('dashboard.activityEmpty')}
           </Text>
         </Surface>
       </Stack>

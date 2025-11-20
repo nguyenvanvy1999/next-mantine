@@ -15,6 +15,7 @@ import {
   useThemeCustomizer,
 } from '@/contexts/theme-customizer';
 import { PermixProvider } from '@/lib/permix/context';
+import { I18nProvider } from '@/providers/I18nProvider';
 import { createDynamicTheme } from '@/theme';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
@@ -155,7 +156,9 @@ export default function RootLayout({
         <AuthProvider>
           <PermixProvider>
             <ThemeCustomizerProvider>
-              <ThemeProvider>{children}</ThemeProvider>
+              <I18nProvider>
+                <ThemeProvider>{children}</ThemeProvider>
+              </I18nProvider>
             </ThemeCustomizerProvider>
           </PermixProvider>
         </AuthProvider>

@@ -1,0 +1,37 @@
+{
+  "home": {
+    "heroTitle": "Powerful analytics dashboard",
+    "heroDescription": "Track revenue, conversions, and operations in real time."
+  },
+  "buttons": {
+    "getStarted": "Get started",
+    "learnMore": "Learn more",
+    "settings": "Settings"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signUp": "Create account"
+  },
+  "dashboard": {
+    "totalRevenue": "Total revenue",
+    "activeUsers": "Active users",
+    "activeSessions": "Active sessions",
+    "recentActivity": "Recent activity",
+    "activityEmpty": "No activity yet. Start using the app to see data here."
+  },
+  "language": {
+    "label": "Language",
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
+  "sidebar": {
+    "sectionMain": "Main",
+    "links": {
+      "dashboard": "Dashboard",
+      "accounts": "Accounts",
+      "entities": "Entities",
+      "events": "Events",
+      "tags": "Tags"
+    }
+  }
+}

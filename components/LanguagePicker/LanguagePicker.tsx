@@ -2,69 +2,52 @@
 
 import { Group, Image, Menu, UnstyledButton } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import classes from './LanguagePicker.module.css';
 
-const data = [
+const locales = [
   {
-    label: 'English',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/english_njrlxm.png',
+    code: 'en',
+    labelKey: 'language.english',
+    image: 'https://flagcdn.com/w40/gb.png',
   },
   {
-    label: 'German',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/german_a90o3b.png',
+    code: 'vi',
+    labelKey: 'language.vietnamese',
+    image: 'https://flagcdn.com/w40/vn.png',
   },
-  {
-    label: 'Italian',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/italian_ruxfnn.png',
-  },
-  {
-    label: 'French',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/french_yek0eo.png',
-  },
-  {
-    label: 'Polish',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/polish_wjp2xh.png',
-  },
-];
+] as const;
 
 type LanguagePickerProps = {
   type: 'collapsed' | 'expanded';
 };
 
 const LanguagePicker = ({ type }: LanguagePickerProps) => {
-  const [_opened, setOpened] = useState(false);
-  const [selected, setSelected] = useState(data[0]);
-  const items = data.map((item) => (
+  const { t, i18n } = useTranslation();
+
+  const currentLanguage = i18n.resolvedLanguage ?? i18n.language ?? 'en';
+  const selected =
+    locales.find((locale) => locale.code === currentLanguage) ?? locales[0];
+
+  const items = locales.map((item) => (
     <Menu.Item
       leftSection={<Image src={item.image} width={18} height={18} alt="flag" />}
-      onClick={() => setSelected(item)}
-      key={item.label}
+      onClick={() => i18n.changeLanguage(item.code)}
+      key={item.code}
     >
-      {item.label}
+      {t(item.labelKey)}
     </Menu.Item>
   ));
 
   return (
-    <Menu
-      onOpen={() => setOpened(true)}
-      onClose={() => setOpened(false)}
-      radius="sm"
-      withinPortal
-      width={200}
-    >
+    <Menu radius="sm" withinPortal width={200}>
       <Menu.Target>
         <UnstyledButton className={classes.control}>
           <Group gap="xs">
             <Image src={selected.image} width={22} height={22} alt="flag" />
             {type === 'expanded' && (
-              <span className={classes.label}>{selected.label}</span>
+              <span className={classes.label}>{t(selected.labelKey)}</span>
             )}
           </Group>
           {type === 'expanded' && (
