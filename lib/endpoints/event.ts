@@ -7,6 +7,7 @@ import type {
   UpsertEventDto,
 } from '@/types/event';
 import { type ApiResponse, apiPost, useApiGet } from './api-utils';
+import { adaptNextResponse, type NextApiResponse } from './types';
 
 const ENDPOINTS = {
   list: '/api/events',
@@ -15,13 +16,6 @@ const ENDPOINTS = {
   update: '/api/events',
   deleteMany: '/api/events/delete-many',
 } as const;
-
-interface NextApiResponse<T> {
-  success: boolean;
-  message: string;
-  data: T;
-  errors?: string[];
-}
 
 export function useEvents(
   params?: ListEventsQuery,
@@ -54,15 +48,6 @@ export function useEvent(id: string, options?: { enabled?: boolean }) {
   });
 }
 
-function adaptResponse<T>(response: NextApiResponse<T>): ApiResponse<T> {
-  return {
-    succeeded: response.success,
-    data: response.data,
-    errors: response.success ? response.errors || [] : [response.message],
-    message: response.message,
-  };
-}
-
 export async function createEvent(
   data: Omit<UpsertEventDto, 'id'>,
 ): Promise<ApiResponse<ActionRes>> {
@@ -71,7 +56,7 @@ export async function createEvent(
     data,
   );
   if (response.data?.data) {
-    return adaptResponse(response.data);
+    return adaptNextResponse(response.data);
   }
   return response;
 }
@@ -84,7 +69,7 @@ export async function updateEvent(
     data,
   );
   if (response.data?.data) {
-    return adaptResponse(response.data);
+    return adaptNextResponse(response.data);
   }
   return response;
 }
@@ -98,7 +83,7 @@ export async function deleteManyEvents(
     body,
   );
   if (response.data?.data) {
-    return adaptResponse(response.data);
+    return adaptNextResponse(response.data);
   }
   return response;
 }

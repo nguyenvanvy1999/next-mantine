@@ -7,6 +7,7 @@ import type {
   UpsertTagDto,
 } from '@/types/tag';
 import { type ApiResponse, apiPost, useApiGet } from './api-utils';
+import { adaptNextResponse, type NextApiResponse } from './types';
 
 const ENDPOINTS = {
   list: '/api/tags',
@@ -15,13 +16,6 @@ const ENDPOINTS = {
   update: '/api/tags',
   deleteMany: '/api/tags/delete-many',
 } as const;
-
-interface NextApiResponse<T> {
-  success: boolean;
-  message: string;
-  data: T;
-  errors?: string[];
-}
 
 export function useTags(
   params?: ListTagsQuery,
@@ -50,15 +44,6 @@ export function useTag(id: string, options?: { enabled?: boolean }) {
   });
 }
 
-function adaptResponse<T>(response: NextApiResponse<T>): ApiResponse<T> {
-  return {
-    succeeded: response.success,
-    data: response.data,
-    errors: response.success ? response.errors || [] : [response.message],
-    message: response.message,
-  };
-}
-
 export async function createTag(
   data: Omit<UpsertTagDto, 'id'>,
 ): Promise<ApiResponse<ActionRes>> {
@@ -67,7 +52,7 @@ export async function createTag(
     data,
   );
   if (response.data?.data) {
-    return adaptResponse(response.data);
+    return adaptNextResponse(response.data);
   }
   return response;
 }
@@ -80,7 +65,7 @@ export async function updateTag(
     data,
   );
   if (response.data?.data) {
-    return adaptResponse(response.data);
+    return adaptNextResponse(response.data);
   }
   return response;
 }
@@ -94,7 +79,7 @@ export async function deleteManyTags(
     body,
   );
   if (response.data?.data) {
-    return adaptResponse(response.data);
+    return adaptNextResponse(response.data);
   }
   return response;
 }

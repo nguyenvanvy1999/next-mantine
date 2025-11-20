@@ -7,6 +7,7 @@ import type {
   UpsertEntityDto,
 } from '@/types/entity';
 import { type ApiResponse, apiPost, useApiGet } from './api-utils';
+import { adaptNextResponse, type NextApiResponse } from './types';
 
 const ENDPOINTS = {
   list: '/api/entities',
@@ -46,15 +47,6 @@ export function useEntity(id: string, options?: { enabled?: boolean }) {
   });
 }
 
-function adaptResponse<T>(response: NextApiResponse<T>): ApiResponse<T> {
-  return {
-    succeeded: response.success,
-    data: response.data,
-    errors: response.success ? response.errors || [] : [response.message],
-    message: response.message,
-  };
-}
-
 export async function createEntity(
   data: Omit<UpsertEntityDto, 'id'>,
 ): Promise<ApiResponse<ActionRes>> {
@@ -63,7 +55,7 @@ export async function createEntity(
     data,
   );
   if (response.data?.data) {
-    return adaptResponse(response.data);
+    return adaptNextResponse(response.data);
   }
   return response;
 }
@@ -76,7 +68,7 @@ export async function updateEntity(
     data,
   );
   if (response.data?.data) {
-    return adaptResponse(response.data);
+    return adaptNextResponse(response.data);
   }
   return response;
 }
@@ -90,7 +82,7 @@ export async function deleteManyEntities(
     body,
   );
   if (response.data?.data) {
-    return adaptResponse(response.data);
+    return adaptNextResponse(response.data);
   }
   return response;
 }
