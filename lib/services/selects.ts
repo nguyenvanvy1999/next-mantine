@@ -26,3 +26,44 @@ export const ACCOUNT_SELECT_FULL = {
 export const ACCOUNT_SELECT_MINIMAL = {
   id: true,
 } as const;
+
+export const ENTITY_SELECT_FULL = {
+  id: true,
+  name: true,
+  type: true,
+  phone: true,
+  email: true,
+  address: true,
+  note: true,
+  created: true,
+  modified: true,
+} as const;
+
+export const ENTITY_SELECT_MINIMAL = {
+  id: true,
+} as const;
+
+export const TAG_SELECT_FULL = {
+  id: true,
+  name: true,
+  description: true,
+  created: true,
+  modified: true,
+} as const;
+
+export const TAG_SELECT_MINIMAL = {
+  id: true,
+} as const;
+
+export const EVENT_SELECT_FULL = {
+  id: true,
+  name: true,
+  startAt: true,
+  endAt: true,
+  created: true,
+  modified: true,
+} as const;
+
+export const EVENT_SELECT_MINIMAL = {
+  id: true,
+} as const;
