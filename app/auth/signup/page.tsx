@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconAlertCircle } from '@tabler/icons-react';
-import { zodResolver } from 'mantine-form-zod-resolver';
+import { zod4Resolver } from 'mantine-form-zod-resolver';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -62,7 +62,7 @@ function Page() {
       password: '',
       confirmPassword: '',
     },
-    validate: zodResolver(schema),
+    validate: zod4Resolver(schema),
   });
 
   const handleSubmit = async (values: typeof form.values) => {

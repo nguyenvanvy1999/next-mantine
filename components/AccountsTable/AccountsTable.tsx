@@ -179,11 +179,11 @@ const AccountsTable = ({
       totalRecords={totalRecords}
       recordsPerPage={pageSize}
       page={page}
-      onPageChange={onPageChange}
+      onPageChange={onPageChange || (() => {})}
       recordsPerPageOptions={[10, 20, 50, 100]}
-      onRecordsPerPageChange={onPageSizeChange}
-      sortStatus={sortStatus}
-      onSortStatusChange={onSortStatusChange}
+      onRecordsPerPageChange={onPageSizeChange || (() => {})}
+      sortStatus={sortStatus as any}
+      onSortStatusChange={onSortStatusChange as any}
       fetching={isLoading}
     />
   );

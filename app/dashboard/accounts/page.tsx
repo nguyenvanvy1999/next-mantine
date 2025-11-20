@@ -5,7 +5,6 @@ import {
   Group,
   Modal,
   MultiSelect,
-  NumberFormatter,
   Stack,
   Text,
   TextInput,
@@ -17,7 +16,7 @@ import { useMemo, useState } from 'react';
 
 import AccountDialog from '@/components/AccountDialog/AccountDialog';
 import AccountsTable from '@/components/AccountsTable/AccountsTable';
-import { StatsCard } from '@/components/StatsCard';
+import StatsCard from '@/components/StatsCard/StatsCard';
 import {
   createAccount,
   deleteManyAccounts,
@@ -34,7 +33,7 @@ import type {
 
 export default function AccountsPage() {
   const { colorScheme } = useMantineColorScheme();
-  const isDark = colorScheme === 'dark';
+  const _isDark = colorScheme === 'dark';
 
   // Dialog state
   const [dialogOpened, { open: openDialog, close: closeDialog }] =
@@ -111,35 +110,37 @@ export default function AccountsPage() {
   }, [page, pageSize, search, selectedTypes, selectedCurrencyIds, sortStatus]);
 
   // Fetch accounts
-  const { data: accountsData, isLoading, refetch } = useAccounts(queryParams);
+  const {
+    data: accountsData,
+    loading: isLoading,
+    refetch,
+  } = useAccounts(queryParams);
 
   // Statistics
   const stats = useMemo(() => {
-    if (!accountsData?.summary || accountsData.summary.length === 0) return [];
+    if (
+      !accountsData ||
+      !('summary' in accountsData) ||
+      !accountsData.summary ||
+      accountsData.summary.length === 0
+    )
+      return [];
     return accountsData.summary.map((item: AccountSummary) => {
-      const isNegative = item.totalBalance < 0;
-      const color = isNegative
-        ? isDark
-          ? 'rgb(248 113 113)'
-          : 'rgb(185 28 28)'
-        : isDark
-          ? 'rgb(34 197 94)'
-          : 'rgb(21 128 61)';
+      const formattedValue = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: item.currency.code,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(item.totalBalance);
+
       return {
-        title: 'Total Assets',
-        value: (
-          <NumberFormatter
-            value={item.totalBalance}
-            prefix={item.currency.symbol ? `${item.currency.symbol} ` : ''}
-            thousandSeparator=","
-            decimalScale={2}
-            allowNegative
-          />
-        ),
-        color,
+        title: `Total Assets (${item.currency.code})`,
+        value: formattedValue,
+        diff: 0, // StatsCard requires diff
+        period: item.currency.code,
       };
     });
-  }, [accountsData?.summary, isDark]);
+  }, [accountsData]);
 
   // Handlers
   const handleAdd = () => {
@@ -205,13 +206,7 @@ export default function AccountsPage() {
       {stats.length > 0 && (
         <Group grow>
           {stats.map((stat, index) => (
-            <StatsCard
-              key={index}
-              title={stat.title}
-              value={stat.value}
-              diff={0}
-              period=""
-            />
+            <StatsCard key={index} data={stat} />
           ))}
         </Group>
       )}
@@ -264,7 +259,11 @@ export default function AccountsPage() {
 
       {/* Table */}
       <AccountsTable
-        accounts={accountsData?.accounts || []}
+        accounts={
+          (accountsData && 'accounts' in accountsData
+            ? accountsData.accounts
+            : []) || []
+        }
         onEdit={handleEdit}
         onDelete={handleDelete}
         isLoading={isLoading}
@@ -272,7 +271,11 @@ export default function AccountsPage() {
         onPageChange={setPage}
         pageSize={pageSize}
         onPageSizeChange={setPageSize}
-        totalRecords={accountsData?.pagination?.total}
+        totalRecords={
+          accountsData && 'pagination' in accountsData
+            ? accountsData.pagination?.total
+            : undefined
+        }
         sortStatus={sortStatus}
         onSortStatusChange={setSortStatus}
       />

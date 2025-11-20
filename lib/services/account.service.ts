@@ -1,8 +1,5 @@
 import { prisma } from '@/lib/auth';
-import type {
-  AccountOrderByWithRelationInput,
-  AccountWhereInput,
-} from '@/lib/generated/prisma/client';
+import type { Prisma } from '@/lib/generated/prisma/client';
 import { DB_PREFIX, ErrorCode, idUtil, throwAppError } from '@/lib/utils';
 import { deleteManyResources } from '@/lib/utils/delete-many.util';
 import { validateResourceOwnership } from '@/lib/utils/ownership.util';
@@ -149,7 +146,7 @@ export class AccountService extends BaseService {
       sortOrder = 'desc',
     } = query;
 
-    const where: AccountWhereInput = {
+    const where: Prisma.AccountWhereInput = {
       userId,
     };
 
@@ -171,12 +168,12 @@ export class AccountService extends BaseService {
     type AccountSortKey = NonNullable<ListAccountsQuery['sortBy']>;
     const orderBy = this.buildOrderBy<
       AccountSortKey,
-      AccountOrderByWithRelationInput
+      Prisma.AccountOrderByWithRelationInput
     >(sortBy, sortOrder, {
       name: 'name',
       created: 'created',
       balance: 'balance',
-    }) as AccountOrderByWithRelationInput | undefined;
+    }) as Prisma.AccountOrderByWithRelationInput | undefined;
 
     const { skip, take } = calculatePagination(page, limit);
 
@@ -198,7 +195,9 @@ export class AccountService extends BaseService {
       }),
     ]);
 
-    const currencyIds = [...new Set(summaryGroups.map((g) => g.currencyId))];
+    const currencyIds = Array.from(
+      new Set(summaryGroups.map((g) => g.currencyId)),
+    );
 
     const currencies = await this.db.currency.findMany({
       where: {

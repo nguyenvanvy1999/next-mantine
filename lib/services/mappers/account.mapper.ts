@@ -13,6 +13,7 @@ type AccountRecord = Prisma.AccountGetPayload<{
 
 export const mapAccount = (account: AccountRecord): AccountResponse => ({
   ...account,
+  type: account.type as AccountResponse['type'],
   balance: decimalToString(account.balance),
   creditLimit: decimalToNullableString(account.creditLimit),
   notifyOnDueDate: account.notifyOnDueDate ?? null,

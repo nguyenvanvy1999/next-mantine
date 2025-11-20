@@ -52,10 +52,15 @@ export function useApiGet<T>(
 
   // Build URL with query params
   // For relative paths (same origin), use endpoint directly
-  const baseUrl =
-    API_BASE_URL ||
-    (typeof window !== 'undefined' ? window.location.origin : '');
-  const url = new URL(endpoint, baseUrl);
+  let url: URL;
+  if (API_BASE_URL) {
+    url = new URL(endpoint, API_BASE_URL);
+  } else if (typeof window !== 'undefined') {
+    url = new URL(endpoint, window.location.origin);
+  } else {
+    // Server-side: use a placeholder base URL
+    url = new URL(endpoint, 'http://localhost:3000');
+  }
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {

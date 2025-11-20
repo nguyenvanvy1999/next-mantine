@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { accountService } from '@/lib/services/account.service';
 import { requireAuth } from '@/lib/utils/auth.util';
 import { AppError } from '@/lib/utils/error.util';
+import type { AccountType, UpsertAccountDto } from '@/types/account';
 
 // Validation schemas
 const UpsertAccountSchema = z.object({
@@ -102,7 +103,11 @@ export async function POST(request: NextRequest) {
     const user = await requireAuth();
     const body = await request.json();
 
-    const data = UpsertAccountSchema.parse(body);
+    const parsed = UpsertAccountSchema.parse(body);
+    const data: UpsertAccountDto = {
+      ...parsed,
+      type: parsed.type as AccountType,
+    };
     const result = await accountService.upsertAccount(user.id, data);
 
     return NextResponse.json({
@@ -117,7 +122,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: 'Validation error',
           data: null,
-          errors: error.errors,
+          errors: error.issues.map((issue) => issue.message),
         },
         { status: 400 },
       );

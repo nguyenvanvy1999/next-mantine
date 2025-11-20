@@ -10,7 +10,8 @@ import {
   Stack,
   TextInput,
 } from '@mantine/core';
-import { useForm, zodResolver } from '@mantine/form';
+import { useForm } from '@mantine/form';
+import { zod4Resolver } from 'mantine-form-zod-resolver';
 import { z } from 'zod';
 
 import type {
@@ -72,7 +73,7 @@ const AccountDialog = ({
       paymentDay: account?.paymentDay ?? undefined,
       notifyDaysBefore: account?.notifyDaysBefore ?? undefined,
     },
-    validate: zodResolver(accountSchema),
+    validate: zod4Resolver(accountSchema),
   });
 
   const accountType = form.values.type;

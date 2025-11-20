@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: 'Validation error',
           data: null,
-          errors: error.errors,
+          errors: error.issues.map((issue) => issue.message),
         },
         { status: 400 },
       );

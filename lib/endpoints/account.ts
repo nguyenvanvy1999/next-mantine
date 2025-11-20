@@ -35,14 +35,17 @@ interface NextApiResponse<T> {
   errors?: any[];
 }
 
-// Helper to convert Next.js API response to next-mantine format
-function adaptResponse<T>(response: NextApiResponse<T>): ApiResponse<T> {
-  return {
-    succeeded: response.success,
-    data: response.data,
-    errors: response.success ? response.errors || [] : [response.message],
-    message: response.message,
-  };
+// Helper to unwrap Next.js API response
+// useApiGet returns { data: ApiResponse<T> | null, ... }
+// Next.js API returns { success, message, data: T }
+// We need to extract the inner data
+function unwrapNextApiResponse<T>(response: {
+  data: ApiResponse<NextApiResponse<T>> | null;
+}): T | undefined {
+  if (response.data?.data?.data) {
+    return response.data.data.data;
+  }
+  return undefined;
 }
 
 // Hooks
@@ -78,19 +81,15 @@ export function useAccounts(
     },
   );
 
-  // Adapt the response - unwrap the Next.js API format
-  // useApiGet returns ApiResponse<NextApiResponse<T>>, so we need to unwrap
-  if (result.data?.data) {
-    return {
-      ...result,
-      data: result.data.data, // Unwrap NextApiResponse
-    };
-  }
+  // useApiGet returns ApiResponse<NextApiResponse<AccountListResponse>>
+  // Next.js API returns { success, message, data: AccountListResponse }
+  // We need to unwrap to get AccountListResponse
+  const unwrappedData = unwrapNextApiResponse<AccountListResponse>(result);
 
   return {
     ...result,
-    data: undefined,
-  };
+    data: unwrappedData,
+  } as typeof result & { data: AccountListResponse | undefined };
 }
 
 export function useAccount(id: string, options?: { enabled?: boolean }) {
@@ -103,17 +102,24 @@ export function useAccount(id: string, options?: { enabled?: boolean }) {
     },
   );
 
-  // Adapt the response - unwrap the Next.js API format
-  if (result.data?.data) {
-    return {
-      ...result,
-      data: result.data.data, // Unwrap NextApiResponse
-    };
-  }
+  // useApiGet returns ApiResponse<NextApiResponse<AccountResponse>>
+  // Next.js API returns { success, message, data: AccountResponse }
+  // We need to unwrap to get AccountResponse
+  const unwrappedData = unwrapNextApiResponse<AccountResponse>(result);
 
   return {
     ...result,
-    data: undefined,
+    data: unwrappedData,
+  } as typeof result & { data: AccountResponse | undefined };
+}
+
+// Helper to convert Next.js API response to next-mantine format
+function adaptResponse<T>(response: NextApiResponse<T>): ApiResponse<T> {
+  return {
+    succeeded: response.success,
+    data: response.data,
+    errors: response.success ? response.errors || [] : [response.message],
+    message: response.message,
   };
 }
 
