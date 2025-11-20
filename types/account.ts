@@ -26,16 +26,16 @@ export type AccountResponse = DateToString<
       | 'currencyId'
       | 'balance'
       | 'creditLimit'
-      | 'notifyOnDueDate'
-      | 'paymentDay'
-      | 'notifyDaysBefore'
-      | 'meta'
       | 'created'
       | 'modified'
     >
   >
 > & {
   currency: CurrencyDto;
+  notifyOnDueDate: boolean | null;
+  paymentDay: number | null;
+  notifyDaysBefore: number | null;
+  meta: unknown;
 };
 
 export interface AccountSummary {

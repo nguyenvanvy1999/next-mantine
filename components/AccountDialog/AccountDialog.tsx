@@ -63,15 +63,19 @@ const AccountDialog = ({
   const form = useForm<AccountFormValues>({
     initialValues: {
       name: account?.name || '',
-      type: account?.type || 'cash',
+      type: (account?.type as AccountType) || ('cash' as const),
       currencyId: account?.currencyId || '',
       initialBalance: 0,
       creditLimit: account?.creditLimit
         ? parseFloat(String(account.creditLimit))
         : 0,
-      notifyOnDueDate: account?.notifyOnDueDate ?? false,
-      paymentDay: account?.paymentDay ?? undefined,
-      notifyDaysBefore: account?.notifyDaysBefore ?? undefined,
+      notifyOnDueDate: account?.notifyOnDueDate
+        ? Boolean(account.notifyOnDueDate)
+        : false,
+      paymentDay: account?.paymentDay ? Number(account.paymentDay) : undefined,
+      notifyDaysBefore: account?.notifyDaysBefore
+        ? Number(account.notifyDaysBefore)
+        : undefined,
     },
     validate: zod4Resolver(accountSchema),
   });

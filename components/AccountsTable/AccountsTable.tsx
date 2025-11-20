@@ -77,7 +77,7 @@ const AccountsTable = ({
       {
         accessor: 'type',
         title: 'Type',
-        render: ({ type }) => <AccountTypeBadge type={type} />,
+        render: ({ type }) => <AccountTypeBadge type={type as AccountType} />,
       },
       {
         accessor: 'currency.code',
