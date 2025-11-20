@@ -7,6 +7,7 @@ import {
   Flex,
   Paper,
   PasswordInput,
+  Select,
   Text,
   TextInput,
   type TextProps,
@@ -22,6 +23,7 @@ import { z } from 'zod';
 
 import { Surface } from '@/components';
 import { authClient } from '@/lib/auth-client';
+import { useCurrenciesPublic } from '@/lib/endpoints/currency';
 import { PATH_AUTH } from '@/routes';
 
 import classes from './page.module.css';
@@ -39,6 +41,7 @@ const schema = z
       .string()
       .min(6, { message: 'Password must include at least 6 characters' }),
     confirmPassword: z.string(),
+    baseCurrencyId: z.string().min(1, { message: 'Base currency is required' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords did not match',
@@ -49,6 +52,8 @@ function Page() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { data: currencies = [], loading: currenciesLoading } =
+    useCurrenciesPublic();
 
   const LINK_PROPS: TextProps = {
     className: classes.link,
@@ -61,6 +66,7 @@ function Page() {
       email: '',
       password: '',
       confirmPassword: '',
+      baseCurrencyId: '',
     },
     validate: zod4Resolver(schema),
   });
@@ -70,18 +76,43 @@ function Page() {
       setIsLoading(true);
       setError(null);
 
-      const { error } = await authClient.signUp.email({
-        email: values.email,
-        password: values.password,
-        name: `${values.firstName} ${values.lastName}`,
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          baseCurrencyId: values.baseCurrencyId,
+        }),
       });
 
-      if (error) {
-        setError(error.message || 'An error occurred during registration');
+      const result = await response.json();
+
+      if (!result.success) {
+        setError(result.message || 'An error occurred during registration');
         return;
       }
 
-      router.push('/');
+      // After successful registration, sign in the user
+      const signInResult = await authClient.signIn.email({
+        email: values.email,
+        password: values.password,
+        fetchOptions: {
+          onSuccess: () => {
+            router.push('/dashboard');
+          },
+        },
+      });
+
+      if (signInResult.error) {
+        // Registration succeeded but auto-login failed
+        // Redirect to sign in page
+        router.push(PATH_AUTH.signin);
+      }
     } catch (err) {
       setError('An unexpected error occurred');
       console.error('Registration error:', err);
@@ -153,6 +184,21 @@ function Page() {
             mt="md"
             classNames={{ label: classes.label }}
             {...form.getInputProps('confirmPassword')}
+          />
+          <Select
+            label="Base Currency"
+            placeholder="Select your base currency"
+            required
+            mt="md"
+            classNames={{ label: classes.label }}
+            data={
+              currencies?.map((currency) => ({
+                value: currency.id,
+                label: `${currency.symbol || ''} - ${currency.name} (${currency.code})`,
+              })) || []
+            }
+            disabled={currenciesLoading}
+            {...form.getInputProps('baseCurrencyId')}
           />
           <Button fullWidth mt="xl" type="submit" loading={isLoading}>
             Create account

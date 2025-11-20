@@ -24,10 +24,11 @@ export interface AuthRequestDto {
 }
 
 export interface RegisterRequestDto {
-  username: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  baseCurrencyId: string;
 }
 
 export interface ForgotPasswordRequestDto {
