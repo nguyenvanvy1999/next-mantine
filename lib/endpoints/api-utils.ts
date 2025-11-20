@@ -2,7 +2,6 @@ import { useFetch } from '@mantine/hooks';
 import type { components } from '@/lib/api';
 import { authClient } from '@/lib/auth-client';
 
-// Simple permission checking helper
 function hasPermission(
   userPermissions: string[] | undefined,
   requiredPermission: string,
@@ -11,11 +10,8 @@ function hasPermission(
   return userPermissions.includes(requiredPermission);
 }
 
-// Base configuration
-// For Next.js API routes, use relative paths (same origin)
 const API_BASE_URL = '';
 
-// Standard API response type
 export type ApiResponse<T> = {
   succeeded: boolean;
   data: T;
@@ -23,7 +19,6 @@ export type ApiResponse<T> = {
   message: string;
 };
 
-// Get auth headers helper using Better Auth session
 export function getAuthHeaders(
   accessToken: string | undefined | null,
 ): HeadersInit {
@@ -38,11 +33,10 @@ export function getAuthHeaders(
   return headers;
 }
 
-// Simple GET hook with Better Auth and RBAC
 export function useApiGet<T>(
   endpoint: string,
   options?: {
-    params?: Record<string, any>;
+    params?: Record<string, string | number | boolean | undefined>;
     enabled?: boolean;
     permission?: string;
   },
@@ -50,15 +44,12 @@ export function useApiGet<T>(
   const { params, enabled = true, permission } = options || {};
   const { data: session } = authClient.useSession();
 
-  // Build URL with query params
-  // For relative paths (same origin), use endpoint directly
   let url: URL;
   if (API_BASE_URL) {
     url = new URL(endpoint, API_BASE_URL);
   } else if (typeof window !== 'undefined') {
     url = new URL(endpoint, window.location.origin);
   } else {
-    // Server-side: use a placeholder base URL
     url = new URL(endpoint, 'http://localhost:3000');
   }
   if (params) {
@@ -69,23 +60,21 @@ export function useApiGet<T>(
     });
   }
 
-  // Get permissions from user
-  const userPermissions = (session?.user as any)?.permissions || [];
+  type UserWithPermissions = { permissions?: string[] };
+  const userPermissions =
+    (session?.user as UserWithPermissions)?.permissions || [];
   const accessToken = session?.session?.token;
 
-  // Check permissions if specified
   const hasRequiredPermission = permission
     ? hasPermission(userPermissions, permission)
     : true;
 
-  // Only make request if we have a session, it's enabled, and permissions allow
   const shouldFetch = enabled && !!accessToken && hasRequiredPermission;
 
   const result = useFetch<ApiResponse<T>>(shouldFetch ? url.toString() : '', {
     headers: getAuthHeaders(accessToken),
   });
 
-  // Add permission info to the result
   return {
     ...result,
     hasPermission: hasRequiredPermission,
@@ -93,7 +82,11 @@ export function useApiGet<T>(
   };
 }
 
-// Helper to get current session token and check permissions (for mutations)
+interface SessionResponse {
+  session?: { token?: string };
+  user?: { permissions?: string[] };
+}
+
 async function getCurrentTokenAndPermissions(): Promise<{
   token: string | null;
   permissions: string[] | undefined;
@@ -101,20 +94,19 @@ async function getCurrentTokenAndPermissions(): Promise<{
   if (typeof window === 'undefined')
     return { token: null, permissions: undefined };
 
-  // Get session from Better Auth
   try {
-    const sessionData: any = await authClient.$fetch('/session');
+    const sessionData = await authClient.$fetch<SessionResponse>('/session');
+    const data = 'data' in sessionData ? sessionData.data : sessionData;
 
     return {
-      token: sessionData?.session?.token || null,
-      permissions: sessionData?.user?.permissions,
+      token: (data as SessionResponse)?.session?.token || null,
+      permissions: (data as SessionResponse)?.user?.permissions,
     };
-  } catch (_error) {
+  } catch {
     return { token: null, permissions: undefined };
   }
 }
 
-// Permission-aware mutation wrapper
 async function withPermissionCheck<T>(
   operation: () => Promise<ApiResponse<T>>,
   requiredPermission?: string,
@@ -132,10 +124,9 @@ async function withPermissionCheck<T>(
   return operation();
 }
 
-// Simple POST function with NextAuth and optional permission check
 export async function apiPost<T>(
   endpoint: string,
-  data?: any,
+  data?: unknown,
   options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
   return withPermissionCheck(async () => {
@@ -155,10 +146,9 @@ export async function apiPost<T>(
   }, options?.permission);
 }
 
-// Simple PUT function with NextAuth and optional permission check
 export async function apiPut<T>(
   endpoint: string,
-  data?: any,
+  data?: unknown,
   options?: { permission?: string },
 ): Promise<ApiResponse<T>> {
   return withPermissionCheck(async () => {
@@ -178,7 +168,6 @@ export async function apiPut<T>(
   }, options?.permission);
 }
 
-// Simple DELETE function with NextAuth and optional permission check
 export async function apiDelete<T>(
   endpoint: string,
   options?: { permission?: string },
@@ -199,10 +188,11 @@ export async function apiDelete<T>(
   }, options?.permission);
 }
 
-// Simple permission hook for components
 export function usePermission(requiredPermission: string) {
   const { data: session, isPending } = authClient.useSession();
-  const userPermissions = (session?.user as any)?.permissions || [];
+  type UserWithPermissions = { permissions?: string[] };
+  const userPermissions =
+    (session?.user as UserWithPermissions)?.permissions || [];
 
   const hasRequiredPermission = hasPermission(
     userPermissions,
@@ -216,5 +206,4 @@ export function usePermission(requiredPermission: string) {
   };
 }
 
-// Re-export types for convenience
 export type { components };

@@ -7,6 +7,7 @@ import { calculatePagination } from '@/lib/utils/pagination.util';
 import type {
   AccountListResponse,
   AccountResponse,
+  AccountType,
   ActionRes,
   UpsertAccountDto,
 } from '@/types/account';
@@ -87,7 +88,7 @@ export class AccountService extends BaseService {
           notifyOnDueDate: data.notifyOnDueDate ?? null,
           paymentDay: data.paymentDay ?? null,
           notifyDaysBefore: data.notifyDaysBefore ?? null,
-          meta: (data.meta ?? null) as any,
+          meta: data.meta ?? undefined,
         },
         select: ACCOUNT_SELECT_MINIMAL,
       });
@@ -103,7 +104,7 @@ export class AccountService extends BaseService {
           notifyOnDueDate: data.notifyOnDueDate ?? null,
           paymentDay: data.paymentDay ?? null,
           notifyDaysBefore: data.notifyDaysBefore ?? null,
-          meta: (data.meta ?? null) as any,
+          meta: data.meta ?? undefined,
           userId,
           balance: data.initialBalance ?? 0,
         },
@@ -151,7 +152,7 @@ export class AccountService extends BaseService {
     };
 
     if (type && type.length > 0) {
-      where.type = { in: type as any };
+      where.type = { in: type as AccountType[] };
     }
 
     if (currencyId && currencyId.length > 0) {

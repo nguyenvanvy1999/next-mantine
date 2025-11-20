@@ -55,7 +55,9 @@ export default function AccountsPage() {
   // Pagination and sorting
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
+  const [sortStatus, setSortStatus] = useState<
+    DataTableSortStatus<AccountResponse>
+  >({
     columnAccessor: 'created',
     direction: 'desc',
   });

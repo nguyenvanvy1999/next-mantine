@@ -12,18 +12,13 @@ interface CurrencyListResponse {
   currencies: CurrencyDto[];
 }
 
-// Endpoints - Next.js API routes
 const ENDPOINTS = {
   list: '/api/currencies',
 } as const;
 
-// Hook to get all currencies
 export function useCurrencies(options?: { enabled?: boolean }) {
   const { enabled = true } = options || {};
 
-  // useApiGet expects ApiResponse<T> format from server
-  // But Next.js API returns { success, message, data }
-  // So we need to unwrap it
   const result = useApiGet<NextApiResponse<CurrencyListResponse>>(
     ENDPOINTS.list,
     {
@@ -31,9 +26,6 @@ export function useCurrencies(options?: { enabled?: boolean }) {
     },
   );
 
-  // useApiGet returns ApiResponse<NextApiResponse<CurrencyListResponse>>
-  // result.data is NextApiResponse<CurrencyListResponse> (the T in ApiResponse<T>)
-  // result.data.data is CurrencyListResponse which has currencies property
   if (result.data && typeof result.data === 'object' && 'data' in result.data) {
     const response =
       result.data as unknown as NextApiResponse<CurrencyListResponse>;

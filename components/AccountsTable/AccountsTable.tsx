@@ -30,8 +30,8 @@ type AccountsTableProps = {
   pageSize?: number;
   onPageSizeChange?: (size: number) => void;
   totalRecords?: number;
-  sortStatus?: DataTableSortStatus;
-  onSortStatusChange?: (status: DataTableSortStatus) => void;
+  sortStatus?: DataTableSortStatus<AccountResponse>;
+  onSortStatusChange?: (status: DataTableSortStatus<AccountResponse>) => void;
 };
 
 const AccountTypeBadge = ({ type }: { type: AccountType }) => {
@@ -172,6 +172,7 @@ const AccountsTable = ({
       verticalSpacing="xs"
       striped
       highlightOnHover
+      withTableBorder
       columns={columns}
       records={accounts}
       selectedRecords={selectedRecords}
@@ -182,8 +183,10 @@ const AccountsTable = ({
       onPageChange={onPageChange || (() => {})}
       recordsPerPageOptions={[10, 20, 50, 100]}
       onRecordsPerPageChange={onPageSizeChange || (() => {})}
-      sortStatus={sortStatus as any}
-      onSortStatusChange={onSortStatusChange as any}
+      sortStatus={
+        sortStatus ?? { columnAccessor: 'created', direction: 'desc' }
+      }
+      onSortStatusChange={onSortStatusChange}
       fetching={isLoading}
     />
   );

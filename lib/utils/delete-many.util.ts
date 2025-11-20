@@ -22,10 +22,16 @@ export interface DeleteManyConfig {
   resourceName: string;
 }
 
-/**
- * Generic function to handle deleteMany pattern for resources
- * Validates ownership, checks count, and deletes resources
- */
+type PrismaModel = {
+  findMany: (args: {
+    where: { id: { in: string[] }; userId: string };
+    select: Record<string, boolean>;
+  }) => Promise<Array<{ id: string }>>;
+  deleteMany: (args: {
+    where: { id: { in: string[] }; userId: string };
+  }) => Promise<{ count: number }>;
+};
+
 export async function deleteManyResources(config: DeleteManyConfig): Promise<{
   success: boolean;
   message: string;
@@ -41,8 +47,8 @@ export async function deleteManyResources(config: DeleteManyConfig): Promise<{
     resourceName,
   } = config;
 
-  // Find resources to validate ownership
-  const resources = await (db[model] as any).findMany({
+  const modelClient = db[model] as unknown as PrismaModel;
+  const resources = await modelClient.findMany({
     where: {
       id: { in: ids },
       userId,
@@ -54,8 +60,7 @@ export async function deleteManyResources(config: DeleteManyConfig): Promise<{
     throwAppError(errorCode, errorMessage);
   }
 
-  // Delete resources
-  await (db[model] as any).deleteMany({
+  await modelClient.deleteMany({
     where: {
       id: { in: ids },
       userId,
