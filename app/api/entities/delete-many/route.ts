@@ -8,7 +8,6 @@ const DeleteManySchema = z.object({
   ids: z.array(z.string()).min(1),
 });
 
-// POST /api/entities/delete-many - Delete multiple entities
 export async function POST(request: NextRequest) {
   try {
     const user = await requireAuth();

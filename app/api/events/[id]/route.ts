@@ -3,7 +3,6 @@ import { eventService } from '@/lib/services/event.service';
 import { requireAuth } from '@/lib/utils/auth.util';
 import { AppError } from '@/lib/utils/error.util';
 
-// GET /api/events/[id] - Get event by ID
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -52,7 +51,6 @@ export async function GET(
   }
 }
 
-// DELETE /api/events/[id] - Delete event
 export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },

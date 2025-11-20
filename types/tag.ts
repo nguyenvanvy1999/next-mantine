@@ -1,17 +1,15 @@
-export interface TagResponse {
-  id: string;
-  name: string;
-  description: string | null;
-  created: string; // ISO date string
-  modified: string; // ISO date string
-}
+import type { TagModel } from '@/lib/generated/prisma/models/Tag';
+import type {
+  ActionRes,
+  BaseListQuery,
+  DateToString,
+  DeleteManyDto,
+  PaginationMeta,
+} from './common';
 
-export interface PaginationMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-}
+export type TagResponse = DateToString<
+  Pick<TagModel, 'id' | 'name' | 'description' | 'created' | 'modified'>
+>;
 
 export interface TagListResponse {
   tags: TagResponse[];
@@ -24,19 +22,8 @@ export interface UpsertTagDto {
   description?: string;
 }
 
-export interface ListTagsQuery {
-  search?: string;
-  page?: number;
-  limit?: number;
+export interface ListTagsQuery extends BaseListQuery {
   sortBy?: 'name' | 'created';
-  sortOrder?: 'asc' | 'desc';
 }
 
-export interface ActionRes {
-  success: boolean;
-  message: string;
-}
-
-export interface DeleteManyDto {
-  ids: string[];
-}
+export type { PaginationMeta, ActionRes, DeleteManyDto };

@@ -3,13 +3,10 @@ import { NextResponse } from 'next/server';
 import { auth, prisma } from '@/lib/auth';
 import type { RegisterRequestDto } from '@/types/user';
 
-// POST /api/auth/register - Custom registration endpoint with baseCurrencyId
 export async function POST(request: Request) {
   try {
     const body: RegisterRequestDto = await request.json();
     const { email, password, firstName, lastName, baseCurrencyId } = body;
-
-    // Validate baseCurrencyId
     if (!baseCurrencyId) {
       return NextResponse.json(
         {
@@ -21,7 +18,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if currency exists
     const currency = await prisma.currency.findFirst({
       where: {
         id: baseCurrencyId,
@@ -40,7 +36,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if user already exists
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
@@ -56,7 +51,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create user using Better Auth API
     const name = `${firstName} ${lastName}`.trim();
 
     try {
@@ -69,7 +63,6 @@ export async function POST(request: Request) {
         headers: request.headers,
       });
     } catch (error) {
-      // Handle Better Auth API errors
       if (error instanceof APIError) {
         return NextResponse.json(
           {
@@ -81,11 +74,9 @@ export async function POST(request: Request) {
         );
       }
 
-      // Re-throw unexpected errors
       throw error;
     }
 
-    // Get the created user by email
     const user = await prisma.user.findUnique({
       where: { email },
       select: { id: true, email: true, name: true },
@@ -102,7 +93,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Update user with baseCurrencyId
     await prisma.user.update({
       where: { id: user.id },
       data: { baseCurrencyId },
@@ -123,7 +113,6 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Registration error:', error);
 
-    // Handle duplicate email error
     if (
       error instanceof Error &&
       (error.message.includes('Unique constraint') ||

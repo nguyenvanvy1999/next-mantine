@@ -3,7 +3,6 @@ import { tagService } from '@/lib/services/tag.service';
 import { requireAuth } from '@/lib/utils/auth.util';
 import { AppError } from '@/lib/utils/error.util';
 
-// GET /api/tags/[id] - Get tag by ID
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -52,7 +51,6 @@ export async function GET(
   }
 }
 
-// DELETE /api/tags/[id] - Delete tag
 export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },

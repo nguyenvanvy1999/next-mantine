@@ -3,7 +3,6 @@ import { entityService } from '@/lib/services/entity.service';
 import { requireAuth } from '@/lib/utils/auth.util';
 import { AppError } from '@/lib/utils/error.util';
 
-// GET /api/entities/[id] - Get entity by ID
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -52,7 +51,6 @@ export async function GET(
   }
 }
 
-// DELETE /api/entities/[id] - Delete entity
 export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> },

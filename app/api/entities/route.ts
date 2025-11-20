@@ -5,7 +5,6 @@ import { requireAuth } from '@/lib/utils/auth.util';
 import { AppError } from '@/lib/utils/error.util';
 import type { EntityType, UpsertEntityDto } from '@/types/entity';
 
-// Validation schemas
 const UpsertEntitySchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1),
@@ -34,7 +33,6 @@ const ListEntitiesQuerySchema = z.object({
   sortOrder: z.enum(['asc', 'desc']).optional(),
 });
 
-// GET /api/entities - List entities
 export async function GET(request: NextRequest) {
   try {
     const user = await requireAuth();
@@ -89,7 +87,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/entities - Create or update entity
 export async function POST(request: NextRequest) {
   try {
     const user = await requireAuth();

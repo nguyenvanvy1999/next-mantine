@@ -35,27 +35,6 @@ export const PATH_ACCOUNTS = {
   root: path(ROOTS_DASHBOARD, '/accounts'),
 };
 
-export const PATH_TRANSACTIONS = {
-  root: path(ROOTS_DASHBOARD, '/transactions'),
-  bulk: path(ROOTS_DASHBOARD, '/transactions/bulk'),
-};
-
-export const PATH_DEBTS = {
-  root: path(ROOTS_DASHBOARD, '/debts'),
-};
-
-export const PATH_BUDGETS = {
-  root: path(ROOTS_DASHBOARD, '/budgets'),
-};
-
-export const PATH_INVESTMENTS = {
-  root: path(ROOTS_DASHBOARD, '/investments'),
-};
-
-export const PATH_CATEGORIES = {
-  root: path(ROOTS_DASHBOARD, '/categories'),
-};
-
 export const PATH_ENTITIES = {
   root: path(ROOTS_DASHBOARD, '/entities'),
 };
@@ -66,14 +45,4 @@ export const PATH_EVENTS = {
 
 export const PATH_TAGS = {
   root: path(ROOTS_DASHBOARD, '/tags'),
-};
-
-export const PATH_RULES = {
-  root: path(ROOTS_DASHBOARD, '/rules'),
-};
-
-export const PATH_STATISTICS = {
-  incomeExpense: path(ROOTS_DASHBOARD, '/statistics/income-expense'),
-  investments: path(ROOTS_DASHBOARD, '/statistics/investments'),
-  debts: path(ROOTS_DASHBOARD, '/statistics/debts'),
 };

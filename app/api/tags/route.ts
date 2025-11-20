@@ -5,7 +5,6 @@ import { requireAuth } from '@/lib/utils/auth.util';
 import { AppError } from '@/lib/utils/error.util';
 import type { UpsertTagDto } from '@/types/tag';
 
-// Validation schemas
 const UpsertTagSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1),
@@ -26,7 +25,6 @@ const ListTagsQuerySchema = z.object({
   sortOrder: z.enum(['asc', 'desc']).optional(),
 });
 
-// GET /api/tags - List tags
 export async function GET(request: NextRequest) {
   try {
     const user = await requireAuth();
@@ -80,7 +78,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/tags - Create or update tag
 export async function POST(request: NextRequest) {
   try {
     const user = await requireAuth();

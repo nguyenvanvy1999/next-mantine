@@ -5,7 +5,6 @@ import { requireAuth } from '@/lib/utils/auth.util';
 import { AppError } from '@/lib/utils/error.util';
 import type { UpsertEventDto } from '@/types/event';
 
-// Validation schemas
 const UpsertEventSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1),
@@ -31,7 +30,6 @@ const ListEventsQuerySchema = z.object({
   sortOrder: z.enum(['asc', 'desc']).optional(),
 });
 
-// GET /api/events - List events
 export async function GET(request: NextRequest) {
   try {
     const user = await requireAuth();
@@ -89,7 +87,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/events - Create or update event
 export async function POST(request: NextRequest) {
   try {
     const user = await requireAuth();

@@ -1,27 +1,29 @@
-// Entity types matching Prisma schema
-export enum EntityType {
-  individual = 'individual',
-  organization = 'organization',
-}
+import type { EntityType } from '@/lib/generated/prisma/enums';
+import type { EntityModel } from '@/lib/generated/prisma/models/Entity';
+import type {
+  ActionRes,
+  BaseListQuery,
+  DateToString,
+  DeleteManyDto,
+  PaginationMeta,
+} from './common';
 
-export interface EntityResponse {
-  id: string;
-  name: string;
-  type: EntityType;
-  phone: string | null;
-  email: string | null;
-  address: string | null;
-  note: string | null;
-  created: string; // ISO date string
-  modified: string; // ISO date string
-}
+export { EntityType } from '@/lib/generated/prisma/enums';
 
-export interface PaginationMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-}
+export type EntityResponse = DateToString<
+  Pick<
+    EntityModel,
+    | 'id'
+    | 'name'
+    | 'type'
+    | 'phone'
+    | 'email'
+    | 'address'
+    | 'note'
+    | 'created'
+    | 'modified'
+  >
+>;
 
 export interface EntityListResponse {
   entities: EntityResponse[];
@@ -38,20 +40,9 @@ export interface UpsertEntityDto {
   note?: string;
 }
 
-export interface ListEntitiesQuery {
+export interface ListEntitiesQuery extends BaseListQuery {
   type?: EntityType[];
-  search?: string;
-  page?: number;
-  limit?: number;
   sortBy?: 'name' | 'type' | 'created';
-  sortOrder?: 'asc' | 'desc';
 }
 
-export interface ActionRes {
-  success: boolean;
-  message: string;
-}
-
-export interface DeleteManyDto {
-  ids: string[];
-}
+export type { PaginationMeta, ActionRes, DeleteManyDto };

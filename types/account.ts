@@ -1,45 +1,46 @@
-// Account types matching investment DTOs
+import type { AccountType } from '@/lib/generated/prisma/enums';
+import type { AccountModel } from '@/lib/generated/prisma/models/Account';
+import type { CurrencyModel } from '@/lib/generated/prisma/models/Currency';
+import type {
+  ActionRes,
+  DateToString,
+  DecimalToString,
+  DeleteManyDto,
+  PaginationMeta,
+} from './common';
 
-export enum AccountType {
-  cash = 'cash',
-  bank = 'bank',
-  credit_card = 'credit_card',
-  investment = 'investment',
-}
+export { AccountType } from '@/lib/generated/prisma/enums';
 
-export interface CurrencyDto {
-  id: string;
-  code: string;
-  name: string;
-  symbol?: string | null;
-}
+export type CurrencyDto = Pick<
+  CurrencyModel,
+  'id' | 'code' | 'name' | 'symbol'
+>;
 
-export interface AccountResponse {
-  id: string;
-  type: AccountType;
-  name: string;
-  currencyId: string;
-  balance: string; // Decimal as string
-  creditLimit: string | null; // Decimal as string
-  notifyOnDueDate: boolean | null;
-  paymentDay: number | null;
-  notifyDaysBefore: number | null;
-  meta: unknown | null;
-  created: string; // ISO date string
-  modified: string; // ISO date string
+export type AccountResponse = DateToString<
+  DecimalToString<
+    Pick<
+      AccountModel,
+      | 'id'
+      | 'type'
+      | 'name'
+      | 'currencyId'
+      | 'balance'
+      | 'creditLimit'
+      | 'notifyOnDueDate'
+      | 'paymentDay'
+      | 'notifyDaysBefore'
+      | 'meta'
+      | 'created'
+      | 'modified'
+    >
+  >
+> & {
   currency: CurrencyDto;
-}
+};
 
 export interface AccountSummary {
   currency: CurrencyDto;
   totalBalance: number;
-}
-
-export interface PaginationMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
 }
 
 export interface AccountListResponse {
@@ -61,11 +62,4 @@ export interface UpsertAccountDto {
   meta?: unknown;
 }
 
-export interface ActionRes {
-  success: boolean;
-  message: string;
-}
-
-export interface DeleteManyDto {
-  ids: string[];
-}
+export type { PaginationMeta, ActionRes, DeleteManyDto };

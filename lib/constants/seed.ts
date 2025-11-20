@@ -1,6 +1,5 @@
 import { env } from '@/lib/env';
 
-// Seed constants
 export const CURRENCY_IDS = {
   VND: 'currency_vnd',
   USD: 'currency_usd',

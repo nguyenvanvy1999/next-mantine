@@ -1,18 +1,15 @@
-export interface EventResponse {
-  id: string;
-  name: string;
-  startAt: string; // ISO date string
-  endAt: string | null; // ISO date string
-  created: string; // ISO date string
-  modified: string; // ISO date string
-}
+import type { EventModel } from '@/lib/generated/prisma/models/Event';
+import type {
+  ActionRes,
+  BaseListQuery,
+  DateToString,
+  DeleteManyDto,
+  PaginationMeta,
+} from './common';
 
-export interface PaginationMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-}
+export type EventResponse = DateToString<
+  Pick<EventModel, 'id' | 'name' | 'startAt' | 'endAt' | 'created' | 'modified'>
+>;
 
 export interface EventListResponse {
   events: EventResponse[];
@@ -22,27 +19,16 @@ export interface EventListResponse {
 export interface UpsertEventDto {
   id?: string;
   name: string;
-  startAt: string; // ISO datetime string
-  endAt?: string; // ISO datetime string
+  startAt: string;
+  endAt?: string;
 }
 
-export interface ListEventsQuery {
-  search?: string;
-  startAtFrom?: string; // ISO datetime string
-  startAtTo?: string; // ISO datetime string
-  endAtFrom?: string; // ISO datetime string
-  endAtTo?: string; // ISO datetime string
-  page?: number;
-  limit?: number;
+export interface ListEventsQuery extends BaseListQuery {
+  startAtFrom?: string;
+  startAtTo?: string;
+  endAtFrom?: string;
+  endAtTo?: string;
   sortBy?: 'name' | 'startAt' | 'endAt' | 'created';
-  sortOrder?: 'asc' | 'desc';
 }
 
-export interface ActionRes {
-  success: boolean;
-  message: string;
-}
-
-export interface DeleteManyDto {
-  ids: string[];
-}
+export type { PaginationMeta, ActionRes, DeleteManyDto };
