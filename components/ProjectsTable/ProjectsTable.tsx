@@ -34,15 +34,6 @@ const _StatusBadge = ({ status }: { status: Status }) => {
   );
 };
 
-type ProjectItem = {
-  id: string;
-  name: string;
-  start_date: string;
-  end_date: string;
-  state: Status;
-  assignee: string;
-};
-
 type ProjectsTableProps = {
   data?: components['schemas']['ProjectDto'][];
   error: Error | null | undefined | ReactNode;

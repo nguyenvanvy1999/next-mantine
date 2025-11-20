@@ -17,6 +17,7 @@ import {
   ThemeCustomizerProvider,
   useThemeCustomizer,
 } from '@/contexts/theme-customizer';
+import { PermixProvider } from '@/lib/permix/context';
 import { createDynamicTheme } from '@/theme';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
@@ -155,9 +156,11 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <AuthProvider>
-          <ThemeCustomizerProvider>
-            <ThemeProvider>{children}</ThemeProvider>
-          </ThemeCustomizerProvider>
+          <PermixProvider>
+            <ThemeCustomizerProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </ThemeCustomizerProvider>
+          </PermixProvider>
         </AuthProvider>
       </body>
     </html>

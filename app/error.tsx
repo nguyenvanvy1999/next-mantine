@@ -16,13 +16,7 @@ import { useEffect } from 'react';
 
 import classes from './error.module.css';
 
-function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+function AppError({ error }: { error: Error & { digest?: string } }) {
   const router = useRouter();
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
@@ -91,4 +85,4 @@ function Error({
   );
 }
 
-export default Error;
+export default AppError;

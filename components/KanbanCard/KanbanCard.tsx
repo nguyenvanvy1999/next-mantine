@@ -14,7 +14,6 @@ import {
   Tooltip,
   useMantineTheme,
 } from '@mantine/core';
-import { useHover } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
 import {
   IconDots,
@@ -30,7 +29,6 @@ import type { components } from '@/lib/endpoints';
 import classes from './KanbanCard.module.css';
 
 type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
-type TaskStatus = components['schemas']['TaskStatus'];
 type Id = string | number;
 
 // Extended task type for local UI state (includes columnId for drag-n-drop)
@@ -74,7 +72,6 @@ const KanbanCard = (props: Props) => {
     },
     disabled: editMode,
   });
-  const { hovered } = useHover();
   const style = {
     transition,
     transform: CSS.Transform.toString(transform),

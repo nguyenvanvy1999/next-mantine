@@ -100,8 +100,7 @@ type ProjectsCardProps = {
 } & Omit<PaperProps, 'children'>;
 
 const ProjectsCard = (props: ProjectsCardProps) => {
-  const { id, status, completion, description, title, image, ...others } =
-    props;
+  const { status, completion, description, title, image, ...others } = props;
 
   return (
     <Surface component={Paper} {...others}>

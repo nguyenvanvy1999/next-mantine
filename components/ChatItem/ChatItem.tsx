@@ -22,16 +22,7 @@ type ChatItemProps = {
 } & BoxProps;
 
 const ChatItem = (props: ChatItemProps) => {
-  const {
-    id,
-    avatar,
-    message,
-    fullName,
-    sender,
-    sent_time,
-    loading,
-    ...others
-  } = props;
+  const { avatar, message, fullName, sent_time, loading, ...others } = props;
   const isMe = fullName.toLowerCase() === 'you';
 
   return loading ? (

@@ -26,7 +26,6 @@ import { KanbanCard } from '@/components';
 import type { components } from '@/lib/endpoints';
 
 type KanbanTaskDto = components['schemas']['KanbanTaskDto'];
-type TaskStatus = components['schemas']['TaskStatus'];
 type Id = string | number;
 
 // Column type for local UI state

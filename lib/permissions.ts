@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
+import { checkServerPermission } from '@/lib/permix/server';
 import { PATH_AUTH } from '@/routes';
 
 /**
@@ -9,7 +10,7 @@ import { PATH_AUTH } from '@/routes';
 export type Permissions = Record<string, string[]>;
 
 /**
- * Check if a user has specific permissions
+ * Check if a user has specific permissions using Permix
  * @param userId - User ID to check permissions for
  * @param permissions - Permissions object to check
  * @returns Promise<boolean> - True if user has all required permissions
@@ -19,14 +20,22 @@ export async function checkPermission(
   permissions: Permissions,
 ): Promise<boolean> {
   try {
-    const result = await auth.api.userHasPermission({
-      body: {
-        userId,
-        permissions,
-      },
-    });
+    // Get user role
+    const userRole = await getUserRole(userId);
+    if (!userRole) {
+      return false;
+    }
 
-    return result?.success ?? false;
+    // Check each permission using Permix
+    const permissionChecks = Object.entries(permissions).flatMap(
+      ([resource, actions]) =>
+        actions.map((action) =>
+          checkServerPermission(userId, userRole, resource, action),
+        ),
+    );
+
+    const results = await Promise.all(permissionChecks);
+    return results.every((result) => result === true);
   } catch (error) {
     console.error('Error checking permission:', error);
     return false;
@@ -34,7 +43,7 @@ export async function checkPermission(
 }
 
 /**
- * Check if a role has specific permissions (without user context)
+ * Check if a role has specific permissions (without user context) using Permix
  * @param role - Role name to check
  * @param permissions - Permissions object to check
  * @returns Promise<boolean> - True if role has all required permissions
@@ -44,14 +53,19 @@ export async function checkRolePermission(
   permissions: Permissions,
 ): Promise<boolean> {
   try {
-    const result = await auth.api.userHasPermission({
-      body: {
-        role: role as any, // Better Auth has strict role types
-        permissions,
-      },
-    });
+    // Use a dummy user ID for role-based checks
+    const dummyUserId = 'role-check';
 
-    return result?.success ?? false;
+    // Check each permission using Permix
+    const permissionChecks = Object.entries(permissions).flatMap(
+      ([resource, actions]) =>
+        actions.map((action) =>
+          checkServerPermission(dummyUserId, role, resource, action),
+        ),
+    );
+
+    const results = await Promise.all(permissionChecks);
+    return results.every((result) => result === true);
   } catch (error) {
     console.error('Error checking role permission:', error);
     return false;
