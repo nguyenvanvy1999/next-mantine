@@ -18,6 +18,74 @@ export type ApiResponse<T> = {
   message: string;
 };
 
+type ErrorPayload = {
+  message?: string;
+  errors?: string[];
+};
+
+type ApiRequestError = Error & {
+  status?: number;
+  details?: unknown;
+};
+
+async function parseResponseBody(response: Response): Promise<unknown> {
+  const contentType = response.headers.get('content-type') || '';
+  if (contentType.includes('application/json')) {
+    try {
+      return await response.json();
+    } catch {
+      return null;
+    }
+  }
+
+  try {
+    return await response.text();
+  } catch {
+    return null;
+  }
+}
+
+function extractErrorMessage(
+  payload: unknown,
+  fallback: string,
+): { message: string; details?: unknown } {
+  if (payload && typeof payload === 'object') {
+    const { message, errors } = payload as ErrorPayload;
+    if (message) {
+      return { message, details: payload };
+    }
+
+    if (Array.isArray(errors) && errors.length > 0) {
+      return { message: errors.join(', '), details: payload };
+    }
+  }
+
+  if (typeof payload === 'string' && payload.trim()) {
+    return { message: payload.trim(), details: payload };
+  }
+
+  return { message: fallback, details: payload };
+}
+
+async function handleApiResponse<T>(
+  response: Response,
+): Promise<ApiResponse<T>> {
+  const fallbackMessage = `HTTP ${response.status}: ${
+    response.statusText || 'Unknown error'
+  }`;
+  const payload = await parseResponseBody(response);
+
+  if (!response.ok) {
+    const { message, details } = extractErrorMessage(payload, fallbackMessage);
+    const error: ApiRequestError = new Error(message);
+    error.status = response.status;
+    error.details = details;
+    throw error;
+  }
+
+  return payload as ApiResponse<T>;
+}
+
 export function getAuthHeaders(
   accessToken: string | undefined | null,
 ): HeadersInit {
@@ -137,11 +205,7 @@ export async function apiPost<T>(
       body: data ? JSON.stringify(data) : undefined,
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    return response.json();
+    return handleApiResponse<T>(response);
   }, options?.permission);
 }
 
@@ -159,11 +223,7 @@ export async function apiPut<T>(
       body: data ? JSON.stringify(data) : undefined,
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    return response.json();
+    return handleApiResponse<T>(response);
   }, options?.permission);
 }
 
@@ -179,11 +239,7 @@ export async function apiDelete<T>(
       headers: getAuthHeaders(token),
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    return response.json();
+    return handleApiResponse<T>(response);
   }, options?.permission);
 }
 

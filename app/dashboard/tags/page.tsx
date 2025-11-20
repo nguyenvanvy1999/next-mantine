@@ -2,6 +2,7 @@
 
 import { Button, Group, Modal, Stack, Text, TextInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { notifications } from '@mantine/notifications';
 import type { DataTableSortStatus } from 'mantine-datatable';
 import { useMemo, useState } from 'react';
 
@@ -14,6 +15,24 @@ import {
   useTags,
 } from '@/lib/endpoints/tag';
 import type { TagResponse, UpsertTagDto } from '@/types/tag';
+
+const getErrorMessage = (error: unknown, fallback: string) => {
+  if (error instanceof Error) {
+    return error.message || fallback;
+  }
+  if (typeof error === 'string') {
+    return error;
+  }
+  return fallback;
+};
+
+const showErrorNotification = (title: string, message: string) =>
+  notifications.show({
+    title,
+    message,
+    color: 'red',
+    withCloseButton: true,
+  });
 
 export default function TagsPage() {
   const [dialogOpened, { open: openDialog, close: closeDialog }] =
@@ -96,6 +115,11 @@ export default function TagsPage() {
       setTagToDelete(null);
     } catch (error) {
       console.error('Failed to delete tag:', error);
+      const message = getErrorMessage(
+        error,
+        'Không thể xóa tag. Vui lòng thử lại.',
+      );
+      showErrorNotification('Xóa tag thất bại', message);
     } finally {
       setIsSubmitting(false);
     }
@@ -114,6 +138,11 @@ export default function TagsPage() {
       setSelectedTag(null);
     } catch (error) {
       console.error('Failed to save tag:', error);
+      const message = getErrorMessage(
+        error,
+        'Không thể lưu tag. Vui lòng thử lại.',
+      );
+      showErrorNotification('Lưu tag thất bại', message);
       throw error;
     } finally {
       setIsSubmitting(false);

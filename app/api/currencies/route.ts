@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/auth';
 import { CURRENCY_SELECT_BASIC } from '@/lib/services/selects';
+import { handleApiError } from '@/lib/utils/api-response.util';
 
 // GET /api/currencies - Get all currencies
 export async function GET() {
@@ -19,14 +20,8 @@ export async function GET() {
       data: currencies,
     });
   } catch (error) {
-    console.error('Error getting currencies:', error);
-    return NextResponse.json(
-      {
-        success: false,
-        message: 'Internal server error',
-        data: null,
-      },
-      { status: 500 },
-    );
+    return handleApiError(error, {
+      logMessage: 'Error getting currencies:',
+    });
   }
 }

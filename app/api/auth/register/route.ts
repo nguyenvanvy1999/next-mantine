@@ -1,6 +1,7 @@
 import { APIError } from 'better-auth/api';
 import { NextResponse } from 'next/server';
 import { auth, prisma } from '@/lib/auth';
+import { handleApiError } from '@/lib/utils/api-response.util';
 import type { RegisterRequestDto } from '@/types/user';
 
 export async function POST(request: Request) {
@@ -111,13 +112,12 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    console.error('Registration error:', error);
-
     if (
       error instanceof Error &&
       (error.message.includes('Unique constraint') ||
         error.message.includes('already exists'))
     ) {
+      console.error('Registration error:', error);
       return NextResponse.json(
         {
           success: false,
@@ -128,13 +128,8 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json(
-      {
-        success: false,
-        message: 'Internal server error',
-        data: null,
-      },
-      { status: 500 },
-    );
+    return handleApiError(error, {
+      logMessage: 'Registration error:',
+    });
   }
 }

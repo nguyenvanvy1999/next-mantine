@@ -9,7 +9,6 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import {
   IconBrandFacebook,
   IconBrandGithub,
@@ -32,8 +31,6 @@ const ACTION_ICON_PROPS: ActionIconProps = {
 };
 
 const FooterNav = () => {
-  const _mobile_match = useMediaQuery('(max-width: 425px)');
-
   return (
     <footer className={classes.footer}>
       <Container fluid mb="xl">
