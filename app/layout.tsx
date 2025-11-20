@@ -1,14 +1,11 @@
 'use client';
 
-import {
-  ColorSchemeScript,
-  MantineProvider,
-  type MantineTheme,
-} from '@mantine/core';
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { DatesProvider } from '@mantine/dates';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { Open_Sans } from 'next/font/google';
+import type React from 'react';
 import { useEffect, useMemo } from 'react';
 
 import { AuthProvider } from '@/components/auth/AuthProvider';
@@ -40,7 +37,7 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { config } = useThemeCustomizer();
 
   // Create dynamic theme based on current config
-  const dynamicTheme: MantineTheme = useMemo(() => {
+  const dynamicTheme = useMemo(() => {
     return createDynamicTheme({
       primaryColor: config.appearance.primaryColor,
       borderRadius: config.appearance.borderRadius,

@@ -1,5 +1,4 @@
 import { useFetch } from '@mantine/hooks';
-import type { components } from '@/lib/api';
 import { authClient } from '@/lib/auth-client';
 
 function hasPermission(
@@ -205,5 +204,3 @@ export function usePermission(requiredPermission: string) {
     permissions: userPermissions,
   };
 }
-
-export type { components };

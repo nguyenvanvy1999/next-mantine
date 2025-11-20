@@ -1,12 +1,10 @@
 import { ActionIcon, Box, Flex, Group, ScrollArea, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconX } from '@tabler/icons-react';
-
 import { Logo, UserProfileButton } from '@/components';
 import { SIDEBAR_LINKS } from '@/constants/sidebar-links';
 import { useSidebarConfig } from '@/contexts/theme-customizer';
 import { useAuth } from '@/hooks/useAuth';
-import UserProfileData from '@/public/mocks/UserProfile.json';
 
 import { LinksGroup } from '../NavLinks';
 import classes from './Sidebar.module.css';
@@ -83,9 +81,9 @@ const SidebarNav = ({ onClose, showCloseButton = false }: NavigationProps) => {
 
       <div className={classes.footer}>
         <UserProfileButton
-          email={user?.email ?? UserProfileData.email}
-          image={user?.image ?? UserProfileData.avatar}
-          name={user?.name ?? UserProfileData.name}
+          email={user?.email ?? ''}
+          image={user?.image ?? ''}
+          name={user?.name ?? ''}
           showText={true}
           p={0}
         />

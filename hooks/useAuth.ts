@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import type { components } from '@/lib/api';
 import {
   clearUserPermissions,
   type Permission,
@@ -9,11 +8,6 @@ import {
 } from '@/lib/api/permissions';
 import { authClient } from '@/lib/auth-client';
 import { PATH_AUTH } from '@/routes';
-
-// Type aliases for compatibility
-type LoginDto = components['schemas']['LoginDto'];
-type RegisterDto = components['schemas']['RegisterDto'];
-type UserProfileDto = components['schemas']['UserProfileDto'];
 
 export const useAuth = () => {
   const { data: session, isPending } = authClient.useSession();
