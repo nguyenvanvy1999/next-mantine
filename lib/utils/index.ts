@@ -4,3 +4,5 @@ export * from './formatters';
 export * from './id.util';
 export * from './ownership.util';
 export * from './pagination.util';
+export * from './query.util';
+export * from './schema.util';

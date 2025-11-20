@@ -1,6 +1,13 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { entityService } from '@/lib/services/entity.service';
+import {
+  commaSeparatedParam,
+  createSortByParam,
+  paginationParams,
+  parseQueryParams,
+  sortOrderParam,
+} from '@/lib/utils';
 import { requireAuth } from '@/lib/utils/auth.util';
 import { AppError } from '@/lib/utils/error.util';
 import type { EntityType, UpsertEntityDto } from '@/types/entity';
@@ -15,37 +22,20 @@ const UpsertEntitySchema = z.object({
   note: z.string().optional(),
 });
 
+const entitySortFields = ['name', 'type', 'created'] as const;
+
 const ListEntitiesQuerySchema = z.object({
-  type: z
-    .string()
-    .optional()
-    .transform((val) => (val ? (val.split(',') as EntityType[]) : undefined)),
   search: z.string().optional(),
-  page: z
-    .string()
-    .optional()
-    .transform((val) => (val ? Number(val) : undefined)),
-  limit: z
-    .string()
-    .optional()
-    .transform((val) => (val ? Number(val) : undefined)),
-  sortBy: z.enum(['name', 'type', 'created']).optional(),
-  sortOrder: z.enum(['asc', 'desc']).optional(),
+  type: commaSeparatedParam(z.enum(['individual', 'organization'])),
+  ...paginationParams,
+  ...createSortByParam(entitySortFields),
+  ...sortOrderParam,
 });
 
 export async function GET(request: NextRequest) {
   try {
     const user = await requireAuth();
-    const { searchParams } = new URL(request.url);
-
-    const query = ListEntitiesQuerySchema.parse({
-      type: searchParams.get('type'),
-      search: searchParams.get('search'),
-      page: searchParams.get('page'),
-      limit: searchParams.get('limit'),
-      sortBy: searchParams.get('sortBy'),
-      sortOrder: searchParams.get('sortOrder'),
-    });
+    const query = parseQueryParams(ListEntitiesQuerySchema, request);
 
     const result = await entityService.listEntities(user.id, query);
 

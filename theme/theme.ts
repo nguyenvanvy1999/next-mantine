@@ -1,11 +1,11 @@
-import { createTheme, type MantineTheme, rem } from '@mantine/core';
+import { createTheme, type MantineThemeOverride, rem } from '@mantine/core';
 
 // Create a dynamic theme that responds to our theme customizer
 export const createDynamicTheme = (config: {
   primaryColor: string;
   borderRadius: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   compact: boolean;
-}): Partial<MantineTheme> | any => {
+}): MantineThemeOverride => {
   const spacingScale = config.compact ? 0.8 : 1;
 
   return createTheme({

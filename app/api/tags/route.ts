@@ -31,11 +31,11 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     const query = ListTagsQuerySchema.parse({
-      search: searchParams.get('search'),
-      page: searchParams.get('page'),
-      limit: searchParams.get('limit'),
-      sortBy: searchParams.get('sortBy'),
-      sortOrder: searchParams.get('sortOrder'),
+      search: searchParams.get('search') ?? undefined,
+      page: searchParams.get('page') ?? undefined,
+      limit: searchParams.get('limit') ?? undefined,
+      sortBy: searchParams.get('sortBy') ?? undefined,
+      sortOrder: searchParams.get('sortOrder') ?? undefined,
     });
 
     const result = await tagService.listTags(user.id, query);

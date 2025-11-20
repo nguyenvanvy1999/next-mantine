@@ -1,6 +1,12 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { eventService } from '@/lib/services/event.service';
+import {
+  createSortByParam,
+  paginationParams,
+  parseQueryParams,
+  sortOrderParam,
+} from '@/lib/utils';
 import { requireAuth } from '@/lib/utils/auth.util';
 import { AppError } from '@/lib/utils/error.util';
 import type { UpsertEventDto } from '@/types/event';
@@ -12,40 +18,23 @@ const UpsertEventSchema = z.object({
   endAt: z.string().datetime().optional(),
 });
 
+const eventSortFields = ['name', 'startAt', 'endAt', 'created'] as const;
+
 const ListEventsQuerySchema = z.object({
   search: z.string().optional(),
   startAtFrom: z.string().datetime().optional(),
   startAtTo: z.string().datetime().optional(),
   endAtFrom: z.string().datetime().optional(),
   endAtTo: z.string().datetime().optional(),
-  page: z
-    .string()
-    .optional()
-    .transform((val) => (val ? Number(val) : undefined)),
-  limit: z
-    .string()
-    .optional()
-    .transform((val) => (val ? Number(val) : undefined)),
-  sortBy: z.enum(['name', 'startAt', 'endAt', 'created']).optional(),
-  sortOrder: z.enum(['asc', 'desc']).optional(),
+  ...paginationParams,
+  ...createSortByParam(eventSortFields),
+  ...sortOrderParam,
 });
 
 export async function GET(request: NextRequest) {
   try {
     const user = await requireAuth();
-    const { searchParams } = new URL(request.url);
-
-    const query = ListEventsQuerySchema.parse({
-      search: searchParams.get('search'),
-      startAtFrom: searchParams.get('startAtFrom'),
-      startAtTo: searchParams.get('startAtTo'),
-      endAtFrom: searchParams.get('endAtFrom'),
-      endAtTo: searchParams.get('endAtTo'),
-      page: searchParams.get('page'),
-      limit: searchParams.get('limit'),
-      sortBy: searchParams.get('sortBy'),
-      sortOrder: searchParams.get('sortOrder'),
-    });
+    const query = parseQueryParams(ListEventsQuerySchema, request);
 
     const result = await eventService.listEvents(user.id, query);
 
